@@ -89,6 +89,24 @@ class class_Dem{
       void J1939DcmReadDiagnosticReadiness1(void);
       void J1939DcmReadDiagnosticReadiness2(void);
       void J1939DcmReadDiagnosticReadiness3(void);
+      void SetEventDisabled(void);
+      void RepIUMPRFaultDetected(void);
+      void SetIUMPRDenCondition(void);
+      void GetIUMPRDenCondition(void);
+      void RepIUMPRDenRelease(void);
+      void SetPtoStatus(void);
+      void ReadDataPID01(void);
+      void GetDataOfPID21(void);
+      void SetDataOfPID21(void);
+      void SetDataOfPID31(void);
+      void SetDataOfPID4D(void);
+      void SetDataOfPID4E(void);
+      void GetCycleQualified(void);
+      void SetCycleQualified(void);
+      void GetDTCSeverityAvailabilityMask(void);
+      void GetB1Counter(void);
+      void SetDTR(void);
+      void MainFunction(void);
 };
 
 extern class_Dem Dem;
