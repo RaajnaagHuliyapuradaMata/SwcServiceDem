@@ -6,7 +6,6 @@ void class_Dem::InitFunction(void){
 }
 
 void class_Dem::PreInit(void){}
-void class_Dem::InitFunction(void){}
 void class_Dem::GetVersionInfo(void){}
 void class_Dem::Shutdown(void){}
 void class_Dem::ClearDTC(void){}

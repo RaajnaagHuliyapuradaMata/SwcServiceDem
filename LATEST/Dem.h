@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Std_Types.h"
+
 class class_Dem{
    public:
       void PreInit(void);
