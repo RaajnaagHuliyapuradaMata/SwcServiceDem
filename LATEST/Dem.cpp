@@ -2,110 +2,110 @@
 
 class_Dem Dem;
 
-void class_Dem::InitFunction(void){
+FUNC(void, DEM_CODE) class_Dem::InitFunction(void){
 }
 
-void class_Dem::PreInit(void){}
-void class_Dem::GetVersionInfo(void){}
-void class_Dem::Shutdown(void){}
-void class_Dem::ClearDTC(void){}
-void class_Dem::ClearPrestoredFreezeFrame(void){}
-void class_Dem::GetComponentFailed(void){}
-void class_Dem::GetDTCSelectionResult(void){}
-void class_Dem::GetDTCSelectionResultForClearDTC(void){}
-void class_Dem::GetEventUdsStatus(void){}
-void class_Dem::GetMonitorStatus(void){}
-void class_Dem::GetDebouncingOfEvent(void){}
-void class_Dem::GetDTCOfEvent(void){}
-void class_Dem::GetDTCSuppression(void){}
-void class_Dem::GetFaultDetectionCounter(void){}
-void class_Dem::GetIndicatorStatus(void){}
-void class_Dem::GetEventFreezeFrameDataEx(void){}
-void class_Dem::GetEventExtendedDataRecordEx(void){}
-void class_Dem::GetEventMemoryOverflow(void){}
-void class_Dem::GetNumberOfEventMemoryEntries(void){}
-void class_Dem::ResetEventDebounceStatus(void){}
-void class_Dem::ResetEventStatus(void){}
-void class_Dem::RestartOperationCycle(void){}
-void class_Dem::PrestoreFreezeFrame(void){}
-void class_Dem::SelectDTC(void){}
-void class_Dem::SetComponentAvailable(void){}
-void class_Dem::SetDTCSuppression(void){}
-void class_Dem::SetEnableCondition(void){}
-void class_Dem::SetEventAvailable(void){}
-void class_Dem::SetEventFailureCycleCounterThreshold(void){}
-void class_Dem::SetEventStatus(void){}
-void class_Dem::SetEventStatusWithMonitorData(void){}
-void class_Dem::SetStorageCondition(void){}
-void class_Dem::SetWIRStatus(void){}
-void class_Dem::GetTranslationType(void){}
-void class_Dem::GetDTCStatusAvailabilityMask(void){}
-void class_Dem::GetStatusOfDTC(void){}
-void class_Dem::GetSeverityOfDTC(void){}
-void class_Dem::GetFunctionalUnitOfDTC(void){}
-void class_Dem::SetDTCFilter(void){}
-void class_Dem::GetNumberOfFilteredDTC(void){}
-void class_Dem::GetNextFilteredDTC(void){}
-void class_Dem::GetNextFilteredDTCAndFDC(void){}
-void class_Dem::GetNextFilteredDTCAndSeverity(void){}
-void class_Dem::SetFreezeFrameRecordFilter(void){}
-void class_Dem::GetNextFilteredRecord(void){}
-void class_Dem::GetDTCByOccuranceTime(void){}
-void class_Dem::DisableDTCRecordUpdate(void){}
-void class_Dem::EnableDTCRecordUpdate(void){}
-void class_Dem::GetSizeOfExtendedDataRecordSelection(void){}
-void class_Dem::GetSizeOfFreezeFrameSelection(void){}
-void class_Dem::GetNextExtendedDataRecord(void){}
-void class_Dem::GetNextFreezeFrameData(void){}
-void class_Dem::SelectExtendedDataRecord(void){}
-void class_Dem::SelectFreezeFrameData(void){}
-void class_Dem::GetNumberOfFreezeFrameRecords(void){}
-void class_Dem::DisableDTCSetting(void){}
-void class_Dem::EnableDTCSetting(void){}
-void class_Dem::DcmGetInfoTypeValue08(void){}
-void class_Dem::DcmGetInfoTypeValue0B(void){}
-void class_Dem::DcmReadDataOfPID01(void){}
-void class_Dem::DcmReadDataOfPID1C(void){}
-void class_Dem::DcmReadDataOfPID21(void){}
-void class_Dem::DcmReadDataOfPID30(void){}
-void class_Dem::DcmReadDataOfPID31(void){}
-void class_Dem::DcmReadDataOfPID41(void){}
-void class_Dem::DcmReadDataOfPID4D(void){}
-void class_Dem::DcmReadDataOfPID4E(void){}
-void class_Dem::DcmReadDataOfPID91(void){}
-void class_Dem::DcmReadDataOfOBDFreezeFrame(void){}
-void class_Dem::DcmGetDTCOfOBDFreezeFrame(void){}
-void class_Dem::DcmGetAvailableOBDMIDs(void){}
-void class_Dem::DcmGetNumTIDsOfOBDMID(void){}
-void class_Dem::DcmGetDTRData(void){}
-void class_Dem::J1939DcmSetDTCFilter(void){}
-void class_Dem::J1939DcmGetNumberOfFilteredDTC(void){}
-void class_Dem::J1939DcmGetNextFilteredDTC(void){}
-void class_Dem::J1939DcmFirstDTCwithLampStatus(void){}
-void class_Dem::J1939DcmClearDTC(void){}
-void class_Dem::J1939DcmSetFreezeFrameFilter(void){}
-void class_Dem::J1939DcmGetNextFreezeFrame(void){}
-void class_Dem::J1939DcmGetNextSPNInFreezeFrame(void){}
-void class_Dem::J1939DcmSetRatioFilter(void){}
-void class_Dem::J1939DcmGetNextFilteredRatio(void){}
-void class_Dem::J1939DcmReadDiagnosticReadiness1(void){}
-void class_Dem::J1939DcmReadDiagnosticReadiness2(void){}
-void class_Dem::J1939DcmReadDiagnosticReadiness3(void){}
-void class_Dem::SetEventDisabled(void){}
-void class_Dem::RepIUMPRFaultDetected(void){}
-void class_Dem::SetIUMPRDenCondition(void){}
-void class_Dem::GetIUMPRDenCondition(void){}
-void class_Dem::RepIUMPRDenRelease(void){}
-void class_Dem::SetPtoStatus(void){}
-void class_Dem::ReadDataPID01(void){}
-void class_Dem::GetDataOfPID21(void){}
-void class_Dem::SetDataOfPID21(void){}
-void class_Dem::SetDataOfPID31(void){}
-void class_Dem::SetDataOfPID4D(void){}
-void class_Dem::SetDataOfPID4E(void){}
-void class_Dem::GetCycleQualified(void){}
-void class_Dem::SetCycleQualified(void){}
-void class_Dem::GetDTCSeverityAvailabilityMask(void){}
-void class_Dem::GetB1Counter(void){}
-void class_Dem::SetDTR(void){}
-void class_Dem::MainFunction(void){}
+FUNC(void, DEM_CODE) class_Dem::PreInit(void){}
+FUNC(void, DEM_CODE) class_Dem::GetVersionInfo(void){}
+FUNC(void, DEM_CODE) class_Dem::Shutdown(void){}
+FUNC(void, DEM_CODE) class_Dem::ClearDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::ClearPrestoredFreezeFrame(void){}
+FUNC(void, DEM_CODE) class_Dem::GetComponentFailed(void){}
+FUNC(void, DEM_CODE) class_Dem::GetDTCSelectionResult(void){}
+FUNC(void, DEM_CODE) class_Dem::GetDTCSelectionResultForClearDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::GetEventUdsStatus(void){}
+FUNC(void, DEM_CODE) class_Dem::GetMonitorStatus(void){}
+FUNC(void, DEM_CODE) class_Dem::GetDebouncingOfEvent(void){}
+FUNC(void, DEM_CODE) class_Dem::GetDTCOfEvent(void){}
+FUNC(void, DEM_CODE) class_Dem::GetDTCSuppression(void){}
+FUNC(void, DEM_CODE) class_Dem::GetFaultDetectionCounter(void){}
+FUNC(void, DEM_CODE) class_Dem::GetIndicatorStatus(void){}
+FUNC(void, DEM_CODE) class_Dem::GetEventFreezeFrameDataEx(void){}
+FUNC(void, DEM_CODE) class_Dem::GetEventExtendedDataRecordEx(void){}
+FUNC(void, DEM_CODE) class_Dem::GetEventMemoryOverflow(void){}
+FUNC(void, DEM_CODE) class_Dem::GetNumberOfEventMemoryEntries(void){}
+FUNC(void, DEM_CODE) class_Dem::ResetEventDebounceStatus(void){}
+FUNC(void, DEM_CODE) class_Dem::ResetEventStatus(void){}
+FUNC(void, DEM_CODE) class_Dem::RestartOperationCycle(void){}
+FUNC(void, DEM_CODE) class_Dem::PrestoreFreezeFrame(void){}
+FUNC(void, DEM_CODE) class_Dem::SelectDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::SetComponentAvailable(void){}
+FUNC(void, DEM_CODE) class_Dem::SetDTCSuppression(void){}
+FUNC(void, DEM_CODE) class_Dem::SetEnableCondition(void){}
+FUNC(void, DEM_CODE) class_Dem::SetEventAvailable(void){}
+FUNC(void, DEM_CODE) class_Dem::SetEventFailureCycleCounterThreshold(void){}
+FUNC(void, DEM_CODE) class_Dem::SetEventStatus(void){}
+FUNC(void, DEM_CODE) class_Dem::SetEventStatusWithMonitorData(void){}
+FUNC(void, DEM_CODE) class_Dem::SetStorageCondition(void){}
+FUNC(void, DEM_CODE) class_Dem::SetWIRStatus(void){}
+FUNC(void, DEM_CODE) class_Dem::GetTranslationType(void){}
+FUNC(void, DEM_CODE) class_Dem::GetDTCStatusAvailabilityMask(void){}
+FUNC(void, DEM_CODE) class_Dem::GetStatusOfDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::GetSeverityOfDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::GetFunctionalUnitOfDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::SetDTCFilter(void){}
+FUNC(void, DEM_CODE) class_Dem::GetNumberOfFilteredDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::GetNextFilteredDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::GetNextFilteredDTCAndFDC(void){}
+FUNC(void, DEM_CODE) class_Dem::GetNextFilteredDTCAndSeverity(void){}
+FUNC(void, DEM_CODE) class_Dem::SetFreezeFrameRecordFilter(void){}
+FUNC(void, DEM_CODE) class_Dem::GetNextFilteredRecord(void){}
+FUNC(void, DEM_CODE) class_Dem::GetDTCByOccuranceTime(void){}
+FUNC(void, DEM_CODE) class_Dem::DisableDTCRecordUpdate(void){}
+FUNC(void, DEM_CODE) class_Dem::EnableDTCRecordUpdate(void){}
+FUNC(void, DEM_CODE) class_Dem::GetSizeOfExtendedDataRecordSelection(void){}
+FUNC(void, DEM_CODE) class_Dem::GetSizeOfFreezeFrameSelection(void){}
+FUNC(void, DEM_CODE) class_Dem::GetNextExtendedDataRecord(void){}
+FUNC(void, DEM_CODE) class_Dem::GetNextFreezeFrameData(void){}
+FUNC(void, DEM_CODE) class_Dem::SelectExtendedDataRecord(void){}
+FUNC(void, DEM_CODE) class_Dem::SelectFreezeFrameData(void){}
+FUNC(void, DEM_CODE) class_Dem::GetNumberOfFreezeFrameRecords(void){}
+FUNC(void, DEM_CODE) class_Dem::DisableDTCSetting(void){}
+FUNC(void, DEM_CODE) class_Dem::EnableDTCSetting(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmGetInfoTypeValue08(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmGetInfoTypeValue0B(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmReadDataOfPID01(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmReadDataOfPID1C(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmReadDataOfPID21(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmReadDataOfPID30(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmReadDataOfPID31(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmReadDataOfPID41(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmReadDataOfPID4D(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmReadDataOfPID4E(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmReadDataOfPID91(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmReadDataOfOBDFreezeFrame(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmGetDTCOfOBDFreezeFrame(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmGetAvailableOBDMIDs(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmGetNumTIDsOfOBDMID(void){}
+FUNC(void, DEM_CODE) class_Dem::DcmGetDTRData(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmSetDTCFilter(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmGetNumberOfFilteredDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmGetNextFilteredDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmFirstDTCwithLampStatus(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmClearDTC(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmSetFreezeFrameFilter(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmGetNextFreezeFrame(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmGetNextSPNInFreezeFrame(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmSetRatioFilter(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmGetNextFilteredRatio(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmReadDiagnosticReadiness1(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmReadDiagnosticReadiness2(void){}
+FUNC(void, DEM_CODE) class_Dem::J1939DcmReadDiagnosticReadiness3(void){}
+FUNC(void, DEM_CODE) class_Dem::SetEventDisabled(void){}
+FUNC(void, DEM_CODE) class_Dem::RepIUMPRFaultDetected(void){}
+FUNC(void, DEM_CODE) class_Dem::SetIUMPRDenCondition(void){}
+FUNC(void, DEM_CODE) class_Dem::GetIUMPRDenCondition(void){}
+FUNC(void, DEM_CODE) class_Dem::RepIUMPRDenRelease(void){}
+FUNC(void, DEM_CODE) class_Dem::SetPtoStatus(void){}
+FUNC(void, DEM_CODE) class_Dem::ReadDataPID01(void){}
+FUNC(void, DEM_CODE) class_Dem::GetDataOfPID21(void){}
+FUNC(void, DEM_CODE) class_Dem::SetDataOfPID21(void){}
+FUNC(void, DEM_CODE) class_Dem::SetDataOfPID31(void){}
+FUNC(void, DEM_CODE) class_Dem::SetDataOfPID4D(void){}
+FUNC(void, DEM_CODE) class_Dem::SetDataOfPID4E(void){}
+FUNC(void, DEM_CODE) class_Dem::GetCycleQualified(void){}
+FUNC(void, DEM_CODE) class_Dem::SetCycleQualified(void){}
+FUNC(void, DEM_CODE) class_Dem::GetDTCSeverityAvailabilityMask(void){}
+FUNC(void, DEM_CODE) class_Dem::GetB1Counter(void){}
+FUNC(void, DEM_CODE) class_Dem::SetDTR(void){}
+FUNC(void, DEM_CODE) class_Dem::MainFunction(void){}
