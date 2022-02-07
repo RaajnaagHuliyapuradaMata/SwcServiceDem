@@ -8,18 +8,24 @@
 /*****************************************************/
 #include "Dem.h"
 
+#include "Dem_EcuM.h"
+
 /*****************************************************/
 /* OBJECTS                                           */
 /*****************************************************/
+class_Dem_EcuM Dem_EcuM;
+class_EcuM_Client *EcuM_Client_ptr_Dem = &Dem_EcuM;
 class_Dem Dem;
 
 /*****************************************************/
 /* FUNCTIONS                                         */
 /*****************************************************/
-FUNC(void, DEM_CODE) class_Dem::InitFunction(void){
+FUNC(void, DEM_CODE) class_Dem_EcuM::InitFunction(void){
 }
 
-FUNC(void, DEM_CODE) class_Dem::PreInit(void){}
+FUNC(void, DEM_CODE) class_Dem_EcuM::PreInit(void){
+}
+
 FUNC(void, DEM_CODE) class_Dem::GetVersionInfo(void){}
 FUNC(void, DEM_CODE) class_Dem::Shutdown(void){}
 FUNC(void, DEM_CODE) class_Dem::ClearDTC(void){}

@@ -18,8 +18,6 @@ class class_Dem{
 /*****************************************************/
 /* FUNCTIONS                                         */
 /*****************************************************/
-      FUNC(void, DEM_CODE) PreInit(void);
-      FUNC(void, DEM_CODE) InitFunction(void);
       FUNC(void, DEM_CODE) GetVersionInfo(void);
       FUNC(void, DEM_CODE) Shutdown(void);
       FUNC(void, DEM_CODE) ClearDTC(void);
