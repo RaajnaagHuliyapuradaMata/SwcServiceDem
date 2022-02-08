@@ -9,21 +9,27 @@
 #include "Dem.h"
 
 #include "Dem_EcuM.h"
+#include "Dem_SchM.h"
 
 /*****************************************************/
 /* OBJECTS                                           */
 /*****************************************************/
 class_Dem_EcuM Dem_EcuM;
 class_EcuM_Client *EcuM_Client_ptr_Dem = &Dem_EcuM;
+class_Dem_SchM Dem_SchM;
+class_SchM_Client *SchM_Client_ptr_Dem = &Dem_SchM;
 class_Dem Dem;
 
 /*****************************************************/
 /* FUNCTIONS                                         */
 /*****************************************************/
+FUNC(void, DEM_CODE) class_Dem_EcuM::PreInit(void){
+}
+
 FUNC(void, DEM_CODE) class_Dem_EcuM::InitFunction(void){
 }
 
-FUNC(void, DEM_CODE) class_Dem_EcuM::PreInit(void){
+FUNC(void, DEM_CODE) class_Dem_SchM::MainFunction(void){
 }
 
 FUNC(void, DEM_CODE) class_Dem::GetVersionInfo(void){}
@@ -128,7 +134,6 @@ FUNC(void, DEM_CODE) class_Dem::SetCycleQualified(void){}
 FUNC(void, DEM_CODE) class_Dem::GetDTCSeverityAvailabilityMask(void){}
 FUNC(void, DEM_CODE) class_Dem::GetB1Counter(void){}
 FUNC(void, DEM_CODE) class_Dem::SetDTR(void){}
-FUNC(void, DEM_CODE) class_Dem::MainFunction(void){}
 
 /*****************************************************/
 /* EOF                                               */

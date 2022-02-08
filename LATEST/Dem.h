@@ -120,7 +120,6 @@ class class_Dem{
       FUNC(void, DEM_CODE) GetDTCSeverityAvailabilityMask(void);
       FUNC(void, DEM_CODE) GetB1Counter(void);
       FUNC(void, DEM_CODE) SetDTR(void);
-      FUNC(void, DEM_CODE) MainFunction(void);
 };
 
 /*****************************************************/
