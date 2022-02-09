@@ -14,22 +14,25 @@
 /*****************************************************/
 /* OBJECTS                                           */
 /*****************************************************/
-class_Dem_EcuM Dem_EcuM;
-class_EcuM_Client *EcuM_Client_ptr_Dem = &Dem_EcuM;
-class_Dem_SchM Dem_SchM;
-class_SchM_Client *SchM_Client_ptr_Dem = &Dem_SchM;
+interface_Dem_EcuM_PreInit Dem_EcuM_PreInit;
+interface_Dem_EcuM_Init Dem_EcuM_Init;
+interface_Dem_SchM_Main Dem_SchM_Main;
 class_Dem Dem;
+
+interface_EcuM_PreInit_Client *EcuM_PreInit_Client_ptr_Dem = &Dem_EcuM_PreInit;
+interface_EcuM_Init_Client *EcuM_Init_Client_ptr_Dem = &Dem_EcuM_Init;
+interface_SchM_Main_Client *SchM_Main_Client_ptr_Dem = &Dem_SchM_Main;
 
 /*****************************************************/
 /* FUNCTIONS                                         */
 /*****************************************************/
-FUNC(void, DEM_CODE) class_Dem_EcuM::PreInit(void){
+FUNC(void, DEM_CODE) interface_Dem_EcuM_PreInit::PreInit(void){
 }
 
-FUNC(void, DEM_CODE) class_Dem_EcuM::InitFunction(void){
+FUNC(void, DEM_CODE) interface_Dem_EcuM_Init::InitFunction(void){
 }
 
-FUNC(void, DEM_CODE) class_Dem_SchM::MainFunction(void){
+FUNC(void, DEM_CODE) interface_Dem_SchM_Main::MainFunction(void){
 }
 
 FUNC(void, DEM_CODE) class_Dem::GetVersionInfo(void){}
