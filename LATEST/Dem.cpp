@@ -26,6 +26,7 @@ class module_Dem : public class_module{
       FUNC(void, DEM_CODE) InitFunction   (void);
       FUNC(void, DEM_CODE) DeInitFunction (void);
       FUNC(void, DEM_CODE) MainFunction   (void);
+      FUNC(void, DEM_CODE) PreInit        (void);
 };
 
 /*****************************************************/
