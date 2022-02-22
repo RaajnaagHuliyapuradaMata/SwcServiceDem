@@ -7,7 +7,8 @@
 /* #INCLUDES                                         */
 /*****************************************************/
 #include "module.h"
-
+#include "Dem_EcuM.h"
+#include "Dem_SchM.h"
 #include "Dem_Unused.h"
 
 /*****************************************************/
@@ -21,7 +22,11 @@
 /*****************************************************/
 /* TYPEDEFS                                          */
 /*****************************************************/
-class module_Dem : public class_module{
+class module_Dem:
+      public abstract_module
+   ,  public interface_Dem_EcuM
+   ,  public interface_Dem_SchM
+{
    public:
       FUNC(void, DEM_CODE) InitFunction   (void);
       FUNC(void, DEM_CODE) DeInitFunction (void);
@@ -34,19 +39,22 @@ class module_Dem : public class_module{
 /*****************************************************/
 module_Dem Dem;
 
-interface_EcuM_Client *EcuM_Client_ptr_Dem = &Dem;
-interface_SchM_Client *SchM_Client_ptr_Dem = &Dem;
+interface_Dem_EcuM *EcuM_Client_ptr_Dem = &Dem;
+interface_Dem_SchM *SchM_Client_ptr_Dem = &Dem;
 
 /*****************************************************/
 /* FUNCTIONS                                         */
 /*****************************************************/
-FUNC(void, DEM_CODE) module_Dem::PreInit(void){
-}
-
 FUNC(void, DEM_CODE) module_Dem::InitFunction(void){
 }
 
+FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
+}
+
 FUNC(void, DEM_CODE) module_Dem::MainFunction(void){
+}
+
+FUNC(void, DEM_CODE) module_Dem::PreInit(void){
 }
 
 FUNC(void, DEM_CODE) class_Dem_Unused::GetVersionInfo(void){
