@@ -27,9 +27,9 @@ class interface_Dem_EcuM : public interface_EcuM_Client{
 /*****************************************************/
 /* FUNCTIONS                                         */
 /*****************************************************/
-      FUNC(void, DEM_CODE) PreInit        (void);
-      FUNC(void, DEM_CODE) InitFunction   (void);
-      FUNC(void, DEM_CODE) DeInitFunction (void);
+      virtual FUNC(void, DEM_CODE) PreInit        (void) = 0;
+      virtual FUNC(void, DEM_CODE) InitFunction   (void) = 0;
+      virtual FUNC(void, DEM_CODE) DeInitFunction (void) = 0;
 };
 
 /*****************************************************/
