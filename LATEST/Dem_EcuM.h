@@ -9,8 +9,6 @@
 /*****************************************************/
 #include "Compiler_Cfg_Dem.h"
 
-#include "EcuM_Client.h"
-
 /*****************************************************/
 /* #DEFINES                                          */
 /*****************************************************/
@@ -22,14 +20,12 @@
 /*****************************************************/
 /* TYPEDEFS                                          */
 /*****************************************************/
-class interface_Dem_EcuM : public interface_EcuM_Client{
+class interface_Dem_EcuM{
    public:
 /*****************************************************/
 /* FUNCTIONS                                         */
 /*****************************************************/
-      virtual FUNC(void, DEM_CODE) PreInit        (void) = 0;
-      virtual FUNC(void, DEM_CODE) InitFunction   (void) = 0;
-      virtual FUNC(void, DEM_CODE) DeInitFunction (void) = 0;
+      virtual FUNC(void, DEM_CODE) PreInit(void) = 0;
 };
 
 /*****************************************************/
@@ -43,7 +39,8 @@ class interface_Dem_EcuM : public interface_EcuM_Client{
 /*****************************************************/
 /* OBJECTS                                           */
 /*****************************************************/
-extern interface_Dem_EcuM *EcuM_Client_ptr_Dem;
+extern infEcuMClient *gptrinfEcuMClient_Dem;
+extern interface_Dem_EcuM    *EcuM_Client_ptr_Dem;
 
 /*****************************************************/
 /* EOF                                               */
