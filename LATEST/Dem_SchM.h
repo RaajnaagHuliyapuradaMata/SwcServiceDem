@@ -32,7 +32,7 @@
 /*****************************************************/
 /* OBJECTS                                           */
 /*****************************************************/
-extern interface_Dem_SchM *SchM_Client_ptr_Dem;
+extern infSchMClient *gptrinfSchMClient_Dem;
 
 /*****************************************************/
 /* FUNCTIONS                                         */
