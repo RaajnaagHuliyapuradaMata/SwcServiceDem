@@ -20,7 +20,7 @@
 /*****************************************************/
 /* TYPEDEFS                                          */
 /*****************************************************/
-class interface_Dem_EcuM{
+class infDem_EcuM{
    public:
 /*****************************************************/
 /* FUNCTIONS                                         */
@@ -39,8 +39,8 @@ class interface_Dem_EcuM{
 /*****************************************************/
 /* OBJECTS                                           */
 /*****************************************************/
-extern infEcuMClient *gptrinfEcuMClient_Dem;
-extern interface_Dem_EcuM    *EcuM_Client_ptr_Dem;
+extern infEcuMClient* gptrinfEcuMClient_Dem;
+extern infDem_EcuM*   gptrinfDem_EcuM;
 
 /*****************************************************/
 /* EOF                                               */

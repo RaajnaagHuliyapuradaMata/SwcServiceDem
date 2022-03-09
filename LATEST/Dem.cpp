@@ -24,6 +24,7 @@
 /*****************************************************/
 class module_Dem:
       public abstract_module
+   ,  public infDem_EcuM
 {
    public:
       FUNC(void, DEM_CODE) InitFunction   (void);
@@ -46,6 +47,7 @@ class module_Dem:
 module_Dem     Dem;
 infEcuMClient* gptrinfEcuMClient_Dem = &Dem;
 infSchMClient* gptrinfSchMClient_Dem = &Dem;
+infDem_EcuM*   gptrinfDem_EcuM       = &Dem;
 
 /*****************************************************/
 /* FUNCTIONS                                         */
