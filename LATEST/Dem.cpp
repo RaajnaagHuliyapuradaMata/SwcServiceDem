@@ -7,8 +7,8 @@
 /* #INCLUDES                                         */
 /*****************************************************/
 #include "module.h"
-#include "Dem_EcuM.h"
-#include "Dem_SchM.h"
+#include "infDem_EcuM.h"
+#include "infDem_SchM.h"
 #include "Dem_Unused.h"
 
 /*****************************************************/
@@ -29,6 +29,7 @@ class module_Dem:
    public:
       FUNC(void, DEM_CODE) InitFunction   (void);
       FUNC(void, DEM_CODE) DeInitFunction (void);
+      FUNC(void, DEM_CODE) GetVersionInfo (void);
       FUNC(void, DEM_CODE) MainFunction   (void);
       FUNC(void, DEM_CODE) PreInit        (void);
 };
@@ -46,6 +47,7 @@ class module_Dem:
 /*****************************************************/
 module_Dem     Dem;
 infEcuMClient* gptrinfEcuMClient_Dem = &Dem;
+infDcmClient*  gptrinfDcmClient_Dem  = &Dem;
 infSchMClient* gptrinfSchMClient_Dem = &Dem;
 infDem_EcuM*   gptrinfDem_EcuM       = &Dem;
 
@@ -56,6 +58,9 @@ FUNC(void, DEM_CODE) module_Dem::InitFunction(void){
 }
 
 FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
+}
+
+FUNC(void, DEM_CODE) module_Dem::GetVersionInfo(void){
 }
 
 FUNC(void, DEM_CODE) module_Dem::MainFunction(void){
