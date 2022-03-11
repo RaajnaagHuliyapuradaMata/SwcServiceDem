@@ -8,8 +8,8 @@
 /*****************************************************/
 #include "module.h"
 #include "infDem_EcuM.h"
+#include "infDem_Dcm.h"
 #include "infDem_SchM.h"
-#include "Dem_Unused.h"
 
 /*****************************************************/
 /* #DEFINES                                          */
@@ -69,8 +69,7 @@ FUNC(void, DEM_CODE) module_Dem::MainFunction(void){
 FUNC(void, DEM_CODE) module_Dem::PreInit(void){
 }
 
-FUNC(void, DEM_CODE) class_Dem_Unused::GetVersionInfo(void){
-}
+#include "Dem_Unused.h"
 
 FUNC(void, DEM_CODE) class_Dem_Unused::Shutdown(void){
 }
