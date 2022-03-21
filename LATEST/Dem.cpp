@@ -6,9 +6,8 @@
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
-#include "infDem_Version.h"
-
 #include "module.h"
+#include "infDem_Version.h"
 #include "infDem_EcuM.h"
 #include "infDem_Dcm.h"
 #include "infDem_SchM.h"
@@ -57,9 +56,11 @@ CONSTP2VAR(infDem_EcuM,   DEM_VAR, DEM_CONST) gptrinfDem_EcuM       = &Dem;
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
 FUNC(void, DEM_CODE) module_Dem::InitFunction(void){
+   Dem.IsInitDone = E_OK;
 }
 
 FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
+   Dem.IsInitDone = E_NOT_OK;
 }
 
 FUNC(void, DEM_CODE) module_Dem::GetVersionInfo(void){
