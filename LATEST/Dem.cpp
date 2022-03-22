@@ -7,7 +7,7 @@
 /* #INCLUDES                                                                  */
 /******************************************************************************/
 #include "module.h"
-#include "infDem_Version.h"
+#include "Dem_Cfg.h"
 #include "infDem_EcuM.h"
 #include "infDem_Dcm.h"
 #include "infDem_SchM.h"
@@ -15,10 +15,19 @@
 /******************************************************************************/
 /* #DEFINES                                                                   */
 /******************************************************************************/
+#define DEM_AR_RELEASE_MAJOR_VERSION                                           4
+#define DEM_AR_RELEASE_MINOR_VERSION                                           3
 
 /******************************************************************************/
 /* MACROS                                                                     */
 /******************************************************************************/
+#if(DEM_AR_RELEASE_MAJOR_VERSION != STD_AR_RELEASE_MAJOR_VERSION)
+   #error "Incompatible DEM_AR_RELEASE_MAJOR_VERSION!"
+#endif
+
+#if(DEM_AR_RELEASE_MINOR_VERSION != STD_AR_RELEASE_MINOR_VERSION)
+   #error "Incompatible DEM_AR_RELEASE_MINOR_VERSION!"
+#endif
 
 /******************************************************************************/
 /* TYPEDEFS                                                                   */
@@ -64,6 +73,11 @@ FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
 }
 
 FUNC(void, DEM_CODE) module_Dem::GetVersionInfo(void){
+#if(STD_ON == Dem_DevErrorDetect)
+//TBD: API parameter check
+   Det_ReportError(
+   );
+#endif
 }
 
 FUNC(void, DEM_CODE) module_Dem::MainFunction(void){
