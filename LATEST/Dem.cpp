@@ -42,6 +42,16 @@ class module_Dem:
       FUNC(void, DEM_CODE) GetVersionInfo (void);
       FUNC(void, DEM_CODE) MainFunction   (void);
       FUNC(void, DEM_CODE) PreInit        (void);
+
+   private:
+      CONST(Std_TypeVersionInfo, DEM_CONST) VersionInfo = {
+            0x0000
+         ,  0xFFFF
+         ,  0x01
+         ,  '0'
+         ,  '1'
+         ,  '0'
+      };
 };
 
 /******************************************************************************/
@@ -169,7 +179,8 @@ FUNC(void, DEM_CODE) class_Dem_Unused::SetEventAvailable(void){
 FUNC(void, DEM_CODE) class_Dem_Unused::SetEventFailureCycleCounterThreshold(void){
 }
 
-FUNC(void, DEM_CODE) class_Dem_Unused::SetEventStatus(void){
+FUNC(Std_TypeReturn, DEM_CODE) class_Dem_Unused::SetEventStatus(void){
+   return E_OK;
 }
 
 FUNC(void, DEM_CODE) class_Dem_Unused::SetEventStatusWithMonitorData(void){
