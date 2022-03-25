@@ -6,11 +6,11 @@
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
-#include "module.h"
-#include "CfgDem.h"
-#include "infDem_EcuM.h"
-#include "infDem_Dcm.h"
-#include "infDem_SchM.h"
+#include "module.hpp"
+#include "CfgDem.hpp"
+#include "infDem_EcuM.hpp"
+#include "infDem_Dcm.hpp"
+#include "infDem_SchM.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
@@ -96,7 +96,7 @@ FUNC(void, DEM_CODE) module_Dem::MainFunction(void){
 FUNC(void, DEM_CODE) module_Dem::PreInit(void){
 }
 
-#include "Dem_Unused.h"
+#include "Dem_Unused.hpp"
 
 FUNC(void, DEM_CODE) class_Dem_Unused::Shutdown(void){
 }
