@@ -7,7 +7,6 @@
 /* #INCLUDES                                                                  */
 /******************************************************************************/
 #include "module.hpp"
-#include "CfgDem.hpp"
 #include "infDem_EcuM.hpp"
 #include "infDem_Dcm.hpp"
 #include "infDem_SchM.hpp"
@@ -37,39 +36,43 @@ class module_Dem:
    ,  public infDem_EcuM
 {
    public:
+      module_Dem(Std_TypeVersionInfo lVersionInfo) : abstract_module(lVersionInfo){
+      }
       FUNC(void, DEM_CODE) InitFunction   (void);
       FUNC(void, DEM_CODE) DeInitFunction (void);
-      FUNC(void, DEM_CODE) GetVersionInfo (void);
       FUNC(void, DEM_CODE) MainFunction   (void);
-      FUNC(void, DEM_CODE) PreInit        (void);
 
-   private:
-      CONST(Std_TypeVersionInfo, DEM_CONST) VersionInfo = {
-            0x0000
-         ,  0xFFFF
-         ,  0x01
-         ,  '0'
-         ,  '1'
-         ,  '0'
-      };
+      FUNC(void, DEM_CODE) PreInit        (void);
 };
+
+extern VAR(module_Dem, DEM_VAR) Dem;
 
 /******************************************************************************/
 /* CONSTS                                                                     */
 /******************************************************************************/
-
-/******************************************************************************/
-/* PARAMS                                                                     */
-/******************************************************************************/
-
-/******************************************************************************/
-/* OBJECTS                                                                    */
-/******************************************************************************/
-VAR(module_Dem, DEM_VAR) Dem;
 CONSTP2VAR(infEcuMClient, DEM_VAR, DEM_CONST) gptrinfEcuMClient_Dem = &Dem;
 CONSTP2VAR(infDcmClient,  DEM_VAR, DEM_CONST) gptrinfDcmClient_Dem  = &Dem;
 CONSTP2VAR(infSchMClient, DEM_VAR, DEM_CONST) gptrinfSchMClient_Dem = &Dem;
 CONSTP2VAR(infDem_EcuM,   DEM_VAR, DEM_CONST) gptrinfDem_EcuM       = &Dem;
+
+/******************************************************************************/
+/* PARAMS                                                                     */
+/******************************************************************************/
+#include "CfgDem.hpp"
+
+/******************************************************************************/
+/* OBJECTS                                                                    */
+/******************************************************************************/
+VAR(module_Dem, DEM_VAR) Dem(
+   {
+         0x0000
+      ,  0xFFFF
+      ,  0x01
+      ,  '0'
+      ,  '1'
+      ,  '0'
+   }
+);
 
 /******************************************************************************/
 /* FUNCTIONS                                                                  */
@@ -80,14 +83,6 @@ FUNC(void, DEM_CODE) module_Dem::InitFunction(void){
 
 FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
    Dem.IsInitDone = E_NOT_OK;
-}
-
-FUNC(void, DEM_CODE) module_Dem::GetVersionInfo(void){
-#if(STD_ON == Dem_DevErrorDetect)
-//TBD: API parameter check
-   Det_ReportError(
-   );
-#endif
 }
 
 FUNC(void, DEM_CODE) module_Dem::MainFunction(void){
