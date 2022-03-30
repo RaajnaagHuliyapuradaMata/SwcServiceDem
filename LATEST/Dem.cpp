@@ -6,7 +6,7 @@
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
-#include "module.hpp"
+#include "Module.hpp"
 #include "infDem_EcuM.hpp"
 #include "infDem_Dcm.hpp"
 #include "infDem_SchM.hpp"
@@ -38,6 +38,9 @@ class module_Dem:
    public:
       module_Dem(Std_TypeVersionInfo lVersionInfo) : abstract_module(lVersionInfo){
       }
+      FUNC(void, _CODE) InitFunction(
+         CONSTP2CONST(CfgModule_TypeAbstract, _CONFIG_DATA, _APPL_CONST) lptrCfgModule
+      );
       FUNC(void, DEM_CODE) InitFunction   (void);
       FUNC(void, DEM_CODE) DeInitFunction (void);
       FUNC(void, DEM_CODE) MainFunction   (void);
@@ -77,7 +80,19 @@ VAR(module_Dem, DEM_VAR) Dem(
 /******************************************************************************/
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
-FUNC(void, DEM_CODE) module_Dem::InitFunction(void){
+FUNC(void, DEM_CODE) module_Dem::InitFunction(
+   CONSTP2CONST(CfgDem_Type, CFGDEM_CONFIG_DATA, CFGDEM_APPL_CONST) lptrCfgDem
+){
+   if(NULL_PTR == lptrCfgDem){
+#if(STD_ON == Dem_DevErrorDetect)
+      Det_ReportError(
+      );
+#endif
+   }
+   else{
+// check lptrCfgDem for memory faults
+// use PBcfg_Dem as back-up configuration
+   }
    Dem.IsInitDone = E_OK;
 }
 
