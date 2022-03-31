@@ -38,10 +38,9 @@ class module_Dem:
    public:
       module_Dem(Std_TypeVersionInfo lVersionInfo) : abstract_module(lVersionInfo){
       }
-      FUNC(void, _CODE) InitFunction(
-         CONSTP2CONST(CfgModule_TypeAbstract, _CONFIG_DATA, _APPL_CONST) lptrCfgModule
+      FUNC(void, DEM_CODE) InitFunction(
+         CONSTP2CONST(CfgModule_TypeAbstract, DEM_CONFIG_DATA, DEM_APPL_CONST) lptrCfgModule
       );
-      FUNC(void, DEM_CODE) InitFunction   (void);
       FUNC(void, DEM_CODE) DeInitFunction (void);
       FUNC(void, DEM_CODE) MainFunction   (void);
 
@@ -81,23 +80,39 @@ VAR(module_Dem, DEM_VAR) Dem(
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
 FUNC(void, DEM_CODE) module_Dem::InitFunction(
-   CONSTP2CONST(CfgDem_Type, CFGDEM_CONFIG_DATA, CFGDEM_APPL_CONST) lptrCfgDem
+   CONSTP2CONST(CfgModule_TypeAbstract, DEM_CONFIG_DATA, DEM_APPL_CONST) lptrCfgModule
 ){
-   if(NULL_PTR == lptrCfgDem){
+   if(E_OK == IsInitDone){
 #if(STD_ON == Dem_DevErrorDetect)
       Det_ReportError(
       );
 #endif
    }
    else{
-// check lptrCfgDem for memory faults
+      if(NULL_PTR == lptrCfgModule){
+#if(STD_ON == Dem_DevErrorDetect)
+         Det_ReportError(
+         );
+#endif
+      }
+      else{
+// check lptrCfgModule for memory faults
 // use PBcfg_Dem as back-up configuration
+      }
+      IsInitDone = E_OK;
    }
-   Dem.IsInitDone = E_OK;
 }
 
 FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
-   Dem.IsInitDone = E_NOT_OK;
+   if(E_OK != IsInitDone){
+#if(STD_ON == Dem_DevErrorDetect)
+      Det_ReportError(
+      );
+#endif
+   }
+   else{
+      IsInitDone = E_NOT_OK;
+   }
 }
 
 FUNC(void, DEM_CODE) module_Dem::MainFunction(void){
