@@ -82,6 +82,7 @@ VAR(module_Dem, DEM_VAR) Dem(
 FUNC(void, DEM_CODE) module_Dem::InitFunction(
    CONSTP2CONST(CfgModule_TypeAbstract, DEM_CONFIG_DATA, DEM_APPL_CONST) lptrCfgModule
 ){
+#if(STD_ON == Dem_InitCheck)
    if(E_OK == IsInitDone){
 #if(STD_ON == Dem_DevErrorDetect)
       Det_ReportError(
@@ -89,6 +90,7 @@ FUNC(void, DEM_CODE) module_Dem::InitFunction(
 #endif
    }
    else{
+#endif
       if(NULL_PTR == lptrCfgModule){
 #if(STD_ON == Dem_DevErrorDetect)
          Det_ReportError(
@@ -100,10 +102,13 @@ FUNC(void, DEM_CODE) module_Dem::InitFunction(
 // use PBcfg_Dem as back-up configuration
       }
       IsInitDone = E_OK;
+#if(STD_ON == Dem_InitCheck)
    }
+#endif
 }
 
 FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
+#if(STD_ON == Dem_InitCheck)
    if(E_OK != IsInitDone){
 #if(STD_ON == Dem_DevErrorDetect)
       Det_ReportError(
@@ -111,11 +116,26 @@ FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
 #endif
    }
    else{
+#endif
       IsInitDone = E_NOT_OK;
+#if(STD_ON == Dem_InitCheck)
    }
+#endif
 }
 
 FUNC(void, DEM_CODE) module_Dem::MainFunction(void){
+#if(STD_ON == Dem_InitCheck)
+   if(E_OK != IsInitDone){
+#if(STD_ON == Dem_DevErrorDetect)
+      Det_ReportError(
+      );
+#endif
+   }
+   else{
+#endif
+#if(STD_ON == Dem_InitCheck)
+   }
+#endif
 }
 
 FUNC(void, DEM_CODE) module_Dem::PreInit(void){
