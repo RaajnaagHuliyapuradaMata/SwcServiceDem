@@ -105,8 +105,8 @@ FUNC(void, DEM_CODE) module_Dem::InitFunction(
             lptrCfg = lptrCfgModule;
          }
          else{
-// use PBcfg_CanIf as back-up configuration
-            lptrCfg = PBcfg_CanIf;
+// use PBcfgCanIf as back-up configuration
+            lptrCfg = &PBcfgDem;
          }
       }
       IsInitDone = E_OK;
