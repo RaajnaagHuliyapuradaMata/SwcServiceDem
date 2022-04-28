@@ -7,6 +7,7 @@
 /* #INCLUDES                                                                  */
 /******************************************************************************/
 #include "Module.hpp"
+#include "Dem_core.hpp"
 #include "infDem_EcuM.hpp"
 #include "infDem_Dcm.hpp"
 #include "infDem_SchM.hpp"
@@ -31,60 +32,6 @@
 /******************************************************************************/
 /* TYPEDEFS                                                                   */
 /******************************************************************************/
-      FUNC(void,           DEM_CODE) GetNextFreezeFrameData               (void);
-      FUNC(void,           DEM_CODE) SelectExtendedDataRecord             (void);
-      FUNC(void,           DEM_CODE) SelectFreezeFrameData                (void);
-      FUNC(void,           DEM_CODE) GetNumberOfFreezeFrameRecords        (void);
-      FUNC(void,           DEM_CODE) DisableDTCSetting                    (void);
-      FUNC(void,           DEM_CODE) EnableDTCSetting                     (void);
-      FUNC(void,           DEM_CODE) DcmGetInfoTypeValue08                (void);
-      FUNC(void,           DEM_CODE) DcmGetInfoTypeValue0B                (void);
-      FUNC(void,           DEM_CODE) DcmReadDataOfPID01                   (void);
-      FUNC(void,           DEM_CODE) DcmReadDataOfPID1C                   (void);
-      FUNC(void,           DEM_CODE) DcmReadDataOfPID21                   (void);
-      FUNC(void,           DEM_CODE) DcmReadDataOfPID30                   (void);
-      FUNC(void,           DEM_CODE) DcmReadDataOfPID31                   (void);
-      FUNC(void,           DEM_CODE) DcmReadDataOfPID41                   (void);
-      FUNC(void,           DEM_CODE) DcmReadDataOfPID4D                   (void);
-      FUNC(void,           DEM_CODE) DcmReadDataOfPID4E                   (void);
-      FUNC(void,           DEM_CODE) DcmReadDataOfPID91                   (void);
-      FUNC(void,           DEM_CODE) DcmReadDataOfOBDFreezeFrame          (void);
-      FUNC(void,           DEM_CODE) DcmGetDTCOfOBDFreezeFrame            (void);
-      FUNC(void,           DEM_CODE) DcmGetAvailableOBDMIDs               (void);
-      FUNC(void,           DEM_CODE) DcmGetNumTIDsOfOBDMID                (void);
-      FUNC(void,           DEM_CODE) DcmGetDTRData                        (void);
-      FUNC(void,           DEM_CODE) J1939DcmSetDTCFilter                 (void);
-      FUNC(void,           DEM_CODE) J1939DcmGetNumberOfFilteredDTC       (void);
-      FUNC(void,           DEM_CODE) J1939DcmGetNextFilteredDTC           (void);
-      FUNC(void,           DEM_CODE) J1939DcmFirstDTCwithLampStatus       (void);
-      FUNC(void,           DEM_CODE) J1939DcmClearDTC                     (void);
-      FUNC(void,           DEM_CODE) J1939DcmSetFreezeFrameFilter         (void);
-      FUNC(void,           DEM_CODE) J1939DcmGetNextFreezeFrame           (void);
-      FUNC(void,           DEM_CODE) J1939DcmGetNextSPNInFreezeFrame      (void);
-      FUNC(void,           DEM_CODE) J1939DcmSetRatioFilter               (void);
-      FUNC(void,           DEM_CODE) J1939DcmGetNextFilteredRatio         (void);
-      FUNC(void,           DEM_CODE) J1939DcmReadDiagnosticReadiness1     (void);
-      FUNC(void,           DEM_CODE) J1939DcmReadDiagnosticReadiness2     (void);
-      FUNC(void,           DEM_CODE) J1939DcmReadDiagnosticReadiness3     (void);
-      FUNC(void,           DEM_CODE) SetEventDisabled                     (void);
-      FUNC(void,           DEM_CODE) RepIUMPRFaultDetected                (void);
-      FUNC(void,           DEM_CODE) SetIUMPRDenCondition                 (void);
-      FUNC(void,           DEM_CODE) GetIUMPRDenCondition                 (void);
-      FUNC(void,           DEM_CODE) RepIUMPRDenRelease                   (void);
-      FUNC(void,           DEM_CODE) SetPtoStatus                         (void);
-      FUNC(void,           DEM_CODE) ReadDataPID01                        (void);
-      FUNC(void,           DEM_CODE) GetDataOfPID21                       (void);
-      FUNC(void,           DEM_CODE) SetDataOfPID21                       (void);
-      FUNC(void,           DEM_CODE) SetDataOfPID31                       (void);
-      FUNC(void,           DEM_CODE) SetDataOfPID4D                       (void);
-      FUNC(void,           DEM_CODE) SetDataOfPID4E                       (void);
-      FUNC(void,           DEM_CODE) GetCycleQualified                    (void);
-      FUNC(void,           DEM_CODE) SetCycleQualified                    (void);
-      FUNC(void,           DEM_CODE) GetDTCSeverityAvailabilityMask       (void);
-      FUNC(void,           DEM_CODE) GetB1Counter                         (void);
-      FUNC(void,           DEM_CODE) SetDTR                               (void);
-};
-
 class module_Dem:
       public abstract_module
    ,  public infDem_EcuM
