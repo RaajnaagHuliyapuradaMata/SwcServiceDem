@@ -12,7 +12,7 @@
 /******************************************************************************/
 /* #DEFINES                                                                   */
 /******************************************************************************/
-#define DEM_COREFUNCTIONALITIES                                                \
+#define DEM_CORE_FUNCTIONALITIES                                               \
               FUNC(void,           DEM_CODE) Shutdown                             (void);     \
               FUNC(void,           DEM_CODE) ClearDTC                             (void);     \
               FUNC(void,           DEM_CODE) ClearPrestoredFreezeFrame            (void);     \
@@ -115,7 +115,7 @@
               FUNC(void,           DEM_CODE) GetB1Counter                         (void);     \
               FUNC(void,           DEM_CODE) SetDTR                               (void);     \
 
-#define DEM_COREFUNCTIONALITIES_VIRTUAL                                        \
+#define DEM_CORE_FUNCTIONALITIES_VIRTUAL                                       \
       virtual FUNC(void,           DEM_CODE) Shutdown                             (void) = 0; \
       virtual FUNC(void,           DEM_CODE) ClearDTC                             (void) = 0; \
       virtual FUNC(void,           DEM_CODE) ClearPrestoredFreezeFrame            (void) = 0; \
@@ -227,7 +227,7 @@
 /******************************************************************************/
 class class_Dem_Functionality{
    public:
-      DEM_COREFUNCTIONALITIES_VIRTUAL
+      DEM_CORE_FUNCTIONALITIES_VIRTUAL
 };
 
 /******************************************************************************/

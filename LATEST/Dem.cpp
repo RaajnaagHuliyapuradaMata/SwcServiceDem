@@ -7,10 +7,9 @@
 /* #INCLUDES                                                                  */
 /******************************************************************************/
 #include "Module.hpp"
+#include "CfgDem.hpp"
 #include "Dem_core.hpp"
-#include "infDem_EcuM.hpp"
-#include "infDem_Dcm.hpp"
-#include "infDem_SchM.hpp"
+#include "infDem.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
@@ -45,6 +44,7 @@ class module_Dem:
       );
       FUNC(void, DEM_CODE) DeInitFunction (void);
       FUNC(void, DEM_CODE) MainFunction   (void);
+      DEM_CORE_FUNCTIONALITIES
 
       FUNC(void, DEM_CODE) PreInit        (void);
 };
@@ -62,7 +62,6 @@ CONSTP2VAR(infDem_EcuM,   DEM_VAR, DEM_CONST) gptrinfDem_EcuM       = &Dem;
 /******************************************************************************/
 /* PARAMS                                                                     */
 /******************************************************************************/
-#include "CfgDem.hpp"
 
 /******************************************************************************/
 /* OBJECTS                                                                    */
