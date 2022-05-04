@@ -117,7 +117,7 @@ FUNC(void, DEM_CODE) module_Dem::InitFunction(
             0 //TBD: IdModule
          ,  0 //TBD: IdInstance
          ,  0 //TBD: IdApi
-         ,  0 //TBD: IdError
+         ,  DEM_E_UNINIT
       );
 #endif
    }
@@ -137,7 +137,7 @@ FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
             0 //TBD: IdModule
          ,  0 //TBD: IdInstance
          ,  0 //TBD: IdApi
-         ,  0 //TBD: IdError
+         ,  DEM_E_UNINIT
       );
 #endif
    }
@@ -156,7 +156,7 @@ FUNC(void, DEM_CODE) module_Dem::MainFunction(void){
             0 //TBD: IdModule
          ,  0 //TBD: IdInstance
          ,  0 //TBD: IdApi
-         ,  0 //TBD: IdError
+         ,  DEM_E_UNINIT
       );
 #endif
    }
