@@ -36,6 +36,13 @@ class module_Dem:
    ,  public infDem_EcuM
    ,  public class_Dem_Functionality
 {
+   private:
+/******************************************************************************/
+/* OBJECTS                                                                    */
+/******************************************************************************/
+            Std_TypeReturn          IsInitDone{E_NOT_OK};
+      const CfgModule_TypeAbstract* lptrCfg{(CfgModule_TypeAbstract*)NULL_PTR};
+
    public:
       module_Dem(Std_TypeVersionInfo lVersionInfo) : abstract_module(lVersionInfo){
       }
