@@ -93,7 +93,10 @@ FUNC(void, DEM_CODE) module_Dem::InitFunction(
    CONSTP2CONST(CfgModule_TypeAbstract, DEM_CONFIG_DATA, DEM_APPL_CONST) lptrCfgModule
 ){
 #if(STD_ON == Dem_InitCheck)
-   if(E_OK != IsInitDone){
+   if(
+         E_OK
+      != IsInitDone
+   ){
 #endif
       if(NULL_PTR != lptrCfgModule){
          if(STD_HIGH){
@@ -131,7 +134,10 @@ FUNC(void, DEM_CODE) module_Dem::InitFunction(
 
 FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
 #if(STD_ON == Dem_InitCheck)
-   if(E_OK == IsInitDone){
+   if(
+         E_OK
+      == IsInitDone
+   ){
 #endif
 #if(STD_ON == Dem_InitCheck)
       IsInitDone = E_NOT_OK;
@@ -151,7 +157,10 @@ FUNC(void, DEM_CODE) module_Dem::DeInitFunction(void){
 
 FUNC(void, DEM_CODE) module_Dem::MainFunction(void){
 #if(STD_ON == Dem_InitCheck)
-   if(E_OK == IsInitDone){
+   if(
+         E_OK
+      == IsInitDone
+   ){
 #endif
 #if(STD_ON == Dem_InitCheck)
    }
