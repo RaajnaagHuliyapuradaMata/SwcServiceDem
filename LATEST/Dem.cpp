@@ -9,7 +9,7 @@
 #include "Module.hpp"
 #include "CfgDem.hpp"
 #include "Dem_core.hpp"
-#include "infDem.hpp"
+#include "infDem_Exp.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
@@ -32,6 +32,7 @@
 /* TYPEDEFS                                                                   */
 /******************************************************************************/
 class module_Dem:
+   INTERFACES_EXPORTED_DEM
       public abstract_module
    ,  public infDem_EcuM
    ,  public class_Dem_Functionality
