@@ -32,9 +32,8 @@
 /* TYPEDEFS                                                                   */
 /******************************************************************************/
 class module_Dem:
-   INTERFACES_EXPORTED_DEM
-      public abstract_module
-   ,  public infDem_EcuM
+      INTERFACES_EXPORTED_DEM
+   ,  public abstract_module
    ,  public class_Dem_Functionality
 {
    private:
