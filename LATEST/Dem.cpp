@@ -10,6 +10,7 @@
 #include "CfgDem.hpp"
 #include "Dem_core.hpp"
 #include "infDem_Exp.hpp"
+#include "infDem_Imp.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
