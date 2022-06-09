@@ -77,10 +77,10 @@ CONSTP2VAR(infDem_EcuM,   DEM_VAR, DEM_CONST) gptrinfDem_EcuM       = &Dem;
 VAR(module_Dem, DEM_VAR) Dem(
    {
 #if(STD_ON == _ReSIM)
-         "Dem"
+         "Dem",
 #else
 #endif
-      ,  DEM_AR_RELEASE_VERSION_MAJOR
+         DEM_AR_RELEASE_VERSION_MAJOR
       ,  DEM_AR_RELEASE_VERSION_MINOR
       ,  0x00
       ,  0xFF
