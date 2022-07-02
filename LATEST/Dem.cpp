@@ -85,12 +85,7 @@ FUNC(void, DEM_CODE) module_Dem::InitFunction(
    ){
 #endif
       if(NULL_PTR != lptrCfgModule){
-         if(STD_HIGH){
-            lptrCfg = lptrCfgModule;
-         }
-         else{
-            lptrCfg = &PBcfgDem;
-         }
+         lptrCfg = lptrCfgModule;
       }
       else{
 #if(STD_ON == Dem_DevErrorDetect)
