@@ -31,8 +31,7 @@ class infDem_EcuM{
 /******************************************************************************/
 /* CONSTS                                                                     */
 /******************************************************************************/
-extern CONSTP2VAR(infEcuMClient, DEM_VAR, DEM_CONST) gptrinfEcuMClient_Dem;
-extern CONSTP2VAR(infDem_EcuM,   DEM_VAR, DEM_CONST) gptrinfDem_EcuM;
+extern CONSTP2VAR(infDem_EcuM, DEM_VAR, DEM_CONST) gptrinfDem_EcuM;
 
 /******************************************************************************/
 /* PARAMS                                                                     */
