@@ -7,6 +7,7 @@
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
+#include "ConstDem.hpp"
 #include "CfgDem.hpp"
 #include "Dem_core.hpp"
 #include "infDem_Exp.hpp"
@@ -31,13 +32,15 @@ class module_Dem:
 /******************************************************************************/
 /* OBJECTS                                                                    */
 /******************************************************************************/
+      const ConstDem_Type* lptrConst = (ConstDem_Type*)NULL_PTR;
 
    public:
 /******************************************************************************/
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
       FUNC(void, DEM_CODE) InitFunction(
-         CONSTP2CONST(CfgModule_TypeAbstract, DEM_CONFIG_DATA, DEM_APPL_CONST) lptrCfgModule
+            CONSTP2CONST(ConstModule_TypeAbstract, DEM_CONST,       DEM_APPL_CONST) lptrConstModule
+         ,  CONSTP2CONST(CfgModule_TypeAbstract,   DEM_CONFIG_DATA, DEM_APPL_CONST) lptrCfgModule
       );
       FUNC(void, DEM_CODE) DeInitFunction (void);
       FUNC(void, DEM_CODE) MainFunction   (void);

@@ -48,7 +48,8 @@ VAR(module_Dem, DEM_VAR) Dem;
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
 FUNC(void, DEM_CODE) module_Dem::InitFunction(
-   CONSTP2CONST(CfgModule_TypeAbstract, DEM_CONFIG_DATA, DEM_APPL_CONST) lptrCfgModule
+      CONSTP2CONST(ConstModule_TypeAbstract, DEM_CONST,       DEM_APPL_CONST) lptrConstModule
+   ,  CONSTP2CONST(CfgModule_TypeAbstract,   DEM_CONFIG_DATA, DEM_APPL_CONST) lptrCfgModule
 ){
 #if(STD_ON == Dem_InitCheck)
    if(
@@ -56,8 +57,12 @@ FUNC(void, DEM_CODE) module_Dem::InitFunction(
       != IsInitDone
    ){
 #endif
-      if(NULL_PTR != lptrCfgModule){
-         lptrCfg = lptrCfgModule;
+      if(
+            (NULL_PTR != lptrConstModule)
+         && (NULL_PTR != lptrCfgModule)
+      ){
+         lptrConst = lptrConstModule;
+         lptrCfg   = lptrCfgModule;
       }
       else{
 #if(STD_ON == Dem_DevErrorDetect)
