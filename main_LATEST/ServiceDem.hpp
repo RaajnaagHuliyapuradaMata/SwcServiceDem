@@ -24,7 +24,7 @@
 /* TYPEDEFS                                                                   */
 /******************************************************************************/
 class module_ServiceDem:
-      INTERFACES_EXPORTED_DEM
+      INTERFACES_EXMCALPORTED_SERVICEDEM
    ,  public abstract_module
    ,  public class_ServiceDem_Functionality
 {
@@ -38,15 +38,15 @@ class module_ServiceDem:
 /******************************************************************************/
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
-      FUNC(void, DEM_CODE) InitFunction(
-            CONSTP2CONST(ConstModule_TypeAbstract, DEM_CONST,       DEM_APPL_CONST) lptrConstModule
-         ,  CONSTP2CONST(CfgModule_TypeAbstract,   DEM_CONFIG_DATA, DEM_APPL_CONST) lptrCfgModule
+      FUNC(void, SERVICEDEM_CODE) InitFunction(
+            CONSTP2CONST(ConstModule_TypeAbstract, SERVICEDEM_CONST,       SERVICEDEM_APPL_CONST) lptrConstModule
+         ,  CONSTP2CONST(CfgModule_TypeAbstract,   SERVICEDEM_CONFIG_DATA, SERVICEDEM_APPL_CONST) lptrCfgModule
       );
-      FUNC(void, DEM_CODE) DeInitFunction (void);
-      FUNC(void, DEM_CODE) MainFunction   (void);
-      DEM_CORE_FUNCTIONALITIES
+      FUNC(void, SERVICEDEM_CODE) DeInitFunction (void);
+      FUNC(void, SERVICEDEM_CODE) MainFunction   (void);
+      SERVICEDEM_CORE_FUNCTIONALITIES
 
-      FUNC(void, DEM_CODE) PreInit        (void);
+      FUNC(void, SERVICEDEM_CODE) PreInit        (void);
 };
 
 /******************************************************************************/
@@ -60,7 +60,7 @@ class module_ServiceDem:
 /******************************************************************************/
 /* OBJECTS                                                                    */
 /******************************************************************************/
-extern VAR(module_ServiceDem, DEM_VAR) ServiceDem;
+extern VAR(module_ServiceDem, SERVICEDEM_VAR) ServiceDem;
 
 /******************************************************************************/
 /* EOF                                                                        */
