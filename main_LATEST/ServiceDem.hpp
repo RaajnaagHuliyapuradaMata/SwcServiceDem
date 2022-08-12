@@ -24,7 +24,7 @@
 /* TYPEDEFS                                                                   */
 /******************************************************************************/
 class module_ServiceDem:
-      INTERFACES_EXMCALPORTED_SERVICEDEM
+      INTERFACES_EXPORTED_SERVICEDEM
    ,  public abstract_module
    ,  public class_ServiceDem_Functionality
 {

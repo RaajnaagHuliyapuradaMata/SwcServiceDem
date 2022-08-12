@@ -13,7 +13,7 @@
 /******************************************************************************/
 /* #DEFINES                                                                   */
 /******************************************************************************/
-#define INTERFACES_EXMCALPORTED_SERVICEDEM                               public infServiceDem_ServiceEcuM
+#define INTERFACES_EXPORTED_SERVICEDEM                               public infServiceDem_ServiceEcuM
 
 /******************************************************************************/
 /* MACROS                                                                     */
