@@ -1,13 +1,13 @@
 #pragma once
 /******************************************************************************/
-/* File   : ServiceDem.hpp                                                           */
+/* File   : ServiceDem.hpp                                                    */
 /* Author : NAGARAJA HM (c) since 1982. All rights reserved.                  */
 /******************************************************************************/
 
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
-#include "ConstServiceDem.hpp"
+#include "infServiceDem_ServiceNvM_Types.hpp"
 #include "CfgServiceDem.hpp"
 #include "ServiceDem_core.hpp"
 #include "infServiceDem_Exp.hpp"
