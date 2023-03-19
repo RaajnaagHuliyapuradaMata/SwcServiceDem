@@ -1,15 +1,13 @@
+#pragma once
 /******************************************************************************/
-/* File   : ServiceDem.cpp                                                    */
+/* File   : infServiceSwcDemServiceSwcEcuM.hpp                                */
 /* Author : NAGARAJA HM (c) since 1982. All rights reserved.                  */
 /******************************************************************************/
 
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
-#include "Std_Types.hpp"
-
-#include "ServiceDem.hpp"
-#include "infServiceDem_ServiceSwcEcuM.hpp"
+#include "CompilerCfg_ServiceSwcDem.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
@@ -24,6 +22,13 @@
 /******************************************************************************/
 
 /******************************************************************************/
+/* FUNCTIONS                                                                  */
+/******************************************************************************/
+extern FUNC(void, SERVICESWCDEM_CODE) infServiceSwcDemServiceSwcEcuM_InitFunction   (void);
+extern FUNC(void, SERVICESWCDEM_CODE) infServiceSwcDemServiceSwcEcuM_DeInitFunction (void);
+extern FUNC(void, SERVICESWCDEM_CODE) infServiceSwcDemServiceSwcEcuM_PreInit        (void);
+
+/******************************************************************************/
 /* CONSTS                                                                     */
 /******************************************************************************/
 
@@ -34,14 +39,6 @@
 /******************************************************************************/
 /* OBJECTS                                                                    */
 /******************************************************************************/
-
-/******************************************************************************/
-/* FUNCTIONS                                                                  */
-/******************************************************************************/
-FUNC(void, SERVICEDEM_CODE) ServiceDem_InitFunction   (void){}
-FUNC(void, SERVICEDEM_CODE) ServiceDem_DeInitFunction (void){}
-FUNC(void, SERVICEDEM_CODE) ServiceDem_MainFunction   (void){}
-FUNC(void, SERVICEDEM_CODE) ServiceDem_PreInit        (void){}
 
 /******************************************************************************/
 /* EOF                                                                        */
