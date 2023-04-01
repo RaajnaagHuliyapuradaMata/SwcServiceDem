@@ -1,13 +1,16 @@
-#pragma once
 /******************************************************************************/
-/* File   : infServiceSwcDemServiceSwcEcuM.hpp                                */
+/* File   : SwcServiceDem.cpp                                                 */
 /* Author : NAGARAJA HM (c) since 1982. All rights reserved.                  */
 /******************************************************************************/
 
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
-#include "CompilerCfg_ServiceSwcDem.hpp"
+#include "Std_Types.hpp"
+
+#include "SwcServiceDem.hpp"
+
+#include "infSwcServiceDemSwcServiceEcuM.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
@@ -22,13 +25,6 @@
 /******************************************************************************/
 
 /******************************************************************************/
-/* FUNCTIONS                                                                  */
-/******************************************************************************/
-extern FUNC(void, SERVICESWCDEM_CODE) infServiceSwcDemServiceSwcEcuM_InitFunction   (void);
-extern FUNC(void, SERVICESWCDEM_CODE) infServiceSwcDemServiceSwcEcuM_DeInitFunction (void);
-extern FUNC(void, SERVICESWCDEM_CODE) infServiceSwcDemServiceSwcEcuM_PreInit        (void);
-
-/******************************************************************************/
 /* CONSTS                                                                     */
 /******************************************************************************/
 
@@ -39,6 +35,14 @@ extern FUNC(void, SERVICESWCDEM_CODE) infServiceSwcDemServiceSwcEcuM_PreInit    
 /******************************************************************************/
 /* OBJECTS                                                                    */
 /******************************************************************************/
+
+/******************************************************************************/
+/* FUNCTIONS                                                                  */
+/******************************************************************************/
+FUNC(void, SWCSERVICEDEM_CODE) infSwcServiceDemSwcServiceEcuM_InitFunction   (void){}
+FUNC(void, SWCSERVICEDEM_CODE) infSwcServiceDemSwcServiceEcuM_DeInitFunction (void){}
+FUNC(void, SWCSERVICEDEM_CODE) infSwcServiceDemSwcServiceEcuM_PreInit        (void){}
+FUNC(void, SWCSERVICEDEM_CODE) infSwcServiceDemSwcServiceSchM_MainFunction   (void){}
 
 /******************************************************************************/
 /* EOF                                                                        */
