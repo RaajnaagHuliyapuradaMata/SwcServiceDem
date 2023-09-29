@@ -7,10 +7,10 @@ extern "C"
 #include "fbl_inc.hpp"
 
 void Dem_ReportErrorStatus(Dem_EventIdType  EventId, Dem_EventStatusType  EventStatus){
-# if defined( V_ENABLE_USE_DUMMY_STATEMENT )
+#if defined( V_ENABLE_USE_DUMMY_STATEMENT )
    (void) EventId;
    (void) EventStatus;
-# endif
+#endif
 }
 
 #ifdef __cplusplus
