@@ -75,10 +75,10 @@ typedef Std_ReturnType (*Dem_NodeFailedCallbackType)(boolean testFailed);
 #endif
 
 #define DEM_NODES_INIT(ALLOWEDRECOVERIES,IGNORES_PRIO,NODEFAILEDCALLBACK)        \
-   {                                              			  \
-   	DEM_NODES_INIT_ALLOWEDRECOVERIES(ALLOWEDRECOVERIES)   \
-   	DEM_NODES_INIT_NODEFAILEDCALLBACK(NODEFAILEDCALLBACK)  \
-   	((IGNORES_PRIO) << DEM_NODE_PARAMFLAG_IGNOREPRIORITY)   \
+   {                                                         \
+      DEM_NODES_INIT_ALLOWEDRECOVERIES(ALLOWEDRECOVERIES)   \
+      DEM_NODES_INIT_NODEFAILEDCALLBACK(NODEFAILEDCALLBACK)  \
+      ((IGNORES_PRIO) << DEM_NODE_PARAMFLAG_IGNOREPRIORITY)   \
    }
 
 #define DEM_START_SEC_RAM_CLEARED
@@ -110,73 +110,60 @@ Dem_boolean_least Dem_Dependencies_CheckEventIsCausalPending(Dem_EventIdType Eve
 void Dem_Dependencies_SetNodePending(Dem_EventIdType EventId , Dem_boolean_least setBit);
 #endif
 
-DEM_INLINE boolean Dem_NodeIsFailed(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsFailed(Dem_ComponentIdType NodeId){
    return (Dem_AllNodesState[NodeId].status[DEM_NODESTATUS_FAILED] != 0);
 }
 
-DEM_INLINE boolean Dem_NodeIsFailedItself(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsFailedItself(Dem_ComponentIdType NodeId){
    return Dem_NodeStatusIsSet(Dem_AllNodesState[NodeId].status[DEM_NODESTATUS_FAILED]);
 }
 
-DEM_INLINE boolean Dem_NodeIsSuspicious(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsSuspicious(Dem_ComponentIdType NodeId){
    return (Dem_AllNodesState[NodeId].status[DEM_NODESTATUS_SUSPICIOUS] != 0);
 }
 
-DEM_INLINE boolean Dem_NodeIsSuspiciousItself(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsSuspiciousItself(Dem_ComponentIdType NodeId){
    return Dem_NodeStatusIsSet(Dem_AllNodesState[NodeId].status[DEM_NODESTATUS_SUSPICIOUS]);
 }
 
-DEM_INLINE boolean Dem_NodeIsFailedFilteredItself(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsFailedFilteredItself(Dem_ComponentIdType NodeId){
    return (Dem_NodeStatusIsSet(Dem_AllNodesState[NodeId].status[DEM_NODESTATUS_FAILEDFILTERED]));
 }
 
-DEM_INLINE boolean Dem_NodeIsFailedNotRecoverable(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsFailedNotRecoverable(Dem_ComponentIdType NodeId){
     return (Dem_AllNodesState[NodeId].status[DEM_NODESTATUS_FAILEDNOTRECOVERABLE] != 0);
 }
 
-DEM_INLINE boolean Dem_NodeIsFailedNotRecoverableItself(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsFailedNotRecoverableItself(Dem_ComponentIdType NodeId){
     return Dem_NodeStatusIsSet(Dem_AllNodesState[NodeId].status[DEM_NODESTATUS_FAILEDNOTRECOVERABLE]);
 }
 
-DEM_INLINE boolean Dem_NodeIsAvailable(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsAvailable(Dem_ComponentIdType NodeId){
       return (Dem_AllNodesState[NodeId].status[DEM_NODESTATUS_NOTAVAILABLE] == 0);
 }
 
-DEM_INLINE boolean Dem_NodeIsInitialized(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsInitialized(Dem_ComponentIdType NodeId){
       return (Dem_AllNodesState[NodeId].status[DEM_NODESTATUS_NOTINIT] == 0);
 }
 
-DEM_INLINE boolean Dem_NodeAreAncestorsInitialized(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeAreAncestorsInitialized(Dem_ComponentIdType NodeId){
    return !Dem_NodeStatusIsAnyAncestorSet(Dem_AllNodesState[NodeId].status[DEM_NODESTATUS_NOTINIT]);
 }
 
-DEM_INLINE boolean Dem_NodeIsRestrictedUsable(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsRestrictedUsable(Dem_ComponentIdType NodeId){
    return (   (Dem_NodeIsInitialized(NodeId))
-   		&& (Dem_NodeIsAvailable(NodeId))
-   		&& (!Dem_NodeIsFailed(NodeId))
-   		);
+         && (Dem_NodeIsAvailable(NodeId))
+         && (!Dem_NodeIsFailed(NodeId))
+         );
 }
 
-DEM_INLINE boolean Dem_NodeIsUsable(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsUsable(Dem_ComponentIdType NodeId){
    return (   (Dem_NodeIsRestrictedUsable(NodeId))
-   		&& (!Dem_NodeIsSuspicious(NodeId))
-   		);
+         && (!Dem_NodeIsSuspicious(NodeId))
+         );
 }
 
-DEM_INLINE boolean Dem_NodeRecoveryAllowed (Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeRecoveryAllowed (Dem_ComponentIdType NodeId){
     DEM_UNUSED_PARAM(NodeId);
 
     return (TRUE
@@ -189,12 +176,10 @@ DEM_INLINE boolean Dem_NodeRecoveryAllowed (Dem_ComponentIdType NodeId)
            );
 }
 
-DEM_INLINE void Dem_NodeCallFailedCallback (Dem_ComponentIdType NodeId, boolean failed)
-{
+DEM_INLINE void Dem_NodeCallFailedCallback (Dem_ComponentIdType NodeId, boolean failed){
 #if(DEM_CFG_NODEFAILEDCALLBACK_COUNT > 0)
-   if(Dem_AllNodesParam[NodeId].nodeFailedCallbackIdx != 0)
-   {
-   	(Dem_NodeFailedCallbacks[Dem_AllNodesParam[NodeId].nodeFailedCallbackIdx])(failed);
+   if(Dem_AllNodesParam[NodeId].nodeFailedCallbackIdx != 0){
+      (Dem_NodeFailedCallbacks[Dem_AllNodesParam[NodeId].nodeFailedCallbackIdx])(failed);
    }
 #else
    DEM_UNUSED_PARAM(NodeId);
@@ -212,29 +197,24 @@ void Dem_NodeSetHasCausalFault (const Dem_ComponentIdType NodeId, Dem_boolean_le
 
 void Dem_NodeSetAvailable(Dem_ComponentIdType ComponentId, boolean AvailableStatus);
 
-DEM_INLINE void Dem_NodeSetRecovered(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE void Dem_NodeSetRecovered(Dem_ComponentIdType NodeId){
    DEM_UNUSED_PARAM(NodeId);
 #if(DEM_CFG_DEPRECOVERYLIMIT == DEM_CFG_DEPRECOVERYLIMIT_ON)
-   if(Dem_AllNodesState[NodeId].performedRecoveries < Dem_AllNodesParam[NodeId].allowedRecoveries)
-   {
-   	Dem_AllNodesState[NodeId].performedRecoveries++;
+   if(Dem_AllNodesState[NodeId].performedRecoveries < Dem_AllNodesParam[NodeId].allowedRecoveries){
+      Dem_AllNodesState[NodeId].performedRecoveries++;
    }
 #endif
 }
 
-DEM_INLINE void Dem_NodeSetRecheckOnClear (Dem_ComponentIdType NodeId, Dem_boolean_least newRecheckOnClear)
-{
+DEM_INLINE void Dem_NodeSetRecheckOnClear (Dem_ComponentIdType NodeId, Dem_boolean_least newRecheckOnClear){
     rba_DiagLib_Bit8OverwriteBit(&(Dem_AllNodesState[NodeId].stateFlags), DEM_NODE_STATEFLAG_RECHECKONCLEAR, newRecheckOnClear);
 }
 
-DEM_INLINE Dem_boolean_least Dem_NodeIsRecheckOnClear (Dem_ComponentIdType NodeId)
-{
+DEM_INLINE Dem_boolean_least Dem_NodeIsRecheckOnClear (Dem_ComponentIdType NodeId){
    return rba_DiagLib_Bit8IsBitSet(Dem_AllNodesState[NodeId].stateFlags, DEM_NODE_STATEFLAG_RECHECKONCLEAR);
 }
 
-DEM_INLINE Dem_boolean_least Dem_NodeIgnorePriority(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE Dem_boolean_least Dem_NodeIgnorePriority(Dem_ComponentIdType NodeId){
    return rba_DiagLib_Bit8IsBitSet(Dem_AllNodesParam[NodeId].paramFlags, DEM_NODE_PARAMFLAG_IGNOREPRIORITY);
 }
 
@@ -248,62 +228,52 @@ void Dem_NodeRecheckOnClear (void);
 #define DEM_START_SEC_ROM_CODE
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE Dem_boolean_least Dem_Dependencies_CheckEventIsCausal(Dem_EventIdType EventId, Dem_ComponentIdType NodeId)
-{
+DEM_INLINE Dem_boolean_least Dem_Dependencies_CheckEventIsCausal(Dem_EventIdType EventId, Dem_ComponentIdType NodeId){
     DEM_UNUSED_PARAM(EventId);
     DEM_UNUSED_PARAM(NodeId);
     return TRUE;
 }
-DEM_INLINE void Dem_Dependencies_ResetNodeFailed(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE void Dem_Dependencies_ResetNodeFailed(Dem_ComponentIdType NodeId){
     DEM_UNUSED_PARAM(NodeId);
 }
 
-DEM_INLINE void Dem_Dependencies_SetNodeFailed(Dem_ComponentIdType NodeId, boolean EventIsCausal, boolean EventStorageFiltered, boolean EventIsRecoverable)
-{
+DEM_INLINE void Dem_Dependencies_SetNodeFailed(Dem_ComponentIdType NodeId, boolean EventIsCausal, boolean EventStorageFiltered, boolean EventIsRecoverable){
     DEM_UNUSED_PARAM(NodeId);
     DEM_UNUSED_PARAM(EventIsCausal);
     DEM_UNUSED_PARAM(EventStorageFiltered);
     DEM_UNUSED_PARAM(EventIsRecoverable);
 }
 
-DEM_INLINE void Dem_Dependencies_ResetNodeFailedFiltered(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE void Dem_Dependencies_ResetNodeFailedFiltered(Dem_ComponentIdType NodeId){
     DEM_UNUSED_PARAM(NodeId);
 }
 
-DEM_INLINE boolean Dem_NodeIsAvailable(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeIsAvailable(Dem_ComponentIdType NodeId){
     DEM_UNUSED_PARAM(NodeId);
     return TRUE;
 }
 
-DEM_INLINE boolean Dem_NodeRecoveryAllowed (Dem_ComponentIdType NodeId)
-{
+DEM_INLINE boolean Dem_NodeRecoveryAllowed (Dem_ComponentIdType NodeId){
     DEM_UNUSED_PARAM(NodeId);
     return TRUE;
 }
 
-DEM_INLINE void Dem_NodeSetRecovered(Dem_ComponentIdType NodeId)
-{
+DEM_INLINE void Dem_NodeSetRecovered(Dem_ComponentIdType NodeId){
     DEM_UNUSED_PARAM(NodeId);
 }
 
-DEM_INLINE void Dem_NodeSetSuspicious(Dem_ComponentIdType NodeId, Dem_boolean_least suspicious)
-{
+DEM_INLINE void Dem_NodeSetSuspicious(Dem_ComponentIdType NodeId, Dem_boolean_least suspicious){
     DEM_UNUSED_PARAM(NodeId);
     DEM_UNUSED_PARAM(suspicious);
 }
 
-DEM_INLINE Std_ReturnType Dem_NodeSetAvailable (Dem_ComponentIdType ComponentId, boolean AvailableStatus)
-{
+DEM_INLINE Std_ReturnType Dem_NodeSetAvailable (Dem_ComponentIdType ComponentId, boolean AvailableStatus){
     DEM_UNUSED_PARAM(ComponentId);
     DEM_UNUSED_PARAM(AvailableStatus);
     return E_OK;
 }
 
-DEM_INLINE void Dem_NodeSetHasCausalFault (const Dem_ComponentIdType NodeId, Dem_boolean_least causalFault)
-{
+DEM_INLINE void Dem_NodeSetHasCausalFault (const Dem_ComponentIdType NodeId, Dem_boolean_least causalFault){
     DEM_UNUSED_PARAM(NodeId);
     DEM_UNUSED_PARAM(causalFault);
 }

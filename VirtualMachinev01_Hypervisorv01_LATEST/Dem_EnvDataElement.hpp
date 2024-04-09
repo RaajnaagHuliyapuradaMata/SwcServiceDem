@@ -39,48 +39,40 @@ extern const Dem_EnvDataElement Dem_Cfg_EnvDataElement[DEM_CFG_ENV_DATAELEMENTS_
 #define DEM_STOP_SEC_ROM_CONST
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE void Dem_EnvInsertPadding(uint8* const* start, uint8 size)
-{
+DEM_INLINE void Dem_EnvInsertPadding(uint8* const* start, uint8 size){
    DEM_MEMSET(*start,0xFF,size);
 }
 
-DEM_INLINE void Dem_EnvDACapture(uint8 dataElementId, uint8** start, const uint8* end, const Dem_InternalEnvData* internalEnvData)
-{
+DEM_INLINE void Dem_EnvDACapture(uint8 dataElementId, uint8** start, const uint8* end, const Dem_InternalEnvData* internalEnvData){
    Std_ReturnType result = E_NOT_OK;
    DEM_ASSERT((*start + Dem_Cfg_EnvDataElement[dataElementId].Size) <= end,DEM_DET_APIID_ENVDACAPTURE, 0);
 
-   if(!Dem_Cfg_EnvDataElement[dataElementId].captureOnRetrieve)
-   {
-   	#if(DEM_CFG_ENV_DATAELEMENTS_EXTERN_AVAILABILITY == STD_ON)
-   	if(Dem_Cfg_EnvDataElement[dataElementId].ReadExternalFnc != NULL_PTR)
-   	{
-   		result = (Dem_Cfg_EnvDataElement[dataElementId].ReadExternalFnc)(*start);
-   	}
-   	#endif
+   if(!Dem_Cfg_EnvDataElement[dataElementId].captureOnRetrieve){
+      #if(DEM_CFG_ENV_DATAELEMENTS_EXTERN_AVAILABILITY == STD_ON)
+      if(Dem_Cfg_EnvDataElement[dataElementId].ReadExternalFnc != NULL_PTR){
+         result = (Dem_Cfg_EnvDataElement[dataElementId].ReadExternalFnc)(*start);
+      }
+      #endif
 
-   	#if(DEM_CFG_ENV_DATAELEMENTS_INTERN_AVAILABILITY == STD_ON)
-   	if(Dem_Cfg_EnvDataElement[dataElementId].ReadInternalFnc != NULL_PTR)
-   	{
-   		result = (Dem_Cfg_EnvDataElement[dataElementId].ReadInternalFnc)(*start, internalEnvData);
-   	}
-   	#endif
+      #if(DEM_CFG_ENV_DATAELEMENTS_INTERN_AVAILABILITY == STD_ON)
+      if(Dem_Cfg_EnvDataElement[dataElementId].ReadInternalFnc != NULL_PTR){
+         result = (Dem_Cfg_EnvDataElement[dataElementId].ReadInternalFnc)(*start, internalEnvData);
+      }
+      #endif
 
-   	if(result != E_OK)
-   	{
-   		Dem_EnvInsertPadding (start, Dem_Cfg_EnvDataElement[dataElementId].Size);
-   		DEM_DET(DEM_DET_APIID_ENVDACAPTURE, DEM_E_NODATAAVAILABLE);
-   	}
+      if(result != E_OK){
+         Dem_EnvInsertPadding (start, Dem_Cfg_EnvDataElement[dataElementId].Size);
+         DEM_DET(DEM_DET_APIID_ENVDACAPTURE, DEM_E_NODATAAVAILABLE);
+      }
    }
-   else
-   {
-   	Dem_EnvInsertPadding (start, Dem_Cfg_EnvDataElement[dataElementId].Size);
+   else{
+      Dem_EnvInsertPadding (start, Dem_Cfg_EnvDataElement[dataElementId].Size);
    }
 
    *start += Dem_Cfg_EnvDataElement[dataElementId].Size;
 }
 
-DEM_INLINE void Dem_EnvDACopy(uint8 dataElementId, uint8** start, const uint8* end, const uint8** src)
-{
+DEM_INLINE void Dem_EnvDACopy(uint8 dataElementId, uint8** start, const uint8* end, const uint8** src){
    DEM_ASSERT((*start + Dem_Cfg_EnvDataElement[dataElementId].Size) <= end, DEM_DET_APIID_ENVDAUPDATE, 0);
 
    DEM_MEMCPY(*start, *src, Dem_Cfg_EnvDataElement[dataElementId].Size);
@@ -88,8 +80,7 @@ DEM_INLINE void Dem_EnvDACopy(uint8 dataElementId, uint8** start, const uint8* e
    *src += Dem_Cfg_EnvDataElement[dataElementId].Size;
 }
 
-DEM_INLINE void Dem_EnvDASkip(uint8 dataElementId, uint8** start, const uint8* end, const uint8** src)
-{
+DEM_INLINE void Dem_EnvDASkip(uint8 dataElementId, uint8** start, const uint8* end, const uint8** src){
    DEM_ASSERT((*start + Dem_Cfg_EnvDataElement[dataElementId].Size) <= end, DEM_DET_APIID_ENVDASKIP, 0);
 
    *start += Dem_Cfg_EnvDataElement[dataElementId].Size;
@@ -100,39 +91,32 @@ DEM_INLINE Dem_boolean_least Dem_EnvDARetrieve(uint8 dataElementId
    ,  uint8** start
    ,  const uint8* end
    ,  const uint8** src
-   ,  const Dem_InternalEnvData* internalEnvData)
-{
+   ,  const Dem_InternalEnvData* internalEnvData){
    Std_ReturnType result = E_NOT_OK;
 
-   if((*start + Dem_Cfg_EnvDataElement[dataElementId].Size )> end)
-   {
-   	return FALSE;
+   if((*start + Dem_Cfg_EnvDataElement[dataElementId].Size )> end){
+      return FALSE;
    }
 
-   if(Dem_Cfg_EnvDataElement[dataElementId].captureOnRetrieve)
-   {
+   if(Dem_Cfg_EnvDataElement[dataElementId].captureOnRetrieve){
 #if(DEM_CFG_ENV_DATAELEMENTS_EXTERN_AVAILABILITY == STD_ON)
-   	if(Dem_Cfg_EnvDataElement[dataElementId].ReadExternalFnc != NULL_PTR)
-   	{
-   		result = (Dem_Cfg_EnvDataElement[dataElementId].ReadExternalFnc)(*start);
-   	}
+      if(Dem_Cfg_EnvDataElement[dataElementId].ReadExternalFnc != NULL_PTR){
+         result = (Dem_Cfg_EnvDataElement[dataElementId].ReadExternalFnc)(*start);
+      }
 #endif
 
 #if(DEM_CFG_ENV_DATAELEMENTS_INTERN_AVAILABILITY == STD_ON)
-   	if(Dem_Cfg_EnvDataElement[dataElementId].ReadInternalFnc != NULL_PTR)
-   	{
-   		result = (Dem_Cfg_EnvDataElement[dataElementId].ReadInternalFnc)(*start, internalEnvData);
-   	}
+      if(Dem_Cfg_EnvDataElement[dataElementId].ReadInternalFnc != NULL_PTR){
+         result = (Dem_Cfg_EnvDataElement[dataElementId].ReadInternalFnc)(*start, internalEnvData);
+      }
 #endif
 
-   	if(result != E_OK)
-   	{
-   		Dem_EnvInsertPadding (start, Dem_Cfg_EnvDataElement[dataElementId].Size);
-   		DEM_DET(DEM_DET_APIID_ENVDARETRIEVE, DEM_E_NODATAAVAILABLE);
-   	}
+      if(result != E_OK){
+         Dem_EnvInsertPadding (start, Dem_Cfg_EnvDataElement[dataElementId].Size);
+         DEM_DET(DEM_DET_APIID_ENVDARETRIEVE, DEM_E_NODATAAVAILABLE);
+      }
    }
-   else
-   {
+   else{
        DEM_MEMCPY(*start, *src, Dem_Cfg_EnvDataElement[dataElementId].Size);
    }
    *start += Dem_Cfg_EnvDataElement[dataElementId].Size;
@@ -140,8 +124,7 @@ DEM_INLINE Dem_boolean_least Dem_EnvDARetrieve(uint8 dataElementId
    return TRUE;
 }
 
-DEM_INLINE uint8 Dem_EnvDAGetSizeOf(uint8 dataElementId)
-{
+DEM_INLINE uint8 Dem_EnvDAGetSizeOf(uint8 dataElementId){
    return Dem_Cfg_EnvDataElement[dataElementId].Size;
 }
 #define DEM_START_SEC_ROM_CODE

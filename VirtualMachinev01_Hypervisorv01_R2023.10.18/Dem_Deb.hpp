@@ -25,8 +25,7 @@ Std_ReturnType Dem_GetDebouncingOfEvent_GeneralEvtInfo(Dem_EventIdType EventId, 
 Std_ReturnType Dem_GetFaultDetectionCounter_GeneralEvtInfo(Dem_EventIdType EventId, sint8* FaultDetectionCounter);
 #endif
 
-DEM_INLINE Dem_DebouncedActionType Dem_DebCallFilter (Dem_EventIdType EventId, Dem_EventStatusType* status)
-{
+DEM_INLINE Dem_DebouncedActionType Dem_DebCallFilter (Dem_EventIdType EventId, Dem_EventStatusType* status){
    Dem_DebFilter funcPoint;
    const void* paramSet;
    uint8_least debAction;
@@ -34,8 +33,7 @@ DEM_INLINE Dem_DebouncedActionType Dem_DebCallFilter (Dem_EventIdType EventId, D
 
 #if(DEM_CFG_DEBMONINTERNAL == DEM_CFG_DEBMONINTERNAL_ON)
 
-   if(Dem_EvtParam_GetDebounceMethodIndex(EventId) == DEM_DEBMETH_IDX_MONINTERNAL)
-   {
+   if(Dem_EvtParam_GetDebounceMethodIndex(EventId) == DEM_DEBMETH_IDX_MONINTERNAL){
         DEM_ASSERT (*status != DEM_EVENT_STATUS_PREPASSED, DEM_DET_APIID_DEBCALLFILTER, 0);
         DEM_ASSERT (*status != DEM_EVENT_STATUS_PREFAILED, DEM_DET_APIID_DEBCALLFILTER, 1);
 
@@ -64,8 +62,7 @@ DEM_INLINE Dem_DebouncedActionType Dem_DebCallFilter (Dem_EventIdType EventId, D
 
 #if((DEM_CFG_SUPPORTEVENTMEMORYENTRY_ONFDCTHRESHOLD != DEM_CFG_SUPPORTEVENTMEMORYENTRY_ONFDCTHRESHOLD_ON) && \
         (!DEM_CFG_SUSPICIOUS_SUPPORT) && !DEM_CFG_ALTERNATIVEDEBDEFINED)
-   if((*status == DEM_EVENT_STATUS_PREPASSED) || (*status == DEM_EVENT_STATUS_PASSED))
-   {
+   if((*status == DEM_EVENT_STATUS_PREPASSED) || (*status == DEM_EVENT_STATUS_PASSED)){
 
         if((Dem_EvtGetLastReportedEvent (EventId) == DEM_EVENT_STATUS_PASSED) && \
                 (Dem_EvtGetDebounceLevel (EventId) != 0 ))
@@ -91,8 +88,7 @@ DEM_INLINE Dem_DebouncedActionType Dem_DebCallFilter (Dem_EventIdType EventId, D
    return (*funcPoint) (EventId, status, paramSet, Dem_EvtParam_GetDebounceParamSettingIndex(EventId));
 }
 
-DEM_INLINE Dem_boolean_least Dem_DebHandleDebounceAction__processBits(Dem_EventIdType EventId, Dem_DebouncedActionType debAction)
-{
+DEM_INLINE Dem_boolean_least Dem_DebHandleDebounceAction__processBits(Dem_EventIdType EventId, Dem_DebouncedActionType debAction){
     Dem_boolean_least insertToEvBuffer = FALSE;
 
     DEM_UNUSED_PARAM(EventId);
@@ -103,8 +99,7 @@ DEM_INLINE Dem_boolean_least Dem_DebHandleDebounceAction__processBits(Dem_EventI
 #if((DEM_CFG_SUPPORTEVENTMEMORYENTRY_ONFDCTHRESHOLD == DEM_CFG_SUPPORTEVENTMEMORYENTRY_ONFDCTHRESHOLD_ON) ||\
         (DEM_CFG_SUPPORT_EVENT_FDCTHRESHOLDREACHED))
 
-   if( (debAction & DEM_DEBACTION_SETFDCTHRESHOLDREACHED) != 0u )
-   {
+   if( (debAction & DEM_DEBACTION_SETFDCTHRESHOLDREACHED) != 0u ){
 #if(DEM_CFG_SUPPORTEVENTMEMORYENTRY_ONFDCTHRESHOLD == DEM_CFG_SUPPORTEVENTMEMORYENTRY_ONFDCTHRESHOLD_ON)
         if((!Dem_EvtGetFDCThresholdReachedTOC(EventId)))
         {
@@ -134,13 +129,11 @@ DEM_INLINE Dem_boolean_least Dem_DebHandleDebounceAction__processBits(Dem_EventI
 #endif
 
 #if(DEM_CFG_SUSPICIOUS_SUPPORT)
-   if(((debAction & DEM_DEBACTION_SETSUSPICIOUS) != 0u) && (!Dem_EvtIsSuspicious(EventId)))
-   {
+   if(((debAction & DEM_DEBACTION_SETSUSPICIOUS) != 0u) && (!Dem_EvtIsSuspicious(EventId))){
        Dem_SetEventSuspicion_Internal(EventId,TRUE);
    }
    else{
-      if(((debAction & DEM_DEBACTION_RESETSUSPICIOUS) != 0u) && (Dem_EvtIsSuspicious(EventId)))
-      {
+      if(((debAction & DEM_DEBACTION_RESETSUSPICIOUS) != 0u) && (Dem_EvtIsSuspicious(EventId))){
           Dem_SetEventSuspicion_Internal(EventId,FALSE);
       }
    }
@@ -149,15 +142,13 @@ DEM_INLINE Dem_boolean_least Dem_DebHandleDebounceAction__processBits(Dem_EventI
    return (insertToEvBuffer);
 }
 
-DEM_INLINE void Dem_DebHandleDebounceAction(Dem_EventIdType EventId, Dem_DebouncedActionType debAction, Dem_DebugDataType debug0 ,Dem_DebugDataType debug1)
-{
+DEM_INLINE void Dem_DebHandleDebounceAction(Dem_EventIdType EventId, Dem_DebouncedActionType debAction, Dem_DebugDataType debug0 ,Dem_DebugDataType debug1){
     Dem_boolean_least insertUnrobustToEvBuffer;
     DEM_ENTERLOCK_MON();
    insertUnrobustToEvBuffer = Dem_DebHandleDebounceAction__processBits(EventId, debAction);
     DEM_EXITLOCK_MON();
 
-   if(insertUnrobustToEvBuffer)
-   {
+   if(insertUnrobustToEvBuffer){
         (void)Dem_EvBuffInsert(C_EVENTTYPE_UNROBUST, EventId DEM_DEBUGDATA_PARAM(debug0, debug1));
    }
    else{
@@ -166,8 +157,7 @@ DEM_INLINE void Dem_DebHandleDebounceAction(Dem_EventIdType EventId, Dem_Debounc
    }
 }
 
-DEM_INLINE Dem_boolean_least Dem_DebHandleDebounceAction_4_TimeBasedDeb(Dem_EventIdType EventId, Dem_DebouncedActionType debAction)
-{
+DEM_INLINE Dem_boolean_least Dem_DebHandleDebounceAction_4_TimeBasedDeb(Dem_EventIdType EventId, Dem_DebouncedActionType debAction){
     return Dem_DebHandleDebounceAction__processBits(EventId, debAction);
 }
 

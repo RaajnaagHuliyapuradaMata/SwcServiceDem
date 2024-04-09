@@ -22,28 +22,23 @@ typedef struct{
    NAME##_Handler.lastEmptyLoc = NAME##_Handler.end - 1;                \
 }
 
-DEM_INLINE uint16 Dem_RingBuffer__next (const Dem_RingBuffer* rb, uint16 idx)
-{
+DEM_INLINE uint16 Dem_RingBuffer__next (const Dem_RingBuffer* rb, uint16 idx){
    uint16 result = idx + 1;
-   if(result >= rb->end)
-   {
+   if(result >= rb->end){
       result = 0;
    }
    return result;
 }
 
-DEM_INLINE boolean Dem_RingBuffer__isEmpty (const Dem_RingBuffer* rb)
-{
+DEM_INLINE boolean Dem_RingBuffer__isEmpty (const Dem_RingBuffer* rb){
    return (Dem_RingBuffer__next (rb, rb->lastEmptyLoc) == rb->nextEmptyLoc);
 }
 
-DEM_INLINE boolean Dem_RingBuffer__isFull (const Dem_RingBuffer* rb)
-{
+DEM_INLINE boolean Dem_RingBuffer__isFull (const Dem_RingBuffer* rb){
    return (rb->lastEmptyLoc == rb->nextEmptyLoc);
 }
 
-DEM_INLINE boolean Dem_RingBuffer__insert (Dem_RingBuffer* rb, uint16* insertionIndex)
-{
+DEM_INLINE boolean Dem_RingBuffer__insert (Dem_RingBuffer* rb, uint16* insertionIndex){
    if(Dem_RingBuffer__isFull (rb)) return FALSE;
 
    *insertionIndex = rb->nextEmptyLoc;
@@ -52,8 +47,7 @@ DEM_INLINE boolean Dem_RingBuffer__insert (Dem_RingBuffer* rb, uint16* insertion
    return TRUE;
 }
 
-DEM_INLINE boolean Dem_RingBuffer__remove (Dem_RingBuffer* rb, uint16* removedIndex)
-{
+DEM_INLINE boolean Dem_RingBuffer__remove (Dem_RingBuffer* rb, uint16* removedIndex){
    if(Dem_RingBuffer__isEmpty (rb)) return FALSE;
 
    rb->lastEmptyLoc = Dem_RingBuffer__next (rb, rb->lastEmptyLoc);
@@ -62,16 +56,13 @@ DEM_INLINE boolean Dem_RingBuffer__remove (Dem_RingBuffer* rb, uint16* removedIn
    return TRUE;
 }
 
-DEM_INLINE void Dem_RingBuffer__NewIterator (Dem_RingBuffer* rb)
-{
+DEM_INLINE void Dem_RingBuffer__NewIterator (Dem_RingBuffer* rb){
     rb->RingBuffLocIt = Dem_RingBuffer__next (rb, rb->lastEmptyLoc);
 }
-DEM_INLINE boolean Dem_RingBuffer__IteratorIsValid (const Dem_RingBuffer* rb)
-{
+DEM_INLINE boolean Dem_RingBuffer__IteratorIsValid (const Dem_RingBuffer* rb){
     return (rb->RingBuffLocIt != rb->nextEmptyLoc);
 }
-DEM_INLINE void Dem_RingBuffer__IteratorNext (Dem_RingBuffer* rb)
-{
+DEM_INLINE void Dem_RingBuffer__IteratorNext (Dem_RingBuffer* rb){
     rb->RingBuffLocIt = Dem_RingBuffer__next(rb, rb->RingBuffLocIt);
 }
 

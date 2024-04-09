@@ -27,9 +27,9 @@ typedef uint8 Dem_DistMemLocationStatusType;
 #define DEM_DIST_MEM_CLEARBIT      rba_DiagLib_Bit8ClearBit
 #define DEM_DIST_MEM_SETBIT        rba_DiagLib_Bit8SetBit
 
-#define DEM_DIST_MEM_INVALID_LOC  		0u
+#define DEM_DIST_MEM_INVALID_LOC        0u
 
-#define DEM_DIST_MEM_INIT_STATUS_BYTE	0u
+#define DEM_DIST_MEM_INIT_STATUS_BYTE   0u
 
 #define DEM_DIST_MEM_NEW_ENTRY_STATUS_BYTE ((uint8)(1u<<DEM_DIST_MEM_BP_FLAG_TEST_CURRENT) | (uint8)(1u<<DEM_DIST_MEM_BP_UPDATE_EXTN_DATA))
 
@@ -69,64 +69,52 @@ extern uint8 Dem_DistMemReadIndex;
 #define DEM_STOP_SEC_RAM_CLEARED
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE Dem_EventIdType Dem_DistMemGetStoredEventId (uint8 DistMemIndex)
-{
+DEM_INLINE Dem_EventIdType Dem_DistMemGetStoredEventId (uint8 DistMemIndex){
    return Dem_DistMemLocations[DistMemIndex].eventId;
 }
 
-DEM_INLINE void Dem_DistMemSetStoredEventId (uint8 DistMemIndex , Dem_EventIdType EventId)
-{
+DEM_INLINE void Dem_DistMemSetStoredEventId (uint8 DistMemIndex , Dem_EventIdType EventId){
    Dem_DistMemLocations[DistMemIndex].eventId = EventId;
 }
 
-DEM_INLINE uint8 Dem_DistMemGetStoredDisturbanceCounter (uint8 DistMemIndex)
-{
+DEM_INLINE uint8 Dem_DistMemGetStoredDisturbanceCounter (uint8 DistMemIndex){
    return Dem_DistMemLocations[DistMemIndex].disturbanceCtr;
 }
 
-DEM_INLINE Dem_boolean_least Dem_DistMemEvtGetTestCurrent_Flag (uint8 DistMemIndex)
-{
+DEM_INLINE Dem_boolean_least Dem_DistMemEvtGetTestCurrent_Flag (uint8 DistMemIndex){
    return DEM_DIST_MEM_ISBITSET (Dem_DistMemLocationsStatus[DistMemIndex], DEM_DIST_MEM_BP_FLAG_TEST_CURRENT);
 }
 
-DEM_INLINE void Dem_DistMemEvtWriteTestCurrent_Flag (uint8 DistMemIndex , Dem_boolean_least setBit )
-{
+DEM_INLINE void Dem_DistMemEvtWriteTestCurrent_Flag (uint8 DistMemIndex , Dem_boolean_least setBit ){
    DEM_DIST_MEM_OVERWRITEBIT (&Dem_DistMemLocationsStatus[DistMemIndex], DEM_DIST_MEM_BP_FLAG_TEST_CURRENT , setBit);
 }
 
-DEM_INLINE Dem_boolean_least Dem_DistMemEvtGetTestDisturbed_Flag (uint8 DistMemIndex)
-{
+DEM_INLINE Dem_boolean_least Dem_DistMemEvtGetTestDisturbed_Flag (uint8 DistMemIndex){
    return DEM_DIST_MEM_ISBITSET (Dem_DistMemLocationsStatus[DistMemIndex], DEM_DIST_MEM_BP_FLAG_TEST_DISTURBED);
 }
 
-DEM_INLINE void Dem_DistMemEvtSetTestDisturbed_Flag (uint8 DistMemIndex)
-{
+DEM_INLINE void Dem_DistMemEvtSetTestDisturbed_Flag (uint8 DistMemIndex){
    DEM_DIST_MEM_SETBIT (&Dem_DistMemLocationsStatus[DistMemIndex], DEM_DIST_MEM_BP_FLAG_TEST_DISTURBED);
 }
 
-DEM_INLINE Dem_boolean_least Dem_DistMemIsUpdateEvtExtDataNecessary (uint8 DistMemIndex)
-{
+DEM_INLINE Dem_boolean_least Dem_DistMemIsUpdateEvtExtDataNecessary (uint8 DistMemIndex){
    return DEM_DIST_MEM_ISBITSET (Dem_DistMemLocationsStatus[DistMemIndex], DEM_DIST_MEM_BP_UPDATE_EXTN_DATA);
 }
 
-DEM_INLINE void Dem_DistMemRequestUpdateEvtExtData (uint8 DistMemIndex)
-{
+DEM_INLINE void Dem_DistMemRequestUpdateEvtExtData (uint8 DistMemIndex){
    DEM_DIST_MEM_SETBIT (&Dem_DistMemLocationsStatus[DistMemIndex], DEM_DIST_MEM_BP_UPDATE_EXTN_DATA);
 }
 
-DEM_INLINE void Dem_DistMemClearUpdateEvtExtData (uint8 DistMemIndex)
-{
+DEM_INLINE void Dem_DistMemClearUpdateEvtExtData (uint8 DistMemIndex){
    DEM_DIST_MEM_CLEARBIT (&Dem_DistMemLocationsStatus[DistMemIndex], DEM_DIST_MEM_BP_UPDATE_EXTN_DATA);
 }
 
-DEM_INLINE void Dem_DistMemSetStatusByte (uint8 DistMemIndex , uint8 newStatus)
-{
+DEM_INLINE void Dem_DistMemSetStatusByte (uint8 DistMemIndex , uint8 newStatus){
    Dem_DistMemLocationsStatus[DistMemIndex] = newStatus;
 }
 
 #if(DEM_CFG_DIST_MEM_EXTENDED_DATA_USED == STD_ON)
-DEM_INLINE void Dem_DistMemGetEnvData (uint8 DistMemIndex ,uint8* dest, uint8 size)
-{
+DEM_INLINE void Dem_DistMemGetEnvData (uint8 DistMemIndex ,uint8* dest, uint8 size){
    DEM_MEMCPY(dest, Dem_DistMemLocations[DistMemIndex].extData , size );
 }
 #endif
@@ -135,17 +123,16 @@ DEM_INLINE Dem_boolean_least Dem_DistMemIsFull (void){
    return (Dem_DistMemNextEmptyIndex == 0);
 }
 
-DEM_INLINE Dem_boolean_least Dem_DistMemIsReportFailedNecessary (Dem_EventIdType eventId, Dem_EventStatusType eventStatus)
-{
+DEM_INLINE Dem_boolean_least Dem_DistMemIsReportFailedNecessary (Dem_EventIdType eventId, Dem_EventStatusType eventStatus){
    return (   ((eventStatus==DEM_EVENT_STATUS_FAILED) || (eventStatus==DEM_EVENT_STATUS_PREFAILED))
-   	   && (Dem_EvtIsEventStoredInDistMem(eventId) || !Dem_DistMemIsFull()));
+         && (Dem_EvtIsEventStoredInDistMem(eventId) || !Dem_DistMemIsFull()));
 }
 
 #define DEM_START_SEC_ROM_CODE
 #include "Dem_Cfg_MemMap.hpp"
 
 void Dem_DistMemReportFailed(Dem_EventIdType EventId
-   						 DEM_DEBUGDATA_PARAM(Dem_DebugDataType debug0, Dem_DebugDataType debug1));
+                      DEM_DEBUGDATA_PARAM(Dem_DebugDataType debug0, Dem_DebugDataType debug1));
 void Dem_DistMemReportPassed(Dem_EventIdType EventId);
 
 void Dem_DistMemInitCheckNvM(void);

@@ -14,8 +14,7 @@ DEM_INLINE void Dem_CallBackTriggerOnEventStatus (
    Dem_UdsStatusByteType EventStatusOld,
    Dem_UdsStatusByteType EventStatusNew,
    Dem_UdsStatusByteType dtcStByteOld
-)
-{
+){
 #if( DEM_CFG_DTC_STATUSCHANGEDCALLBACK == DEM_CFG_DTC_STATUSCHANGEDCALLBACK_ON )
     Dem_DtcIdType dtcId;
     Dem_UdsStatusByteType dtcStByteNew;
@@ -35,8 +34,7 @@ DEM_INLINE void Dem_CallBackTriggerOnEventStatus (
     Dlt_DemTriggerOnEventStatus(EventId, EventStatusOld, EventStatusNew);
 #endif
 #if( DEM_CFG_DTC_STATUSCHANGEDCALLBACK == DEM_CFG_DTC_STATUSCHANGEDCALLBACK_ON )
-   if( Dem_EventIdIsDtcAssigned(EventId) )
-   {
+   if( Dem_EventIdIsDtcAssigned(EventId) ){
         dtcId = Dem_DtcIdFromEventId(EventId);
         if( Dem_DtcIsSupported(dtcId) )
         {
@@ -52,24 +50,21 @@ DEM_INLINE void Dem_CallBackTriggerOnEventStatus (
 }
 
 DEM_INLINE void Dem_StatusChange_GetOldStatus (
-   	Dem_EventIdType EventId
+      Dem_EventIdType EventId
    ,  Dem_UdsStatusByteType *isoByteOld
    ,  Dem_UdsStatusByteType *dtcStByteOld
-)
-{
+){
 #if( DEM_CFG_DTC_STATUSCHANGEDCALLBACK == DEM_CFG_DTC_STATUSCHANGEDCALLBACK_ON )
    Dem_DtcIdType dtcId;
 #endif
    *(isoByteOld) = Dem_EvtGetIsoByte(EventId);
     *dtcStByteOld = 0;
 #if( DEM_CFG_DTC_STATUSCHANGEDCALLBACK == DEM_CFG_DTC_STATUSCHANGEDCALLBACK_ON )
-   if( Dem_EventIdIsDtcAssigned(EventId) )
-   {
-   	dtcId = Dem_DtcIdFromEventId(EventId);
-   	if( Dem_DtcIsSupported(dtcId) )
-   	{
-   		*(dtcStByteOld) = (uint8)(Dem_DtcStatusByteRetrieve (dtcId) & DEM_CFG_DTCSTATUS_AVAILABILITYMASK);
-   	}
+   if( Dem_EventIdIsDtcAssigned(EventId) ){
+      dtcId = Dem_DtcIdFromEventId(EventId);
+      if( Dem_DtcIsSupported(dtcId) ){
+         *(dtcStByteOld) = (uint8)(Dem_DtcStatusByteRetrieve (dtcId) & DEM_CFG_DTCSTATUS_AVAILABILITYMASK);
+      }
    }
 #else
    (void) dtcStByteOld;
@@ -81,10 +76,8 @@ DEM_INLINE void Dem_TriggerOn_EventStatusChange (
    ,     Dem_UdsStatusByteType isoByteOld
    ,     Dem_UdsStatusByteType isoByteNew
    ,     Dem_UdsStatusByteType dtcStByteOld
-)
-{
-   if( isoByteNew != isoByteOld )
-   {
+){
+   if( isoByteNew != isoByteOld ){
 #if(DEM_CFG_TRIGGERFIMREPORTS == DEM_CFG_TRIGGERFIMREPORTS_ON)
 
         if(Dem_Is_Fim_Initialized())

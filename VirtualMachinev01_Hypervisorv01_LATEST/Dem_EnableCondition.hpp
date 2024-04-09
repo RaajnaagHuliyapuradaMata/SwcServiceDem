@@ -20,8 +20,7 @@ extern Dem_EnCoState Dem_EnCoAllStates;
 
 #endif
 
-DEM_INLINE Dem_boolean_least Dem_EnCoAreAllFulfilled (Dem_EnCoList enableConditionList)
-{
+DEM_INLINE Dem_boolean_least Dem_EnCoAreAllFulfilled (Dem_EnCoList enableConditionList){
 #if(DEM_CFG_ENABLECONDITION == DEM_CFG_ENABLECONDITION_ON)
    return ((enableConditionList & Dem_EnCoAllStates.isActive) == enableConditionList);
 #else
@@ -30,8 +29,7 @@ DEM_INLINE Dem_boolean_least Dem_EnCoAreAllFulfilled (Dem_EnCoList enableConditi
 #endif
 }
 
-DEM_INLINE Dem_boolean_least Dem_EnCoFulfilled (Dem_EnCoList enableConditionBitmask)
-{
+DEM_INLINE Dem_boolean_least Dem_EnCoFulfilled (Dem_EnCoList enableConditionBitmask){
     return Dem_EnCoAreAllFulfilled (enableConditionBitmask);
 }
 

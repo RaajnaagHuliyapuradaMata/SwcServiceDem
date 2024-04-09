@@ -15,8 +15,7 @@
 
 #define Dem_IndicatorAttributeInitCheckNvM()     do {}while(0);
 
-DEM_INLINE void Dem_ClearIndicatorAttributes(Dem_EventIdType EventId,Dem_UdsStatusByteType isoByteOld, Dem_UdsStatusByteType isoByteNew)
-{
+DEM_INLINE void Dem_ClearIndicatorAttributes(Dem_EventIdType EventId,Dem_UdsStatusByteType isoByteOld, Dem_UdsStatusByteType isoByteNew){
 }
 
 DEM_INLINE void Dem_SetIndicatorDeActivation_OnEvMemSetStatusNotification(Dem_EventIdType EventId, Dem_UdsStatusByteType isoByteOld, Dem_UdsStatusByteType isoByteNew)   {}

@@ -20,12 +20,10 @@ extern const Dem_EnvDataMap Dem_Cfg_EnvEventId2EnvData[DEM_EVENTID_ARRAYLENGTH];
 #define DEM_STOP_SEC_ROM_CONST
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE Dem_boolean_least Dem_EnvHasExtendedData(Dem_EventIdType EventId)
-{
+DEM_INLINE Dem_boolean_least Dem_EnvHasExtendedData(Dem_EventIdType EventId){
    return (Dem_Cfg_EnvEventId2EnvData[EventId].extDataId != 0);
 }
-DEM_INLINE Dem_boolean_least Dem_EnvHasFreezeFrame(Dem_EventIdType EventId)
-{
+DEM_INLINE Dem_boolean_least Dem_EnvHasFreezeFrame(Dem_EventIdType EventId){
    return (Dem_Cfg_EnvEventId2EnvData[EventId].freezeFrameId != 0);
 }
 

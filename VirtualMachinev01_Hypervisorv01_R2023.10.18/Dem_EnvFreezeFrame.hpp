@@ -19,14 +19,12 @@ DEM_ARRAY_DECLARE_CONST(Dem_EnvFreezeFrame, Dem_Cfg_EnvFreezeFrame, DEM_CFG_ENVF
 #define DEM_STOP_SEC_ROM_CONST
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE void Dem_EnvFFCapture(uint8 freezeFrameId, uint8* buffer, uint16 size, const Dem_InternalEnvData* internalEnvData)
-{
+DEM_INLINE void Dem_EnvFFCapture(uint8 freezeFrameId, uint8* buffer, uint16 size, const Dem_InternalEnvData* internalEnvData){
    uint32 i;
    uint8* end = buffer + size;
 
-   for(i = Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex; i < Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex; i++)
-   {
-   	Dem_EnvDIDCapture (Dem_Cfg_EnvFreezeFrame2Did[i], &buffer, end, internalEnvData);
+   for(i = Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex; i < Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex; i++){
+      Dem_EnvDIDCapture (Dem_Cfg_EnvFreezeFrame2Did[i], &buffer, end, internalEnvData);
    }
 
 #if(DEM_CFG_BUILDTARGET==DEM_CFG_BUILDTARGET_DEMTESTSUITE)
@@ -34,8 +32,7 @@ DEM_INLINE void Dem_EnvFFCapture(uint8 freezeFrameId, uint8* buffer, uint16 size
 #endif
 }
 
-DEM_INLINE uint16 Dem_EnvFFGetRawByteSize(uint8 freezeFrameId)
-{
+DEM_INLINE uint16 Dem_EnvFFGetRawByteSize(uint8 freezeFrameId){
    return Dem_Cfg_EnvFreezeFrame[freezeFrameId].rawByteSize;
 }
 
@@ -44,15 +41,13 @@ DEM_INLINE Dem_ReturnGetFreezeFrameDataByDTCType Dem_EnvFFRetrieve(uint8 freezeF
    ,  uint8* dest
    ,  uint16* bufsize
    ,  const uint8* src
-   ,  const Dem_InternalEnvData* internalEnvData)
-{
+   ,  const Dem_InternalEnvData* internalEnvData){
    uint8* writepos = dest;
    uint8* end = dest + *bufsize;
    uint16_least i;
 
-   if(*bufsize < 2)
-   {
-   	return DEM_GET_FFDATABYDTC_WRONG_BUFFERSIZE;
+   if(*bufsize < 2){
+      return DEM_GET_FFDATABYDTC_WRONG_BUFFERSIZE;
    }
 
    *writepos = RecNum;
@@ -61,40 +56,34 @@ DEM_INLINE Dem_ReturnGetFreezeFrameDataByDTCType Dem_EnvFFRetrieve(uint8 freezeF
    *writepos = (uint8)(Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex - Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex);
    writepos++;
 
-   for(i = Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex; i < Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex; i++)
-   {
-   	if(!Dem_EnvDIDRetrieve (Dem_Cfg_EnvFreezeFrame2Did[i], &writepos, end, &src, internalEnvData))
-   	{
-   		return DEM_GET_FFDATABYDTC_WRONG_BUFFERSIZE;
-   	}
+   for(i = Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex; i < Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex; i++){
+      if(!Dem_EnvDIDRetrieve (Dem_Cfg_EnvFreezeFrame2Did[i], &writepos, end, &src, internalEnvData)){
+         return DEM_GET_FFDATABYDTC_WRONG_BUFFERSIZE;
+      }
    }
 
    *bufsize = (uint16)(writepos - dest);
    return DEM_GET_FFDATABYDTC_OK;
 }
 
-DEM_INLINE Dem_ReturnGetSizeOfFreezeFrameByDTCType Dem_EnvFFGetSize(uint8 freezeFrameId, uint16* size)
-{
+DEM_INLINE Dem_ReturnGetSizeOfFreezeFrameByDTCType Dem_EnvFFGetSize(uint8 freezeFrameId, uint16* size){
    uint16_least i;
    *size = 2;
 
-   for(i = Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex; i < Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex; i++)
-   {
-   	*size += (Dem_EnvDIDGetSize (Dem_Cfg_EnvFreezeFrame2Did[i]));
+   for(i = Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex; i < Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex; i++){
+      *size += (Dem_EnvDIDGetSize (Dem_Cfg_EnvFreezeFrame2Did[i]));
    }
 
    return DEM_GET_SIZEOFFF_OK;
 }
 
-DEM_INLINE void Dem_EnvFFRetrieveRaw(uint8 freezeFrameId, uint8* dest, uint16* bufsize, const uint8* src, const Dem_InternalEnvData *internalEnvData)
-{
+DEM_INLINE void Dem_EnvFFRetrieveRaw(uint8 freezeFrameId, uint8* dest, uint16* bufsize, const uint8* src, const Dem_InternalEnvData *internalEnvData){
    uint8* writepos = dest;
    uint8* end = dest + *bufsize;
    uint16_least i;
 
-   for(i = Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex; i < Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex; i++)
-   {
-   	(void)Dem_EnvDIDRetrieveRaw (Dem_Cfg_EnvFreezeFrame2Did[i], &writepos, end, &src, internalEnvData);
+   for(i = Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex; i < Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex; i++){
+      (void)Dem_EnvDIDRetrieveRaw (Dem_Cfg_EnvFreezeFrame2Did[i], &writepos, end, &src, internalEnvData);
    }
 
    *bufsize = (uint16)(writepos - dest);
@@ -105,27 +94,23 @@ DEM_INLINE Dem_boolean_least Dem_EnvFFRetrieveDid(uint8 freezeFrameId
    ,  uint16* bufsize
    ,  uint16 did
    ,  const uint8* src
-   ,  const Dem_InternalEnvData* internalEnvData)
-{
+   ,  const Dem_InternalEnvData* internalEnvData){
    uint8* writepos = dest;
    uint8* end = dest + *bufsize;
    uint16_least i;
 
-   for(i = Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex; i < Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex; i++)
-   {
-   	if(Dem_EnvDIDRetrieveSpecificDid (Dem_Cfg_EnvFreezeFrame2Did[i], did, &writepos, end, &src, internalEnvData))
-   	{
-   		*bufsize = (uint16)(writepos - dest);
-   		return TRUE;
-   	}
+   for(i = Dem_Cfg_EnvFreezeFrame[freezeFrameId - 1].didIndex; i < Dem_Cfg_EnvFreezeFrame[freezeFrameId].didIndex; i++){
+      if(Dem_EnvDIDRetrieveSpecificDid (Dem_Cfg_EnvFreezeFrame2Did[i], did, &writepos, end, &src, internalEnvData)){
+         *bufsize = (uint16)(writepos - dest);
+         return TRUE;
+      }
    }
 
    *bufsize = 0;
    return FALSE;
 }
 
-DEM_INLINE void Dem_EnvFFCopyRaw(uint8 freezeFrameId, uint8* dest, uint16 bufsize, const uint8* src)
-{
+DEM_INLINE void Dem_EnvFFCopyRaw(uint8 freezeFrameId, uint8* dest, uint16 bufsize, const uint8* src){
    const uint16 bytesize = Dem_Cfg_EnvFreezeFrame[freezeFrameId].rawByteSize;
 
    DEM_ASSERT(bytesize <= bufsize, DEM_DET_APIID_ENVFFCOPYRAW, 0);

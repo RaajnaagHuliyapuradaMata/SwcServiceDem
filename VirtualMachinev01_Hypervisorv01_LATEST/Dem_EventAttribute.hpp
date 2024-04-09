@@ -23,17 +23,15 @@ extern const Dem_EventAttributeType* Dem_getEventUserAttributes(Dem_EventIdType 
 
 #define DEM_EVTS_USERATTRIBUTES_INIT(DEFECT, VALUE)   \
 {                                                 \
-   (DEFECT),									  \
-   (VALUE)                                     	  \
+   (DEFECT),                             \
+   (VALUE)                                          \
 }
 
-DEM_INLINE boolean Dem_GetEventAttribute_defect(Dem_EventIdType EventId)
-{
+DEM_INLINE boolean Dem_GetEventAttribute_defect(Dem_EventIdType EventId){
    return (Dem_getEventUserAttributes(EventId)->defect);
 }
 
-DEM_INLINE uint8 Dem_GetEventAttribute_value(Dem_EventIdType EventId)
-{
+DEM_INLINE uint8 Dem_GetEventAttribute_value(Dem_EventIdType EventId){
    return (Dem_getEventUserAttributes(EventId)->value);
 }
 

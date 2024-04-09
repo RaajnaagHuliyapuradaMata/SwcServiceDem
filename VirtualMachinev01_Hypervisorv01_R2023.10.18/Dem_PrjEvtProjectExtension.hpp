@@ -6,8 +6,7 @@
 #ifndef DEM_PRJEVTPROJECTEXTENSION_H
 #define DEM_PRJEVTPROJECTEXTENSION_H
 
-DEM_INLINE void Dem_EvtProjectExtensionSetEventStatus(Dem_EventIdType EventId, Dem_EventStatusType EventStatus, uint8_least debAction)
-{
+DEM_INLINE void Dem_EvtProjectExtensionSetEventStatus(Dem_EventIdType EventId, Dem_EventStatusType EventStatus, uint8_least debAction){
 }
 
 #endif

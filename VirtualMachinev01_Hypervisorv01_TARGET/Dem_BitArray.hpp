@@ -20,8 +20,7 @@
 #define DEM_BITARRAY_ELEMENT_BITSIZE \
     (DEM_SIZEOF_TYPE(uint32) * 8u)
 
-DEM_INLINE void Dem_BitArraySetBit(DEM_BITARRAY_FUNCPARAM(buffer), uint32 bit_position)
-{
+DEM_INLINE void Dem_BitArraySetBit(DEM_BITARRAY_FUNCPARAM(buffer), uint32 bit_position){
 
    const uint32 element_pos = ((uint32)(bit_position / DEM_BITARRAY_ELEMENT_BITSIZE));
    const uint32 local_bitpos = ((uint32)(bit_position % DEM_BITARRAY_ELEMENT_BITSIZE));
@@ -32,8 +31,7 @@ DEM_INLINE void Dem_BitArraySetBit(DEM_BITARRAY_FUNCPARAM(buffer), uint32 bit_po
     return;
 }
 
-DEM_INLINE void Dem_BitArrayClearBit(DEM_BITARRAY_FUNCPARAM(buffer), uint32 bit_position)
-{
+DEM_INLINE void Dem_BitArrayClearBit(DEM_BITARRAY_FUNCPARAM(buffer), uint32 bit_position){
 
    const uint32 element_pos = ((uint32)(bit_position / DEM_BITARRAY_ELEMENT_BITSIZE));
    const uint32 local_bitpos = ((uint32)(bit_position % DEM_BITARRAY_ELEMENT_BITSIZE));
@@ -45,8 +43,7 @@ DEM_INLINE void Dem_BitArrayClearBit(DEM_BITARRAY_FUNCPARAM(buffer), uint32 bit_
 }
 
 DEM_INLINE void Dem_BitArrayOverwriteBit(DEM_BITARRAY_FUNCPARAM(buffer)
-   ,     uint32 bit_position, Dem_boolean_least will_bit_be_set)
-{
+   ,     uint32 bit_position, Dem_boolean_least will_bit_be_set){
    if(will_bit_be_set) {
         Dem_BitArraySetBit(buffer, bit_position);
    }else {
@@ -55,8 +52,7 @@ DEM_INLINE void Dem_BitArrayOverwriteBit(DEM_BITARRAY_FUNCPARAM(buffer)
     return;
 }
 
-DEM_INLINE Dem_boolean_least Dem_BitArrayIsBitSet(DEM_BITARRAY_CONSTFUNCPARAM(buffer), uint32 bit_position)
-{
+DEM_INLINE Dem_boolean_least Dem_BitArrayIsBitSet(DEM_BITARRAY_CONSTFUNCPARAM(buffer), uint32 bit_position){
 
    const uint32 element_pos = ((uint32)(bit_position / DEM_BITARRAY_ELEMENT_BITSIZE));
    const uint32 local_bitpos = ((uint32)(bit_position % DEM_BITARRAY_ELEMENT_BITSIZE));
@@ -66,8 +62,7 @@ DEM_INLINE Dem_boolean_least Dem_BitArrayIsBitSet(DEM_BITARRAY_CONSTFUNCPARAM(bu
     return (buffer[element_pos] & mask) != 0u;
 }
 
-DEM_INLINE void Dem_BitArrayClearAll (DEM_BITARRAY_FUNCPARAM(buffer), uint32 number_of_bits)
-{
+DEM_INLINE void Dem_BitArrayClearAll (DEM_BITARRAY_FUNCPARAM(buffer), uint32 number_of_bits){
    uint32 i;
    for(i = 0; i < DEM_BITARRAY_DATAELEMENTS(number_of_bits); i++) {
         buffer[i] = 0U;

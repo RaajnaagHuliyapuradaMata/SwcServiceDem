@@ -43,13 +43,11 @@ void Dem_DtcsClearDtcInGroup(uint8 GroupId, Dem_DTCOriginType DTCOrigin, Dem_Cli
 #define DEM_STOP_SEC_ROM_CODE
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE Dem_DTCGroupType Dem_DtcGroupGetCode (Dem_DTCGroupIdType dtcGroupId)
-{
+DEM_INLINE Dem_DTCGroupType Dem_DtcGroupGetCode (Dem_DTCGroupIdType dtcGroupId){
    return Dem_AllDTCGroupsParam[dtcGroupId].dtcGroupCode;
 }
 
-DEM_INLINE void Dem_SetDtcGroupSettingFlag(Dem_boolean_least DtcGroupDisabled)
-{
+DEM_INLINE void Dem_SetDtcGroupSettingFlag(Dem_boolean_least DtcGroupDisabled){
     Dem_DtcGroupDisabledFlag = DtcGroupDisabled;
 }
 

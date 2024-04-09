@@ -97,8 +97,7 @@ typedef struct{
 #define DEM_STOP_SEC_ROM_CONST
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE Dem_boolean_least Dem_DtcIsSuppressed (Dem_DtcIdType dtcId)
-{
+DEM_INLINE Dem_boolean_least Dem_DtcIsSuppressed (Dem_DtcIdType dtcId){
 #if(DEM_CFG_SUPPRESSION != DEM_NO_SUPPRESSION)
     return DEM_DTCSTATE_ISBITSET (Dem_AllDTCsState[dtcId].state, DEM_DTC_BP_STATE_SUPPRESSED);
 #else
@@ -107,8 +106,7 @@ DEM_INLINE Dem_boolean_least Dem_DtcIsSuppressed (Dem_DtcIdType dtcId)
 #endif
 }
 
-DEM_INLINE Dem_boolean_least Dem_DtcIsSuppressedDirectly (Dem_DtcIdType dtcId)
-{
+DEM_INLINE Dem_boolean_least Dem_DtcIsSuppressedDirectly (Dem_DtcIdType dtcId){
 #if((DEM_CFG_SUPPRESSION == DEM_DTC_SUPPRESSION) || (DEM_CFG_SUPPRESSION == DEM_EVENT_AND_DTC_SUPPRESSION))
     return DEM_DTCSTATE_ISBITSET (Dem_AllDTCsState[dtcId].state, DEM_DTC_BP_STATE_SUPPRESSED_DIRECTLY);
 #else
@@ -117,20 +115,17 @@ DEM_INLINE Dem_boolean_least Dem_DtcIsSuppressedDirectly (Dem_DtcIdType dtcId)
 #endif
 }
 
-DEM_INLINE Dem_boolean_least Dem_DtcIsSupported (Dem_DtcIdType dtcID)
-{
+DEM_INLINE Dem_boolean_least Dem_DtcIsSupported (Dem_DtcIdType dtcID){
     return (Dem_isDtcIdValid(dtcID)
             && (!Dem_DtcIsSuppressed(dtcID))
     );
 }
 
 #if((DEM_CFG_SUPPRESSION == DEM_EVENT_SUPPRESSION) || (DEM_CFG_SUPPRESSION == DEM_EVENT_AND_DTC_SUPPRESSION))
-DEM_INLINE void Dem_DtcHandleEventSuppression (Dem_DtcIdType dtcId, Dem_boolean_least eventUnsuppressed)
-{
+DEM_INLINE void Dem_DtcHandleEventSuppression (Dem_DtcIdType dtcId, Dem_boolean_least eventUnsuppressed){
     DEM_ASSERT_ISLOCKED();
 
-   if(!Dem_DtcIsSuppressedDirectly(dtcId))
-   {
+   if(!Dem_DtcIsSuppressedDirectly(dtcId)){
         Dem_EventIdListIterator it;
 
         if(!eventUnsuppressed)
@@ -153,18 +148,15 @@ DEM_INLINE void Dem_DtcHandleEventSuppression (Dem_DtcIdType dtcId, Dem_boolean_
 #endif
 
 #if((DEM_CFG_SUPPRESSION == DEM_DTC_SUPPRESSION) || (DEM_CFG_SUPPRESSION == DEM_EVENT_AND_DTC_SUPPRESSION))
-DEM_INLINE void Dem_DtcSuppressionApply (Dem_DtcIdType dtcId, Dem_boolean_least setBit)
-{
+DEM_INLINE void Dem_DtcSuppressionApply (Dem_DtcIdType dtcId, Dem_boolean_least setBit){
    DEM_ENTERLOCK_MON();
 
    DEM_DTCSTATE_OVERWRITEBIT (&Dem_AllDTCsState[dtcId].state, DEM_DTC_BP_STATE_SUPPRESSED_DIRECTLY, setBit);
 
-   if(setBit)
-   {
+   if(setBit){
        DEM_DTCSTATE_SETBIT (&Dem_AllDTCsState[dtcId].state, DEM_DTC_BP_STATE_SUPPRESSED);
    }
-   else
-   {
+   else{
 # if(DEM_CFG_SUPPRESSION == DEM_EVENT_AND_DTC_SUPPRESSION)
        Dem_DtcHandleEventSuppression (dtcId, FALSE);
 # else
@@ -177,26 +169,21 @@ DEM_INLINE void Dem_DtcSuppressionApply (Dem_DtcIdType dtcId, Dem_boolean_least 
 #endif
 
 #if((DEM_CFG_SUPPRESSION == DEM_DTC_SUPPRESSION) || (DEM_CFG_SUPPRESSION == DEM_EVENT_AND_DTC_SUPPRESSION))
-DEM_INLINE Dem_boolean_least Dem_IsEventMemoryEntryExistForDTC (Dem_DtcIdType dtcId)
-{
+DEM_INLINE Dem_boolean_least Dem_IsEventMemoryEntryExistForDTC (Dem_DtcIdType dtcId){
    uint8 DtcStatusByte = Dem_DtcStatusByteRetrieve(dtcId);
 
-   if(Dem_ISO14229ByteIsTestFailed(DtcStatusByte) || Dem_ISO14229ByteIsTestFailedSLC(DtcStatusByte))
-   {
-   	return TRUE;
+   if(Dem_ISO14229ByteIsTestFailed(DtcStatusByte) || Dem_ISO14229ByteIsTestFailedSLC(DtcStatusByte)){
+      return TRUE;
    }
-   else
-   {
-   	return FALSE;
+   else{
+      return FALSE;
    }
 }
 #endif
 
-DEM_INLINE Dem_DtcCodeType Dem_GetDtcCode (Dem_DtcIdType dtcId)
-{
+DEM_INLINE Dem_DtcCodeType Dem_GetDtcCode (Dem_DtcIdType dtcId){
 #if(DEM_CFG_ALTERNATIVEDTC == DEM_CFG_ALTERNATIVEDTC_ON)
-   if(Dem_Cfg_Dtc_GetDtcCode_Is_Index(dtcId))
-   {
+   if(Dem_Cfg_Dtc_GetDtcCode_Is_Index(dtcId)){
         if(Dem_AlternativeDTCEnabled)
         {
             return Dem_AllAlternativeDTCsParam[Dem_Cfg_Dtc_GetDtcCode(dtcId)].AltDtccode;
@@ -223,33 +210,29 @@ Dem_DtcIdType Dem_DtcIdFromDtcCode (Dem_DtcCodeType dtcCode);
 Std_ReturnType Dem_GetDTCOfEvent_GeneralEvtInfo(Dem_EventIdType EventId, Dem_DTCFormatType DTCFormat, uint32* DTCOfEvent);
 #endif
 
-DEM_INLINE Dem_boolean_least Dem_EventUsesOrigin (Dem_EventIdType eventId, Dem_DTCOriginType origin)
-{
+DEM_INLINE Dem_boolean_least Dem_EventUsesOrigin (Dem_EventIdType eventId, Dem_DTCOriginType origin){
    if(   ((origin == DEM_DTC_ORIGIN_PRIMARY_MEMORY) && Dem_EvtParam_GetEventIsStoredInPrimary(eventId))
-   		|| ((origin == DEM_DTC_ORIGIN_SECONDARY_MEMORY) && Dem_EvtParam_GetEventIsStoredInSecondary(eventId))
-   		|| ((origin == DEM_DTC_ORIGIN_MIRROR_MEMORY) && Dem_EvtParam_GetEventIsStoredInMirror(eventId))
+         || ((origin == DEM_DTC_ORIGIN_SECONDARY_MEMORY) && Dem_EvtParam_GetEventIsStoredInSecondary(eventId))
+         || ((origin == DEM_DTC_ORIGIN_MIRROR_MEMORY) && Dem_EvtParam_GetEventIsStoredInMirror(eventId))
 
 #if(DEM_CFG_OBD != DEM_CFG_OBD_OFF)
-   		|| ((origin == DEM_DTC_ORIGIN_PERMANENT_MEMORY) && (Dem_Cfg_Dtc_GetKind(Dem_DtcIdFromEventId(eventId)) == DEM_DTC_KIND_EMISSION_REL_DTCS))
+         || ((origin == DEM_DTC_ORIGIN_PERMANENT_MEMORY) && (Dem_Cfg_Dtc_GetKind(Dem_DtcIdFromEventId(eventId)) == DEM_DTC_KIND_EMISSION_REL_DTCS))
 #endif
 
-   )
-   {
-   	return TRUE;
+   ){
+      return TRUE;
    }
    return FALSE;
 }
 
-DEM_INLINE Dem_boolean_least Dem_DtcUsesOrigin (Dem_DtcIdType dtcId, Dem_DTCOriginType origin)
-{
+DEM_INLINE Dem_boolean_least Dem_DtcUsesOrigin (Dem_DtcIdType dtcId, Dem_DTCOriginType origin){
     Dem_EventIdType eventId = Dem_DtcIdGetFirstEventId(dtcId);
     return Dem_EventUsesOrigin(eventId, origin);
 }
 
 void Dem_DtcSetDTCSetting (Dem_DtcIdType dtcId, Dem_boolean_least setBit);
 
-DEM_INLINE Dem_boolean_least Dem_DtcIsDTCSettingEnabled(Dem_DtcIdType dtcId)
-{
+DEM_INLINE Dem_boolean_least Dem_DtcIsDTCSettingEnabled(Dem_DtcIdType dtcId){
    return (!(DEM_DTCSTATE_ISBITSET (Dem_AllDTCsState[dtcId].state, DEM_DTC_BP_GROUP_DTCSETTING_DISABLED)));
 }
 
@@ -258,8 +241,7 @@ DEM_INLINE Dem_boolean_least Dem_DtcIsDTCSettingEnabled(Dem_DtcIdType dtcId)
 
 Dem_boolean_least Dem_IsEventEnabledByDtcSetting(Dem_EventIdType EventId);
 
-DEM_INLINE Dem_boolean_least Dem_IsEventReportingEnabledByDtcSetting(Dem_EventIdType EventId)
-{
+DEM_INLINE Dem_boolean_least Dem_IsEventReportingEnabledByDtcSetting(Dem_EventIdType EventId){
 #if(DEM_CFG_DTCSETTINGBLOCKSREPORTING)
     return Dem_IsEventEnabledByDtcSetting(EventId);
 #else
@@ -268,8 +250,7 @@ DEM_INLINE Dem_boolean_least Dem_IsEventReportingEnabledByDtcSetting(Dem_EventId
 #endif
 }
 
-DEM_INLINE Dem_boolean_least Dem_IsEventStorageEnabledByDtcSetting(Dem_EventIdType EventId)
-{
+DEM_INLINE Dem_boolean_least Dem_IsEventStorageEnabledByDtcSetting(Dem_EventIdType EventId){
 #if(DEM_CFG_DTCSETTINGBLOCKSREPORTING)
     DEM_UNUSED_PARAM(EventId);
     return TRUE;

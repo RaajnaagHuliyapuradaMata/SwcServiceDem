@@ -42,21 +42,17 @@ DEM_ARRAY_DECLARE_CONST(Dem_NvmHashIdType, Dem_HashIdInRom, DEM_NVM_HASH_ID_SIZE
 #define DEM_STOP_SEC_ROM_CONST
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE NvM_BlockIdType Dem_NvMGetNvMBlocKId(Dem_NvmBlockIdType id)
-{
+DEM_INLINE NvM_BlockIdType Dem_NvMGetNvMBlocKId(Dem_NvmBlockIdType id){
     return Dem_NvMBlockMap2NvmId[id];
 }
 
-DEM_INLINE Dem_NvmResultType Dem_NvmGetStatus (Dem_NvmBlockIdType id)
-{
+DEM_INLINE Dem_NvmResultType Dem_NvmGetStatus (Dem_NvmBlockIdType id){
     NvM_RequestResultType result;
-   if(NvM_GetErrorStatus (Dem_NvMGetNvMBlocKId(id), &result) == E_NOT_OK)
-   {
+   if(NvM_GetErrorStatus (Dem_NvMGetNvMBlocKId(id), &result) == E_NOT_OK){
         return DEM_NVM_FAILED;
    }
 
-   switch(result)
-   {
+   switch(result){
         case NVM_REQ_CANCELED:
             return DEM_NVM_CANCELED;
 
@@ -83,30 +79,24 @@ DEM_INLINE Dem_NvmResultType Dem_NvmGetStatus (Dem_NvmBlockIdType id)
    }
 }
 
-DEM_INLINE void Dem_NvMWriteBlockOnShutdown(Dem_NvmBlockIdType id)
-{
+DEM_INLINE void Dem_NvMWriteBlockOnShutdown(Dem_NvmBlockIdType id){
     Dem_NvMBlockStatusDoubleBuffer[id][DEM_NVM_STATUSINDEX_SHUTDOWN] = DEM_NVM_STATUSBITMASK_SHUTDOWN;
 }
 
-DEM_INLINE void Dem_NvMWriteBlockImmediate(Dem_NvmBlockIdType id)
-{
+DEM_INLINE void Dem_NvMWriteBlockImmediate(Dem_NvmBlockIdType id){
     Dem_NvMBlockStatusDoubleBuffer[id][DEM_NVM_STATUSINDEX_IMMEDIATE] = DEM_NVM_STATUSBITMASK_IMMEDIATE;
 }
 
-DEM_INLINE void Dem_NvMClearBlockByWrite(Dem_NvmBlockIdType id)
-{
+DEM_INLINE void Dem_NvMClearBlockByWrite(Dem_NvmBlockIdType id){
     Dem_NvMBlockStatusDoubleBuffer[id][DEM_NVM_STATUSINDEX_CLEAR] = DEM_NVM_STATUSBITMASK_CLEAR;
 }
 
-DEM_INLINE void Dem_NvMClearBlockByInvalidate(Dem_NvmBlockIdType id)
-{
+DEM_INLINE void Dem_NvMClearBlockByInvalidate(Dem_NvmBlockIdType id){
     Dem_NvMBlockStatusDoubleBuffer[id][DEM_NVM_STATUSINDEX_CLEAR] = DEM_NVM_STATUSBITMASK_INVALIDATE;
 }
 
-DEM_INLINE void Dem_NvMExcludeBlockFromStatemachine(Dem_NvmBlockIdType id, boolean exclude)
-{
-   if(exclude)
-   {
+DEM_INLINE void Dem_NvMExcludeBlockFromStatemachine(Dem_NvmBlockIdType id, boolean exclude){
+   if(exclude){
         Dem_NvMBlockStatusDoubleBuffer[id][DEM_NVM_STATUSINDEX_EXCLUDE] = DEM_NVM_STATUSBITMASK_EXCLUDE;
    }
    else{
@@ -137,8 +127,7 @@ DEM_INLINE boolean Dem_NvMIsClearFailed(void){
 }
 
 #if(DEM_CFG_TRIGGER_TO_STORE_NVM_SUPPORTED)
-DEM_INLINE void Dem_NvMSetImmediateStorageRequested(boolean state)
-{
+DEM_INLINE void Dem_NvMSetImmediateStorageRequested(boolean state){
     Dem_NvMImmediateStorageRequested = state;
 }
 

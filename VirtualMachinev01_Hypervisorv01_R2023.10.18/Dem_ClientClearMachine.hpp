@@ -44,13 +44,11 @@ extern Dem_ClientClearMachineType Dem_ClientClearMachine;
 #define DEM_START_SEC_ROM_CODE
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE void Dem_ClientClearMachine_SetMachineActiveClient(Dem_ClientIdType ClientId)
-{
+DEM_INLINE void Dem_ClientClearMachine_SetMachineActiveClient(Dem_ClientIdType ClientId){
     Dem_ClientClearMachine.activeClient = ClientId;
 }
 
-DEM_INLINE boolean Dem_ClientClearMachine_isProcessingClient(Dem_ClientIdType ClientId)
-{
+DEM_INLINE boolean Dem_ClientClearMachine_isProcessingClient(Dem_ClientIdType ClientId){
     return (Dem_ClientClearMachine.activeClient == ClientId);
 }
 
@@ -58,8 +56,7 @@ DEM_INLINE uint8 Dem_ClientClearMachine_GetMachineActiveClient(void){
     return Dem_ClientClearMachine.activeClient;
 }
 
-DEM_INLINE void Dem_ClientClearMachine_SetMachineState(uint8 state)
-{
+DEM_INLINE void Dem_ClientClearMachine_SetMachineState(uint8 state){
     Dem_ClientClearMachine.machine_state = state;
 }
 
@@ -67,8 +64,7 @@ DEM_INLINE uint8 Dem_ClientClearMachine_GetMachineState(void){
     return Dem_ClientClearMachine.machine_state;
 }
 
-DEM_INLINE boolean Dem_ClientClearMachine_isClearDtcGroupAllDtcsSelected(Dem_ClientIdType ClientId)
-{
+DEM_INLINE boolean Dem_ClientClearMachine_isClearDtcGroupAllDtcsSelected(Dem_ClientIdType ClientId){
 boolean status = TRUE;
 #if(DEM_CFG_J1939DCM != DEM_CFG_J1939DCM_OFF)
 if(ClientId != DEM_CLIENTID_J1939)
@@ -77,8 +73,7 @@ if(ClientId != DEM_CLIENTID_J1939)
    if((Dem_LibGetParamUI8(DEM_CFG_CLEAR_DTC_LIMITATION)
             == Dem_LibGetParamUI8(DEM_CFG_CLEAR_DTC_LIMITATION_ONLY_CLEAR_ALL_DTCS))
             && (Dem_ClientSelectionType_getTypeOfSelection(Dem_Clients[ClientId].selection)
-                    != DEM_CLIENT_SELECTION_TYPE_ALL_DTCS))
-   {
+                    != DEM_CLIENT_SELECTION_TYPE_ALL_DTCS)){
         Dem_ClientResultType_setResult(&Dem_Clients[ClientId].result, Dem_Clients[ClientId].request, DEM_WRONG_DTC);
         status = FALSE;
    }
@@ -86,25 +81,20 @@ if(ClientId != DEM_CLIENTID_J1939)
 return status;
 }
 
-DEM_INLINE void Dem_ClientClearMachine_SetClientRequest(Dem_ClientIdType ClientId, uint8 state)
-{
-if(Dem_ClientClearMachine_isClearDtcGroupAllDtcsSelected(ClientId))
-{
-   if(state == DEM_CLEAR_DTC_MACHINE_STATE_IDLE)
-   {
+DEM_INLINE void Dem_ClientClearMachine_SetClientRequest(Dem_ClientIdType ClientId, uint8 state){
+if(Dem_ClientClearMachine_isClearDtcGroupAllDtcsSelected(ClientId)){
+   if(state == DEM_CLEAR_DTC_MACHINE_STATE_IDLE){
         Dem_ClientSelectionType_invalidateSelectionResult(&Dem_Client_getClient(ClientId)->selection);
         Dem_ClientClearMachine_SetMachineActiveClient(DEM_CLIENTID_INVALID);
         Dem_ClientClearMachine_SetMachineState(state);
    }
-   else if(state == DEM_CLEAR_DTC_MACHINE_STATE_EXEC)
-   {
+   else if(state == DEM_CLEAR_DTC_MACHINE_STATE_EXEC){
         Dem_ClientClearMachine.IsNewClearRequest = TRUE;
         Dem_ClientClearMachine_SetMachineActiveClient(ClientId);
         Dem_NvMStartClear();
         Dem_ClientClearMachine_SetMachineState(state);
    }
-   else if(state == DEM_CLEAR_DTC_MACHINE_STATE_WAITINGFORNVM)
-   {
+   else if(state == DEM_CLEAR_DTC_MACHINE_STATE_WAITINGFORNVM){
         Dem_ClientClearMachine_SetMachineState(state);
    }
    else{

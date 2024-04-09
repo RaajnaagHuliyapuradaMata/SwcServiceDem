@@ -48,8 +48,7 @@ DEM_ARRAY_DECLARE_CONST(Dem_ClientConfigDataType, Dem_Client_ConfigData, DEM_CLI
 #define DEM_START_SEC_ROM_CODE
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE Dem_boolean_least Dem_isClientIdValid(Dem_ClientIdType clientId)
-{
+DEM_INLINE Dem_boolean_least Dem_isClientIdValid(Dem_ClientIdType clientId){
    return ((clientId != DEM_CLIENTID_INVALID) && (clientId < DEM_CLIENTID_ARRAYLENGTH));
 }
 

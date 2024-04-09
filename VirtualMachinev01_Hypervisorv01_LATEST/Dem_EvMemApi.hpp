@@ -30,15 +30,12 @@ void Dem_EvMemApiMainFunction(void);
 #define DEM_STOP_SEC_ROM_CODE
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsDtcKindValid (Dem_DTCKindType DTCKind)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsDtcKindValid (Dem_DTCKindType DTCKind){
     return (DTCKind == DEM_DTC_KIND_ALL_DTCS);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsDtcOriginValid (Dem_DTCOriginType  *DTCOrigin)
-{
-   if(*DTCOrigin == DEM_DTC_ORIGIN_USERDEFINED_MEMORY)
-   {
+DEM_INLINE Dem_boolean_least Dem_EvMemIsDtcOriginValid (Dem_DTCOriginType  *DTCOrigin){
+   if(*DTCOrigin == DEM_DTC_ORIGIN_USERDEFINED_MEMORY){
         *DTCOrigin = DEM_DTC_ORIGIN_SECONDARY_MEMORY;
    }
     return (

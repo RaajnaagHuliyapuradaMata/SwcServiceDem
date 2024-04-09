@@ -6,11 +6,9 @@
 #include "Dem_EventStatus.hpp"
 #include "Dem_IndicatorAttributes.hpp"
 
-DEM_INLINE void Dem_StatusByteConsistencyCheck(uint16_least LocId, uint16_least Status)
-{
+DEM_INLINE void Dem_StatusByteConsistencyCheck(uint16_least LocId, uint16_least Status){
 
-   if(Dem_EvMemIsOriginPrimary(LocId) || Dem_EvMemIsOriginSecondary(LocId))
-   {
+   if(Dem_EvMemIsOriginPrimary(LocId) || Dem_EvMemIsOriginSecondary(LocId)){
         Dem_EventIdType EventId;
         EventId = Dem_EvMemGetEventMemEventId(LocId);
 
@@ -21,14 +19,13 @@ DEM_INLINE void Dem_StatusByteConsistencyCheck(uint16_least LocId, uint16_least 
             Dem_EvtSt_SetTestFailed(EventId, (Status & DEM_EVMEM_STSMASK_TESTFAILED) != 0u);
         }
 
-   	if((Status & (DEM_EVMEM_STSMASK_PENDING | DEM_EVMEM_STSMASK_CONFIRMED
+      if((Status & (DEM_EVMEM_STSMASK_PENDING | DEM_EVMEM_STSMASK_CONFIRMED
 #if(DEM_CFG_TFSLC_RESET_AFTER_AGING_AND_DISPLACEMENT)
-   	        | DEM_EVMEM_STSMASK_TESTFAILED_SLC
+              | DEM_EVMEM_STSMASK_TESTFAILED_SLC
 #endif
-   	)) != 0u)
-   	{
-   		Dem_EvtSt_SetTestFailedSLC(EventId,TRUE);
-   		Dem_EvtSt_SetTestCompleteSLC(EventId,TRUE);
+      )) != 0u){
+         Dem_EvtSt_SetTestFailedSLC(EventId,TRUE);
+         Dem_EvtSt_SetTestCompleteSLC(EventId,TRUE);
             if((Status & (DEM_EVMEM_STSMASK_CONFIRMED)) != 0u)
             {
                 Dem_EvtSt_SetConfirmedDTC(EventId,TRUE);
@@ -40,7 +37,7 @@ DEM_INLINE void Dem_StatusByteConsistencyCheck(uint16_least LocId, uint16_least 
 
             Dem_IndicatorAttribute_ConsistencyCheck(EventId, Status);
 
-   	}
+      }
    }
 }
 

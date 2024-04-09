@@ -73,18 +73,15 @@ DEM_ARRAY_DECLARE_CONST(uint16_least,     Dem_EvMemLocIdList,   DEM_CFG_EVMEM_MA
 #define DEM_STOP_SEC_ROM_CONST
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsMemIdValid(uint16_least MemId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsMemIdValid(uint16_least MemId){
     return (Dem_boolean_least)(MemId < DEM_CFG_EVMEM_MAX_MEMS);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsEventMemLocIdValid(uint16_least LocId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsEventMemLocIdValid(uint16_least LocId){
     return (Dem_boolean_least)(LocId < DEM_CFG_MAX_NUMBER_EVENT_ENTRY_ALL);
 }
 
-DEM_INLINE uint16_least Dem_EvMemLocId2ReaderCopyLocId(uint16_least LocId)
-{
+DEM_INLINE uint16_least Dem_EvMemLocId2ReaderCopyLocId(uint16_least LocId){
     DEM_ASSERT(Dem_EvMemIsEventMemLocIdValid(LocId), DEM_DET_APIID_EVMEMSETEVENTFAILED, 10);
 
 #if DEM_CFG_EVMEM_READ_FROM_DIFFERENT_TASK
@@ -94,58 +91,47 @@ DEM_INLINE uint16_least Dem_EvMemLocId2ReaderCopyLocId(uint16_least LocId)
 #endif
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsReaderCopyLocIdValid(uint16_least LocId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsReaderCopyLocIdValid(uint16_least LocId){
     return (Dem_boolean_least)(LocId < DEM_CFG_EVMEM_EVENTMEMORY_LENGTH);
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemStatusByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemStatusByPtr(const Dem_EvMemEventMemoryType *EventMemory){
     return EventMemory->Hdr.Data.Status;
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemStatus(uint16_least LocId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemStatus(uint16_least LocId){
     return Dem_EvMemGetEventMemStatusByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
-DEM_INLINE void Dem_EvMemSetEventMemStatus(uint16_least LocId, uint16_least Status)
-{
+DEM_INLINE void Dem_EvMemSetEventMemStatus(uint16_least LocId, uint16_least Status){
     Dem_EvMemEventMemory[LocId].Hdr.Data.Status = (uint16)Status;
 }
 
-DEM_INLINE Dem_EventIdType Dem_EvMemGetEventMemEventIdByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE Dem_EventIdType Dem_EvMemGetEventMemEventIdByPtr(const Dem_EvMemEventMemoryType *EventMemory){
     return EventMemory->Hdr.Data.EventId;
 }
 
-DEM_INLINE Dem_EventIdType Dem_EvMemGetEventMemEventId(uint16_least LocId)
-{
+DEM_INLINE Dem_EventIdType Dem_EvMemGetEventMemEventId(uint16_least LocId){
     return Dem_EvMemGetEventMemEventIdByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
-DEM_INLINE void Dem_EvMemSetEventMemEventId(uint16_least LocId, Dem_EventIdType EventId)
-{
+DEM_INLINE void Dem_EvMemSetEventMemEventId(uint16_least LocId, Dem_EventIdType EventId){
     Dem_EvMemEventMemory[LocId].Hdr.Data.EventId = (uint16)EventId;
 }
 
-DEM_INLINE uint32 Dem_EvMemGetEventMemTimeIdByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint32 Dem_EvMemGetEventMemTimeIdByPtr(const Dem_EvMemEventMemoryType *EventMemory){
     return EventMemory->TimeId;
 }
 
-DEM_INLINE uint32 Dem_EvMemGetEventMemTimeId(uint16_least LocId)
-{
+DEM_INLINE uint32 Dem_EvMemGetEventMemTimeId(uint16_least LocId){
     return Dem_EvMemGetEventMemTimeIdByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
-DEM_INLINE void Dem_EvMemSetEventMemTimeId(uint16_least LocId, uint32 TimeId)
-{
+DEM_INLINE void Dem_EvMemSetEventMemTimeId(uint16_least LocId, uint32 TimeId){
     Dem_EvMemEventMemory[LocId].TimeId = TimeId;
 }
 
-DEM_INLINE uint8 Dem_EvMemGetEventMemDtcStatusByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint8 Dem_EvMemGetEventMemDtcStatusByPtr(const Dem_EvMemEventMemoryType *EventMemory){
     DEM_EVMEM_USEVAR(EventMemory);
 
 #if(DEM_CFG_EVMEM_MIRROR_MEMORY_DTC_STATUS_STORED)
@@ -155,13 +141,11 @@ DEM_INLINE uint8 Dem_EvMemGetEventMemDtcStatusByPtr(const Dem_EvMemEventMemoryTy
 #endif
 }
 
-DEM_INLINE uint8 Dem_EvMemGetEventMemDtcStatus(uint16_least LocId)
-{
+DEM_INLINE uint8 Dem_EvMemGetEventMemDtcStatus(uint16_least LocId){
     return Dem_EvMemGetEventMemDtcStatusByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
-DEM_INLINE void Dem_EvMemSetEventMemDtcStatus(uint16_least LocId, uint8 DtcStatus)
-{
+DEM_INLINE void Dem_EvMemSetEventMemDtcStatus(uint16_least LocId, uint8 DtcStatus){
     DEM_EVMEM_USEVAR(LocId);
     DEM_EVMEM_USEVAR(DtcStatus);
 
@@ -170,23 +154,19 @@ DEM_INLINE void Dem_EvMemSetEventMemDtcStatus(uint16_least LocId, uint8 DtcStatu
 #endif
 }
 
-DEM_INLINE uint8_least Dem_EvMemGetEventMemFailureCounterByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint8_least Dem_EvMemGetEventMemFailureCounterByPtr(const Dem_EvMemEventMemoryType *EventMemory){
     return EventMemory->FailureCounter;
 }
 
-DEM_INLINE uint8_least Dem_EvMemGetEventMemFailureCounter(uint16_least LocId)
-{
+DEM_INLINE uint8_least Dem_EvMemGetEventMemFailureCounter(uint16_least LocId){
     return Dem_EvMemGetEventMemFailureCounterByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
-DEM_INLINE void Dem_EvMemSetEventMemFailureCounter(uint16_least LocId, uint8 FailureCounter)
-{
+DEM_INLINE void Dem_EvMemSetEventMemFailureCounter(uint16_least LocId, uint8 FailureCounter){
     Dem_EvMemEventMemory[LocId].FailureCounter = FailureCounter;
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemOccurrenceCounterByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemOccurrenceCounterByPtr(const Dem_EvMemEventMemoryType *EventMemory){
     DEM_EVMEM_USEVAR(EventMemory);
 
 #if(DEM_CFG_EVMEM_OCCURRENCE_COUNTER_SUPPORTED)
@@ -196,13 +176,11 @@ DEM_INLINE uint16_least Dem_EvMemGetEventMemOccurrenceCounterByPtr(const Dem_EvM
 #endif
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemOccurrenceCounter(uint16_least LocId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemOccurrenceCounter(uint16_least LocId){
     return Dem_EvMemGetEventMemOccurrenceCounterByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
-DEM_INLINE void Dem_EvMemSetEventMemOccurrenceCounter(uint16_least LocId, uint16_least OccurrenceCounter)
-{
+DEM_INLINE void Dem_EvMemSetEventMemOccurrenceCounter(uint16_least LocId, uint16_least OccurrenceCounter){
     DEM_EVMEM_USEVAR(LocId);
     DEM_EVMEM_USEVAR(OccurrenceCounter);
 
@@ -211,8 +189,7 @@ DEM_INLINE void Dem_EvMemSetEventMemOccurrenceCounter(uint16_least LocId, uint16
 #endif
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemAgingCounterByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemAgingCounterByPtr(const Dem_EvMemEventMemoryType *EventMemory){
    DEM_EVMEM_USEVAR(EventMemory);
 
 #if(DEM_CFG_EVMEM_AGING_COUNTER_SUPPORTED)
@@ -222,13 +199,11 @@ DEM_INLINE uint16_least Dem_EvMemGetEventMemAgingCounterByPtr(const Dem_EvMemEve
 #endif
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemAgingCounter(uint16_least LocId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemAgingCounter(uint16_least LocId){
    return Dem_EvMemGetEventMemAgingCounterByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
-DEM_INLINE void Dem_EvMemSetEventMemAgingCounter(uint16_least LocId, uint16_least AgingCounter)
-{
+DEM_INLINE void Dem_EvMemSetEventMemAgingCounter(uint16_least LocId, uint16_least AgingCounter){
     DEM_EVMEM_USEVAR(LocId);
     DEM_EVMEM_USEVAR(AgingCounter);
 
@@ -237,8 +212,7 @@ DEM_INLINE void Dem_EvMemSetEventMemAgingCounter(uint16_least LocId, uint16_leas
 #endif
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemAgingCounterForTFSLCByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemAgingCounterForTFSLCByPtr(const Dem_EvMemEventMemoryType *EventMemory){
    DEM_EVMEM_USEVAR(EventMemory);
 
 #if(DEM_CFG_TFSLC_RESET_AFTER_AGING_AND_DISPLACEMENT)
@@ -248,13 +222,11 @@ DEM_INLINE uint16_least Dem_EvMemGetEventMemAgingCounterForTFSLCByPtr(const Dem_
 #endif
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemAgingCounterForTFSLC(uint16_least LocId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemAgingCounterForTFSLC(uint16_least LocId){
    return Dem_EvMemGetEventMemAgingCounterForTFSLCByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
-DEM_INLINE void Dem_EvMemSetEventMemAgingCounterForTFSLC(uint16_least LocId, uint16_least AgingCounterForTFSLC)
-{
+DEM_INLINE void Dem_EvMemSetEventMemAgingCounterForTFSLC(uint16_least LocId, uint16_least AgingCounterForTFSLC){
     DEM_EVMEM_USEVAR(LocId);
     DEM_EVMEM_USEVAR(AgingCounterForTFSLC);
 
@@ -263,8 +235,7 @@ DEM_INLINE void Dem_EvMemSetEventMemAgingCounterForTFSLC(uint16_least LocId, uin
 #endif
 }
 
-DEM_INLINE void Dem_EvMemSetMaxFdcDuringCurrentCycleByPtr(Dem_EvMemEventMemoryType *EventMemory, sint8 fdc)
-{
+DEM_INLINE void Dem_EvMemSetMaxFdcDuringCurrentCycleByPtr(Dem_EvMemEventMemoryType *EventMemory, sint8 fdc){
     DEM_EVMEM_USEVAR(EventMemory);
     DEM_EVMEM_USEVAR(fdc);
 
@@ -273,8 +244,7 @@ DEM_INLINE void Dem_EvMemSetMaxFdcDuringCurrentCycleByPtr(Dem_EvMemEventMemoryTy
 #endif
 }
 
-DEM_INLINE void Dem_EvMemSetMaxFdcSinceLastClearByPtr(Dem_EvMemEventMemoryType *EventMemory, sint8 fdc)
-{
+DEM_INLINE void Dem_EvMemSetMaxFdcSinceLastClearByPtr(Dem_EvMemEventMemoryType *EventMemory, sint8 fdc){
     DEM_EVMEM_USEVAR(EventMemory);
     DEM_EVMEM_USEVAR(fdc);
 
@@ -283,8 +253,7 @@ DEM_INLINE void Dem_EvMemSetMaxFdcSinceLastClearByPtr(Dem_EvMemEventMemoryType *
 #endif
 }
 
-DEM_INLINE sint8 Dem_EvMemGetMaxFdcDuringCurrentCycleByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE sint8 Dem_EvMemGetMaxFdcDuringCurrentCycleByPtr(const Dem_EvMemEventMemoryType *EventMemory){
     DEM_EVMEM_USEVAR(EventMemory);
 
 #if(DEM_CFG_READDEM_MAX_FDC_DURING_CURRENT_CYCLE_SUPPORTED)
@@ -294,49 +263,42 @@ DEM_INLINE sint8 Dem_EvMemGetMaxFdcDuringCurrentCycleByPtr(const Dem_EvMemEventM
 #endif
 }
 
-DEM_INLINE sint8 Dem_EvMemGetMaxFdcSinceLastClearByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE sint8 Dem_EvMemGetMaxFdcSinceLastClearByPtr(const Dem_EvMemEventMemoryType *EventMemory){
     DEM_EVMEM_USEVAR(EventMemory);
 
 #if(DEM_CFG_READDEM_MAX_FDC_SINCE_LAST_CLEAR_SUPPORTED)
    return EventMemory->MaxFdcSinceLastClear;
 #else
-   	return 0;
+      return 0;
 #endif
 }
 
-DEM_INLINE void Dem_EvMemSetMaxFdcDuringCurrentCycle(uint16_least LocId, sint8 fdc)
-{
+DEM_INLINE void Dem_EvMemSetMaxFdcDuringCurrentCycle(uint16_least LocId, sint8 fdc){
    Dem_EvMemSetMaxFdcDuringCurrentCycleByPtr(&(Dem_EvMemEventMemory[LocId]), fdc);
 }
 
-DEM_INLINE void Dem_EvMemSetMaxFdcSinceLastClear(uint16_least LocId, sint8 fdc)
-{
+DEM_INLINE void Dem_EvMemSetMaxFdcSinceLastClear(uint16_least LocId, sint8 fdc){
    Dem_EvMemSetMaxFdcSinceLastClearByPtr(&(Dem_EvMemEventMemory[LocId]), fdc);
 }
 
-DEM_INLINE sint8 Dem_EvMemGetMaxFdcDuringCurrentCycle(uint16_least LocId)
-{
+DEM_INLINE sint8 Dem_EvMemGetMaxFdcDuringCurrentCycle(uint16_least LocId){
     return Dem_EvMemGetMaxFdcDuringCurrentCycleByPtr (&(Dem_EvMemEventMemory[LocId]));
 }
 
-DEM_INLINE sint8 Dem_EvMemGetMaxFdcSinceLastClear(uint16_least LocId)
-{
+DEM_INLINE sint8 Dem_EvMemGetMaxFdcSinceLastClear(uint16_least LocId){
    return Dem_EvMemGetMaxFdcSinceLastClearByPtr (&(Dem_EvMemEventMemory[LocId]));
 }
 
-DEM_INLINE uint8 Dem_EvMemGetCyclesSinceFirstFailedByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint8 Dem_EvMemGetCyclesSinceFirstFailedByPtr(const Dem_EvMemEventMemoryType *EventMemory){
 #if(DEM_CFG_READDEM_CYCLES_SINCE_FIRST_FAILED_SUPPORTED)
    return EventMemory->CyclesSinceFirstFailed;
 #else
    DEM_UNUSED_PARAM(EventMemory);
-   	return 0;
+      return 0;
 #endif
 }
 
-DEM_INLINE uint8 Dem_EvMemGetCyclesSinceLastFailedByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint8 Dem_EvMemGetCyclesSinceLastFailedByPtr(const Dem_EvMemEventMemoryType *EventMemory){
 #if(DEM_CFG_READDEM_CYCLES_SINCE_LAST_FAILED_SUPPORTED)
    return EventMemory->CyclesSinceLastFailed;
 #else
@@ -345,18 +307,16 @@ DEM_INLINE uint8 Dem_EvMemGetCyclesSinceLastFailedByPtr(const Dem_EvMemEventMemo
 #endif
 }
 
-DEM_INLINE uint8 Dem_EvMemGetCyclesSinceLastFailedExcludingTNCByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint8 Dem_EvMemGetCyclesSinceLastFailedExcludingTNCByPtr(const Dem_EvMemEventMemoryType *EventMemory){
 #if(DEM_CFG_READDEM_CYCLES_SINCE_LAST_FAILED_EXCLUDING_TNC_SUPPORTED)
-   	return EventMemory->CyclesSinceLastFailedExcludingTNC;
+      return EventMemory->CyclesSinceLastFailedExcludingTNC;
 #else
    DEM_UNUSED_PARAM(EventMemory);
    return 0;
 #endif
 }
 
-DEM_INLINE uint8 Dem_EvMemGetFailedCyclesByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint8 Dem_EvMemGetFailedCyclesByPtr(const Dem_EvMemEventMemoryType *EventMemory){
 #if(DEM_CFG_READDEM_FAILED_CYCLES_SUPPORTED)
    return EventMemory->FailedCycles;
 #else
@@ -365,56 +325,47 @@ DEM_INLINE uint8 Dem_EvMemGetFailedCyclesByPtr(const Dem_EvMemEventMemoryType *E
 #endif
 }
 
-DEM_INLINE void Dem_EvMemIncCyclesSinceFirstFailed(uint16_least LocId)
-{
+DEM_INLINE void Dem_EvMemIncCyclesSinceFirstFailed(uint16_least LocId){
 #if(DEM_CFG_READDEM_CYCLES_SINCE_FIRST_FAILED_SUPPORTED)
-   if(Dem_EvMemEventMemory[LocId].CyclesSinceFirstFailed != 255)
-   {
-   	Dem_EvMemEventMemory[LocId].CyclesSinceFirstFailed++;
+   if(Dem_EvMemEventMemory[LocId].CyclesSinceFirstFailed != 255){
+      Dem_EvMemEventMemory[LocId].CyclesSinceFirstFailed++;
    }
 #else
    DEM_UNUSED_PARAM(LocId);
 #endif
 }
 
-DEM_INLINE void Dem_EvMemIncCyclesSinceLastFailed(uint16_least LocId)
-{
+DEM_INLINE void Dem_EvMemIncCyclesSinceLastFailed(uint16_least LocId){
 #if(DEM_CFG_READDEM_CYCLES_SINCE_LAST_FAILED_SUPPORTED)
-   if(Dem_EvMemEventMemory[LocId].CyclesSinceLastFailed != 255)
-   {
-   	Dem_EvMemEventMemory[LocId].CyclesSinceLastFailed++;
+   if(Dem_EvMemEventMemory[LocId].CyclesSinceLastFailed != 255){
+      Dem_EvMemEventMemory[LocId].CyclesSinceLastFailed++;
    }
 #else
    DEM_UNUSED_PARAM(LocId);
 #endif
 }
 
-DEM_INLINE void Dem_EvMemIncCyclesSinceLastFailedExcludingTNC(uint16_least LocId)
-{
+DEM_INLINE void Dem_EvMemIncCyclesSinceLastFailedExcludingTNC(uint16_least LocId){
 #if(DEM_CFG_READDEM_CYCLES_SINCE_LAST_FAILED_EXCLUDING_TNC_SUPPORTED)
-   if(Dem_EvMemEventMemory[LocId].CyclesSinceLastFailedExcludingTNC != 255)
-   {
-   	Dem_EvMemEventMemory[LocId].CyclesSinceLastFailedExcludingTNC++;
+   if(Dem_EvMemEventMemory[LocId].CyclesSinceLastFailedExcludingTNC != 255){
+      Dem_EvMemEventMemory[LocId].CyclesSinceLastFailedExcludingTNC++;
    }
 #else
    DEM_UNUSED_PARAM(LocId);
 #endif
 }
 
-DEM_INLINE void Dem_EvMemIncFailedCycles(uint16_least LocId)
-{
+DEM_INLINE void Dem_EvMemIncFailedCycles(uint16_least LocId){
 #if(DEM_CFG_READDEM_FAILED_CYCLES_SUPPORTED)
-   if(Dem_EvMemEventMemory[LocId].FailedCycles != 255)
-   {
-   	Dem_EvMemEventMemory[LocId].FailedCycles++;
+   if(Dem_EvMemEventMemory[LocId].FailedCycles != 255){
+      Dem_EvMemEventMemory[LocId].FailedCycles++;
    }
 #else
    DEM_UNUSED_PARAM(LocId);
 #endif
 }
 
-DEM_INLINE void Dem_EvMemResetCyclesSinceLastFailed(uint16_least LocId)
-{
+DEM_INLINE void Dem_EvMemResetCyclesSinceLastFailed(uint16_least LocId){
 #if(DEM_CFG_READDEM_CYCLES_SINCE_LAST_FAILED_SUPPORTED)
    Dem_EvMemEventMemory[LocId].CyclesSinceLastFailed = 0;
 #else
@@ -422,17 +373,15 @@ DEM_INLINE void Dem_EvMemResetCyclesSinceLastFailed(uint16_least LocId)
 #endif
 }
 
-DEM_INLINE void Dem_EvMemResetCyclesSinceLastFailedExcludingTNC(uint16_least LocId)
-{
+DEM_INLINE void Dem_EvMemResetCyclesSinceLastFailedExcludingTNC(uint16_least LocId){
 #if(DEM_CFG_READDEM_CYCLES_SINCE_LAST_FAILED_EXCLUDING_TNC_SUPPORTED)
-   	Dem_EvMemEventMemory[LocId].CyclesSinceLastFailedExcludingTNC = 0;
+      Dem_EvMemEventMemory[LocId].CyclesSinceLastFailedExcludingTNC = 0;
 #else
    DEM_UNUSED_PARAM(LocId);
 #endif
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemFreezeFrameCounterByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemFreezeFrameCounterByPtr(const Dem_EvMemEventMemoryType *EventMemory){
    DEM_EVMEM_USEVAR(EventMemory);
 
 #if(DEM_CFG_EVMEM_FREEZE_FRAME_SUPPORTED)
@@ -442,13 +391,11 @@ DEM_INLINE uint16_least Dem_EvMemGetEventMemFreezeFrameCounterByPtr(const Dem_Ev
 #endif
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemFreezeFrameCounter(uint16_least LocId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemFreezeFrameCounter(uint16_least LocId){
    return Dem_EvMemGetEventMemFreezeFrameCounterByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
-DEM_INLINE void Dem_EvMemSetEventMemLocFreezeFrameCounter(uint16_least LocId, uint16_least FreezeFrameCounter)
-{
+DEM_INLINE void Dem_EvMemSetEventMemLocFreezeFrameCounter(uint16_least LocId, uint16_least FreezeFrameCounter){
    DEM_EVMEM_USEVAR(LocId);
    DEM_EVMEM_USEVAR(FreezeFrameCounter);
 
@@ -457,8 +404,7 @@ DEM_INLINE void Dem_EvMemSetEventMemLocFreezeFrameCounter(uint16_least LocId, ui
 #endif
 }
 
-DEM_INLINE Dem_TriggerType Dem_EvMemGetEventMemTriggerByPtr(const Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE Dem_TriggerType Dem_EvMemGetEventMemTriggerByPtr(const Dem_EvMemEventMemoryType *EventMemory){
    DEM_EVMEM_USEVAR(EventMemory);
 
 #if(DEM_CFG_EVMEM_EXTENDED_DATA_SUPPORTED || DEM_CFG_EVMEM_FREEZE_FRAME_SUPPORTED)
@@ -468,13 +414,11 @@ DEM_INLINE Dem_TriggerType Dem_EvMemGetEventMemTriggerByPtr(const Dem_EvMemEvent
 #endif
 }
 
-DEM_INLINE Dem_TriggerType Dem_EvMemGetEventMemTrigger(uint16_least LocId)
-{
+DEM_INLINE Dem_TriggerType Dem_EvMemGetEventMemTrigger(uint16_least LocId){
    return Dem_EvMemGetEventMemTriggerByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
-DEM_INLINE void Dem_EvMemSetEventMemTrigger(uint16_least LocId, Dem_TriggerType Trigger)
-{
+DEM_INLINE void Dem_EvMemSetEventMemTrigger(uint16_least LocId, Dem_TriggerType Trigger){
    DEM_EVMEM_USEVAR(LocId);
    DEM_EVMEM_USEVAR(Trigger);
 
@@ -483,13 +427,11 @@ DEM_INLINE void Dem_EvMemSetEventMemTrigger(uint16_least LocId, Dem_TriggerType 
 #endif
 }
 
-DEM_INLINE uint8 *Dem_EvMemGetEventMemDataByPtr(Dem_EvMemEventMemoryType *EventMemory)
-{
+DEM_INLINE uint8 *Dem_EvMemGetEventMemDataByPtr(Dem_EvMemEventMemoryType *EventMemory){
    return EventMemory->Data;
 }
 
-DEM_INLINE uint8 *Dem_EvMemGetEventMemData(uint16_least LocId)
-{
+DEM_INLINE uint8 *Dem_EvMemGetEventMemData(uint16_least LocId){
    return Dem_EvMemGetEventMemDataByPtr(&Dem_EvMemEventMemory[LocId]);
 }
 
@@ -497,33 +439,27 @@ DEM_INLINE uint16 Dem_EvMemGetEventMemDataSize(void){
    return DEM_SIZEOF_VAR(Dem_EvMemEventMemory[0].Data);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsTestFailedSLC(uint16_least Status)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsTestFailedSLC(uint16_least Status){
    return (Dem_boolean_least)((Status & (DEM_EVMEM_STSMASK_TESTFAILED_SLC | DEM_EVMEM_STSMASK_STORED)) == (DEM_EVMEM_STSMASK_TESTFAILED_SLC | DEM_EVMEM_STSMASK_STORED));
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsTestCompleteTFC(uint16_least Status)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsTestCompleteTFC(uint16_least Status){
     return ((Status & DEM_EVMEM_STSMASK_TESTCOMPLETE_TFC) == DEM_EVMEM_STSMASK_TESTCOMPLETE_TFC);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsTestFailedTFC (uint16_least Status)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsTestFailedTFC (uint16_least Status){
     return ((Status & DEM_EVMEM_STSMASK_TESTFAILED_TFC) == DEM_EVMEM_STSMASK_TESTFAILED_TFC);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsStored(uint16_least Status)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsStored(uint16_least Status){
    return (Dem_boolean_least)((Status & (DEM_EVMEM_STSMASK_STORED | DEM_EVMEM_STSMASK_DELETED)) == DEM_EVMEM_STSMASK_STORED);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsEmpty(uint16_least Status)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsEmpty(uint16_least Status){
    return (Dem_boolean_least)((Status & (DEM_EVMEM_STSMASK_STORED | DEM_EVMEM_STSMASK_DELETED)) == 0u);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsDeleted(uint16_least Status)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsDeleted(uint16_least Status){
    DEM_EVMEM_USEVAR(Status);
 
 #if DEM_CFG_EVMEM_SHADOW_ENTRIES_SUPPORTED
@@ -536,8 +472,7 @@ DEM_INLINE uint16_least Dem_EvMemSetToEmpty(void){
    return 0u;
 }
 
-DEM_INLINE uint16_least Dem_EvMemSetToDelete(uint16_least Status)
-{
+DEM_INLINE uint16_least Dem_EvMemSetToDelete(uint16_least Status){
    DEM_EVMEM_USEVAR(Status);
 
 #if DEM_CFG_EVMEM_SHADOW_ENTRIES_SUPPORTED
@@ -551,14 +486,12 @@ DEM_INLINE Dem_boolean_least Dem_EvMemGetShadowVisibility(void){
    return DEM_CFG_EVMEM_SHADOW_ENTRIES_VISIBLE;
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsVisible(uint16_least Status, Dem_boolean_least ShadowEntriesVisible)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsVisible(uint16_least Status, Dem_boolean_least ShadowEntriesVisible){
    return (Dem_boolean_least)( ( Dem_EvMemIsStored(Status)) ||
-   		                    (!Dem_EvMemIsEmpty (Status) && Dem_EvMemGetShadowVisibility() && ShadowEntriesVisible));
+                             (!Dem_EvMemIsEmpty (Status) && Dem_EvMemGetShadowVisibility() && ShadowEntriesVisible));
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemStartLocId(uint16_least MemId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemStartLocId(uint16_least MemId){
 
    DEM_EVMEM_USEVAR(MemId);
 
@@ -569,8 +502,7 @@ DEM_INLINE uint16_least Dem_EvMemGetEventMemStartLocId(uint16_least MemId)
 #endif
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemEndLocId(uint16_least MemId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemEndLocId(uint16_least MemId){
    DEM_EVMEM_USEVAR(MemId);
 
 #if(DEM_CFG_EVMEM_MAX_MEMS == 1)
@@ -580,130 +512,107 @@ DEM_INLINE uint16_least Dem_EvMemGetEventMemEndLocId(uint16_least MemId)
 #endif
 }
 
-DEM_INLINE void Dem_EvMemEventMemoryLocIteratorNew (uint16_least *LocId, uint16_least MemId)
-{
+DEM_INLINE void Dem_EvMemEventMemoryLocIteratorNew (uint16_least *LocId, uint16_least MemId){
     *LocId = Dem_EvMemGetEventMemStartLocId(MemId);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemEventMemoryLocIteratorIsValid (const uint16_least *LocId, uint16_least MemId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemEventMemoryLocIteratorIsValid (const uint16_least *LocId, uint16_least MemId){
     return (Dem_boolean_least)(*LocId < Dem_EvMemGetEventMemEndLocId(MemId));
 }
 
-DEM_INLINE void Dem_EvMemEventMemoryLocIteratorNext (uint16_least *LocId, uint16_least MemId)
-{
+DEM_INLINE void Dem_EvMemEventMemoryLocIteratorNext (uint16_least *LocId, uint16_least MemId){
     DEM_EVMEM_USEVAR(MemId);
     (*LocId)++;
 }
 
-DEM_INLINE void Dem_EvMemEventMemoryLocIteratorInvalidate (uint16_least *LocId, uint16_least MemId)
-{
+DEM_INLINE void Dem_EvMemEventMemoryLocIteratorInvalidate (uint16_least *LocId, uint16_least MemId){
     *LocId = Dem_EvMemGetEventMemEndLocId(MemId);
 }
 
-DEM_INLINE void Dem_EvMemEventMemoryIteratorNew(uint16_least *MemId)
-{
+DEM_INLINE void Dem_EvMemEventMemoryIteratorNew(uint16_least *MemId){
    *MemId = 0;
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemEventMemoryIteratorIsValid(const uint16_least *MemId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemEventMemoryIteratorIsValid(const uint16_least *MemId){
    return (Dem_boolean_least) (*MemId < DEM_CFG_EVMEM_MAX_MEMS);
 }
 
-DEM_INLINE void Dem_EvMemEventMemoryIteratorNext(uint16_least *MemId)
-{
+DEM_INLINE void Dem_EvMemEventMemoryIteratorNext(uint16_least *MemId){
    (*MemId)++;
 }
 
-DEM_INLINE void Dem_EvMemEventMemoryAllLocIteratorNew (uint16_least *LocId)
-{
+DEM_INLINE void Dem_EvMemEventMemoryAllLocIteratorNew (uint16_least *LocId){
     *LocId = 0;
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemEventMemoryAllLocIteratorIsValid (const uint16_least *LocId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemEventMemoryAllLocIteratorIsValid (const uint16_least *LocId){
     return (Dem_boolean_least)(*LocId < DEM_CFG_MAX_NUMBER_EVENT_ENTRY_ALL);
 }
 
-DEM_INLINE void Dem_EvMemEventMemoryAllLocIteratorNext (uint16_least *LocId)
-{
+DEM_INLINE void Dem_EvMemEventMemoryAllLocIteratorNext (uint16_least *LocId){
     (*LocId)++;
 }
 
-DEM_INLINE void Dem_EvMemEventMemoryPrimaryUserdefLocIteratorNew (uint16_least *LocId)
-{
+DEM_INLINE void Dem_EvMemEventMemoryPrimaryUserdefLocIteratorNew (uint16_least *LocId){
     *LocId = 0;
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemEventMemoryPrimaryUserdefLocIteratorIsValid (const uint16_least *LocId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemEventMemoryPrimaryUserdefLocIteratorIsValid (const uint16_least *LocId){
     return (Dem_boolean_least)(*LocId < (DEM_CFG_MAX_NUMBER_EVENT_ENTRY_PRIMARY + DEM_CFG_MAX_NUMBER_EVENT_ENTRY_SECONDARY));
 }
 
-DEM_INLINE void Dem_EvMemEventMemoryPrimaryUserdefLocIteratorNext (uint16_least *LocId)
-{
+DEM_INLINE void Dem_EvMemEventMemoryPrimaryUserdefLocIteratorNext (uint16_least *LocId){
     (*LocId)++;
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsOriginPrimary (uint16_least LocId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsOriginPrimary (uint16_least LocId){
    return (Dem_boolean_least) (LocId < DEM_CFG_MAX_NUMBER_EVENT_ENTRY_PRIMARY);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsOriginSecondary (uint16_least LocId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsOriginSecondary (uint16_least LocId){
    return (Dem_boolean_least) ((LocId >=  DEM_CFG_MAX_NUMBER_EVENT_ENTRY_PRIMARY) &&
                                (LocId <  (DEM_CFG_MAX_NUMBER_EVENT_ENTRY_PRIMARY + DEM_CFG_MAX_NUMBER_EVENT_ENTRY_SECONDARY)));
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsOriginMirror (uint16_least LocId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsOriginMirror (uint16_least LocId){
    return (Dem_boolean_least) ((LocId >=  (DEM_CFG_MAX_NUMBER_EVENT_ENTRY_PRIMARY + DEM_CFG_MAX_NUMBER_EVENT_ENTRY_SECONDARY)) &&
                                (LocId <    DEM_CFG_MAX_NUMBER_EVENT_ENTRY_ALL));
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsEdgeTrigger(uint16_least StatusOld, uint16_least StatusNew, uint16_least Trigger)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsEdgeTrigger(uint16_least StatusOld, uint16_least StatusNew, uint16_least Trigger){
    return (Dem_boolean_least) (((StatusOld ^ StatusNew) & Trigger) != 0u);
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetEventMemId(uint16_least LocId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemId(uint16_least LocId){
    uint16_least MemId;
 
    for(Dem_EvMemEventMemoryIteratorNew     (&MemId);
-   	 Dem_EvMemEventMemoryIteratorIsValid (&MemId);
-   	 Dem_EvMemEventMemoryIteratorNext    (&MemId))
-   {
-   	if(LocId < Dem_EvMemGetEventMemEndLocId (MemId))
-   	{
-   		return MemId;
-   	}
+       Dem_EvMemEventMemoryIteratorIsValid (&MemId);
+       Dem_EvMemEventMemoryIteratorNext    (&MemId)){
+      if(LocId < Dem_EvMemGetEventMemEndLocId (MemId)){
+         return MemId;
+      }
    }
 
    DEM_ASSERT(Dem_LibGetParamBool(FALSE),DEM_DET_APIID_DEM_EVMEMGETEVENTMEMID,0);
    return DEM_EVMEM_INVALID_MEMID;
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsDisplaceEventMemoryLocAllowed(Dem_EventIdType NewEventId, uint16_least LocId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsDisplaceEventMemoryLocAllowed(Dem_EventIdType NewEventId, uint16_least LocId){
    DEM_EVMEM_USEVAR(NewEventId);
    DEM_EVMEM_USEVAR(LocId);
 
    return TRUE;
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsEventFailedAllowed(Dem_EventIdType EventId, uint16_least MemId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsEventFailedAllowed(Dem_EventIdType EventId, uint16_least MemId){
    DEM_EVMEM_USEVAR(EventId);
    DEM_EVMEM_USEVAR(MemId);
 
    return(TRUE);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsEventPassedAllowed(Dem_EventIdType EventId, uint16_least MemId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsEventPassedAllowed(Dem_EventIdType EventId, uint16_least MemId){
    uint8 DtcStatusByte = 0;
 
     DEM_EVMEM_USEVAR(EventId);
@@ -719,72 +628,61 @@ DEM_INLINE Dem_boolean_least Dem_EvMemIsEventPassedAllowed(Dem_EventIdType Event
 #endif
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsEventUnRobustAllowed(Dem_EventIdType EventId, uint16_least MemId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsEventUnRobustAllowed(Dem_EventIdType EventId, uint16_least MemId){
    DEM_EVMEM_USEVAR(EventId);
    DEM_EVMEM_USEVAR(MemId);
 
    return(TRUE);
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsEventMemoryDisplacementSupported(uint16_least MemId)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsEventMemoryDisplacementSupported(uint16_least MemId){
    DEM_EVMEM_USEVAR(MemId);
 
    return (Dem_boolean_least)(Dem_LibGetParamBool(DEM_CFG_EVMEM_DISPLACEMENT_SUPPORTED));
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsTriggerOccurrenceCounter(Dem_EventIdType EventId, uint16_least MemId, uint16_least StatusOld, uint16_least StatusNew)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsTriggerOccurrenceCounter(Dem_EventIdType EventId, uint16_least MemId, uint16_least StatusOld, uint16_least StatusNew){
    DEM_EVMEM_USEVAR(EventId);
    DEM_EVMEM_USEVAR(MemId);
 
    return Dem_EvMemIsEdgeTrigger (StatusOld, StatusNew, DEM_EVMEM_STSMASK_TESTFAILED) && ((StatusNew & DEM_CFG_EVMEM_OCCCOUNTER_TRIGGER_STSMASK) == DEM_CFG_EVMEM_OCCCOUNTER_TRIGGER_STSMASK);
 }
 
-DEM_INLINE Dem_TriggerType Dem_EvMemGetTriggerOnFailed(uint16_least StatusOld, uint16_least StatusNew)
-{
+DEM_INLINE Dem_TriggerType Dem_EvMemGetTriggerOnFailed(uint16_least StatusOld, uint16_least StatusNew){
    Dem_TriggerType Trigger;
    Trigger = DEM_TRIGGER_NONE;
-   if(Dem_EvMemIsEdgeTrigger (StatusOld, StatusNew, DEM_EVMEM_STSMASK_TESTFAILED))
-   {
-   	Dem_EnvSetTrigger(&Trigger, DEM_TRIGGER_ON_TEST_FAILED);
+   if(Dem_EvMemIsEdgeTrigger (StatusOld, StatusNew, DEM_EVMEM_STSMASK_TESTFAILED)){
+      Dem_EnvSetTrigger(&Trigger, DEM_TRIGGER_ON_TEST_FAILED);
    }
-   if(Dem_EvMemIsEdgeTrigger (StatusOld, StatusNew, DEM_EVMEM_STSMASK_PENDING))
-   {
-   	Dem_EnvSetTrigger(&Trigger, DEM_TRIGGER_ON_PENDING);
+   if(Dem_EvMemIsEdgeTrigger (StatusOld, StatusNew, DEM_EVMEM_STSMASK_PENDING)){
+      Dem_EnvSetTrigger(&Trigger, DEM_TRIGGER_ON_PENDING);
    }
-   if(Dem_EvMemIsEdgeTrigger (StatusOld, StatusNew, DEM_EVMEM_STSMASK_CONFIRMED))
-   {
-   	Dem_EnvSetTrigger(&Trigger, DEM_TRIGGER_ON_CONFIRMED);
+   if(Dem_EvMemIsEdgeTrigger (StatusOld, StatusNew, DEM_EVMEM_STSMASK_CONFIRMED)){
+      Dem_EnvSetTrigger(&Trigger, DEM_TRIGGER_ON_CONFIRMED);
    }
 
    return Trigger;
 }
 
-DEM_INLINE Dem_TriggerType Dem_EvMemGetTriggerOnPassed(uint16_least StatusOld, uint16_least StatusNew)
-{
+DEM_INLINE Dem_TriggerType Dem_EvMemGetTriggerOnPassed(uint16_least StatusOld, uint16_least StatusNew){
    Dem_TriggerType Trigger;
    Trigger = DEM_TRIGGER_NONE;
-   if(Dem_EvMemIsEdgeTrigger (StatusOld, StatusNew, DEM_EVMEM_STSMASK_TESTFAILED))
-   {
-   	Dem_EnvSetTrigger(&Trigger, DEM_TRIGGER_ON_PASSED);
+   if(Dem_EvMemIsEdgeTrigger (StatusOld, StatusNew, DEM_EVMEM_STSMASK_TESTFAILED)){
+      Dem_EnvSetTrigger(&Trigger, DEM_TRIGGER_ON_PASSED);
    }
    return Trigger;
 }
 
 #if(DEM_CFG_EVMEM_MIRROR_MEMORY_SUPPORTED)
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsTriggerMirrorOnFailed(Dem_EventIdType EventId, uint16_least MemId, uint16_least StatusOld, uint16_least StatusNew)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsTriggerMirrorOnFailed(Dem_EventIdType EventId, uint16_least MemId, uint16_least StatusOld, uint16_least StatusNew){
    DEM_EVMEM_USEVAR(EventId);
    DEM_EVMEM_USEVAR(MemId);
 
    return (Dem_boolean_least)(Dem_EvMemIsEdgeTrigger(StatusOld, StatusNew, DEM_EVMEM_STSMASK_TESTFAILED));
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsTriggerMirrorOnClear(Dem_EventIdType EventId, uint16_least LocId, uint16_least StatusOld, uint16_least StatusNew)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsTriggerMirrorOnClear(Dem_EventIdType EventId, uint16_least LocId, uint16_least StatusOld, uint16_least StatusNew){
    DEM_EVMEM_USEVAR(EventId);
    DEM_EVMEM_USEVAR(LocId);
    DEM_EVMEM_USEVAR(StatusOld);
@@ -795,20 +693,16 @@ DEM_INLINE Dem_boolean_least Dem_EvMemIsTriggerMirrorOnClear(Dem_EventIdType Eve
 
 #endif
 
-DEM_INLINE uint16_least Dem_EvMemGetRamStsMask(Dem_EventIdType EventId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetRamStsMask(Dem_EventIdType EventId){
    uint16_least stsMask = DEM_EVMEM_STSMASK_READER_COPY_CURRENT;
-   if(!Dem_EvtParam_GetStoreTestFailedToNextOC(EventId))
-   {
+   if(!Dem_EvtParam_GetStoreTestFailedToNextOC(EventId)){
         stsMask |= DEM_EVMEM_STSMASK_TESTFAILED;
    }
     return stsMask;
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsEqualEvent(Dem_EventIdType EventId1, Dem_EventIdType EventId2)
-{
-   if(Dem_LibGetParamUI8(DEM_CFG_EVCOMB) != Dem_LibGetParamUI8(DEM_CFG_EVCOMB_ONRETRIEVAL))
-   {
+DEM_INLINE Dem_boolean_least Dem_EvMemIsEqualEvent(Dem_EventIdType EventId1, Dem_EventIdType EventId2){
+   if(Dem_LibGetParamUI8(DEM_CFG_EVCOMB) != Dem_LibGetParamUI8(DEM_CFG_EVCOMB_ONRETRIEVAL)){
         return (Dem_boolean_least)(Dem_DtcIdFromEventId(EventId1) == Dem_DtcIdFromEventId(EventId2));
    }
    else{
@@ -816,8 +710,7 @@ DEM_INLINE Dem_boolean_least Dem_EvMemIsEqualEvent(Dem_EventIdType EventId1, Dem
    }
 }
 
-DEM_INLINE Dem_boolean_least Dem_EvMemIsNvStatusChanged(Dem_EventIdType EventId, uint16_least StatusOld, uint16_least StatusNew)
-{
+DEM_INLINE Dem_boolean_least Dem_EvMemIsNvStatusChanged(Dem_EventIdType EventId, uint16_least StatusOld, uint16_least StatusNew){
    return (Dem_boolean_least)(Dem_EvMemIsEdgeTrigger(StatusOld, StatusNew, ~Dem_EvMemGetRamStsMask(EventId)));
 }
 

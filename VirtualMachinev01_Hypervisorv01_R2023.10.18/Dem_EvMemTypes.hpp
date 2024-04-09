@@ -120,19 +120,19 @@ typedef struct{
    uint8                                     DTCStatus;
 #endif
 #if(DEM_CFG_READDEM_CYCLES_SINCE_FIRST_FAILED_SUPPORTED)
-   uint8 									CyclesSinceFirstFailed;
+   uint8                            CyclesSinceFirstFailed;
 #endif
 
 #if(DEM_CFG_READDEM_CYCLES_SINCE_LAST_FAILED_SUPPORTED)
-   uint8 									CyclesSinceLastFailed;
+   uint8                            CyclesSinceLastFailed;
 #endif
 
 #if(DEM_CFG_READDEM_CYCLES_SINCE_LAST_FAILED_EXCLUDING_TNC_SUPPORTED)
-   uint8 									CyclesSinceLastFailedExcludingTNC;
+   uint8                            CyclesSinceLastFailedExcludingTNC;
 #endif
 
 #if(DEM_CFG_READDEM_FAILED_CYCLES_SUPPORTED)
-   uint8									FailedCycles;
+   uint8                           FailedCycles;
 #endif
 
    uint8                                     Data[DEM_CFG_ENVMINSIZE_OF_MULTIPLE_RAWENVDATA];

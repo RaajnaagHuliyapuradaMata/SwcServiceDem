@@ -39,8 +39,7 @@ extern Dem_StoCoState Dem_StoCoAllStates;
 #define DEM_START_SEC_ROM_CODE
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE boolean Dem_StoCoAreAllFulfilled(Dem_StoCoList storageConditionList)
-{
+DEM_INLINE boolean Dem_StoCoAreAllFulfilled(Dem_StoCoList storageConditionList){
 #if(DEM_CFG_STORAGECONDITION == DEM_CFG_STORAGECONDITION_ON)
    return ((storageConditionList & Dem_StoCoAllStates.isActive) == storageConditionList);
 #else
@@ -50,8 +49,7 @@ DEM_INLINE boolean Dem_StoCoAreAllFulfilled(Dem_StoCoList storageConditionList)
 }
 
 DEM_INLINE void Dem_StoCoSetHasFilteredEvent(Dem_StoCoList storageConditionList
-                                             DEM_DEBUGDATA_PARAM(Dem_DebugDataType EventId, Dem_DebugDataType debug1))
-{
+                                             DEM_DEBUGDATA_PARAM(Dem_DebugDataType EventId, Dem_DebugDataType debug1)){
 #if(DEM_CFG_STORAGECONDITION == DEM_CFG_STORAGECONDITION_ON)
 
 #if(DEM_CFG_DEBUGDATA != DEM_CFG_DEBUGDATA_OFF)
@@ -62,12 +60,10 @@ DEM_INLINE void Dem_StoCoSetHasFilteredEvent(Dem_StoCoList storageConditionList
     DEM_ASSERT_ISLOCKED ();
 
 #if(DEM_CFG_DEBUGDATA != DEM_CFG_DEBUGDATA_OFF)
-   for(i=0; i < DEM_STORAGECONDITION_COUNT; i++)
-   {
+   for(i=0; i < DEM_STORAGECONDITION_COUNT; i++){
       stoco_mask = ((Dem_StoCoList)(1u << i));
 
-      if((stoco_mask & storageConditionList & (Dem_StoCoList)(~Dem_StoCoAllStates.isActive))!=0u)
-      {
+      if((stoco_mask & storageConditionList & (Dem_StoCoList)(~Dem_StoCoAllStates.isActive))!=0u){
          Dem_StoCoAllStates.eventId[i] = ((Dem_EventIdType)EventId);
          Dem_StoCoAllStates.debug1[i]  = debug1;
       }

@@ -6,8 +6,7 @@
 #ifndef DEM_PRJEVENTSTATUS_H
 #define DEM_PRJEVENTSTATUS_H
 
-DEM_INLINE void Dem_EvtSt_HandleImmediateAging(Dem_EventIdType EventId)
-{
+DEM_INLINE void Dem_EvtSt_HandleImmediateAging(Dem_EventIdType EventId){
 }
 
 #endif

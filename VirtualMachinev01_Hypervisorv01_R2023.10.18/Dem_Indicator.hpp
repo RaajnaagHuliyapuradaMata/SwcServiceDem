@@ -19,77 +19,63 @@ DEM_ARRAY_DECLARE(Dem_IndicatorStatus, Dem_AllIndicatorStatus, DEM_INDICATORID_A
 #define DEM_STOP_SEC_RAM_CLEARED
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE uint16 Dem_IndicatorGetBlinkingCounter(uint8 indicatorId)
-{
+DEM_INLINE uint16 Dem_IndicatorGetBlinkingCounter(uint8 indicatorId){
    return (Dem_AllIndicatorStatus[indicatorId].blinkingCtr);
 }
 
-DEM_INLINE uint16 Dem_IndicatorGetContinuousCounter(uint8 indicatorId)
-{
+DEM_INLINE uint16 Dem_IndicatorGetContinuousCounter(uint8 indicatorId){
    return (Dem_AllIndicatorStatus[indicatorId].continousCtr);
 }
 
-DEM_INLINE uint16 Dem_IndicatorGetFastFlashCtr(uint8 indicatorId)
-{
+DEM_INLINE uint16 Dem_IndicatorGetFastFlashCtr(uint8 indicatorId){
     return (Dem_AllIndicatorStatus[indicatorId].fastFlashCtr);
 }
 
-DEM_INLINE uint16 Dem_IndicatorGetSlowFlashCtr(uint8 indicatorId)
-{
+DEM_INLINE uint16 Dem_IndicatorGetSlowFlashCtr(uint8 indicatorId){
     return (Dem_AllIndicatorStatus[indicatorId].slowFlashCtr);
 }
 
-DEM_INLINE void Dem_IndicatorSetContinuousCtr(uint8 indicatorId, uint16 continuousCtr)
-{
+DEM_INLINE void Dem_IndicatorSetContinuousCtr(uint8 indicatorId, uint16 continuousCtr){
    Dem_AllIndicatorStatus[indicatorId].continousCtr = continuousCtr;
 }
 
-DEM_INLINE void Dem_IndicatorSetBlinkingCtr(uint8 indicatorId, uint16 blinkingCtr)
-{
+DEM_INLINE void Dem_IndicatorSetBlinkingCtr(uint8 indicatorId, uint16 blinkingCtr){
    Dem_AllIndicatorStatus[indicatorId].blinkingCtr = blinkingCtr;
 }
 
-DEM_INLINE void Dem_IndicatorSetFastFlashCtr(uint8 indicatorId, uint16 fastFlashCtr)
-{
+DEM_INLINE void Dem_IndicatorSetFastFlashCtr(uint8 indicatorId, uint16 fastFlashCtr){
     Dem_AllIndicatorStatus[indicatorId].fastFlashCtr = fastFlashCtr;
 }
 
-DEM_INLINE void Dem_IndicatorSetSlowFlashCtr(uint8 indicatorId, uint16 slowFlashCtr)
-{
+DEM_INLINE void Dem_IndicatorSetSlowFlashCtr(uint8 indicatorId, uint16 slowFlashCtr){
     Dem_AllIndicatorStatus[indicatorId].slowFlashCtr = slowFlashCtr;
 }
 
-DEM_INLINE void Dem_IndicatorIncrementBehaviourCounter(uint8 indicatorId, uint8 indicatorBehaviour)
-{
+DEM_INLINE void Dem_IndicatorIncrementBehaviourCounter(uint8 indicatorId, uint8 indicatorBehaviour){
    uint16 blinkingCounter = Dem_IndicatorGetBlinkingCounter(indicatorId);
    uint16 countinuousCounter = Dem_IndicatorGetContinuousCounter(indicatorId);
    uint16 fastFlashCounter = Dem_IndicatorGetFastFlashCtr(indicatorId);
    uint16 slowFlashCounter = Dem_IndicatorGetSlowFlashCtr(indicatorId);
 
-   if(indicatorBehaviour == DEM_INDICATOR_CONTINUOUS)
-   {
+   if(indicatorBehaviour == DEM_INDICATOR_CONTINUOUS){
         countinuousCounter++;
         Dem_IndicatorSetContinuousCtr(indicatorId, countinuousCounter);
    }
-   else if(indicatorBehaviour == DEM_INDICATOR_BLINKING)
-   {
+   else if(indicatorBehaviour == DEM_INDICATOR_BLINKING){
         blinkingCounter++;
         Dem_IndicatorSetBlinkingCtr(indicatorId, blinkingCounter);
    }
-   else if(indicatorBehaviour == DEM_INDICATOR_BLINK_CONT)
-   {
+   else if(indicatorBehaviour == DEM_INDICATOR_BLINK_CONT){
         countinuousCounter++;
         blinkingCounter++;
         Dem_IndicatorSetContinuousCtr(indicatorId, countinuousCounter);
         Dem_IndicatorSetBlinkingCtr(indicatorId, blinkingCounter);
    }
-   else if(indicatorBehaviour == DEM_INDICATOR_FAST_FLASH)
-   {
+   else if(indicatorBehaviour == DEM_INDICATOR_FAST_FLASH){
         fastFlashCounter++;
         Dem_IndicatorSetFastFlashCtr(indicatorId, fastFlashCounter);
    }
-   else if(indicatorBehaviour == DEM_INDICATOR_SLOW_FLASH)
-   {
+   else if(indicatorBehaviour == DEM_INDICATOR_SLOW_FLASH){
         slowFlashCounter++;
         Dem_IndicatorSetSlowFlashCtr(indicatorId, slowFlashCounter);
    }
@@ -98,37 +84,31 @@ DEM_INLINE void Dem_IndicatorIncrementBehaviourCounter(uint8 indicatorId, uint8 
    }
 }
 
-DEM_INLINE void Dem_IndicatorDecrementBehaviourCounter(uint8 indicatorId, uint8 indicatorBehaviour)
-{
+DEM_INLINE void Dem_IndicatorDecrementBehaviourCounter(uint8 indicatorId, uint8 indicatorBehaviour){
    uint16 blinkingCounter = Dem_IndicatorGetBlinkingCounter(indicatorId);
    uint16 countinuousCounter = Dem_IndicatorGetContinuousCounter(indicatorId);
    uint16 fastFlashCounter = Dem_IndicatorGetFastFlashCtr(indicatorId);
    uint16 slowFlashCounter = Dem_IndicatorGetSlowFlashCtr(indicatorId);
 
-   if((indicatorBehaviour == DEM_INDICATOR_CONTINUOUS)  && (countinuousCounter > 0u))
-   {
+   if((indicatorBehaviour == DEM_INDICATOR_CONTINUOUS)  && (countinuousCounter > 0u)){
         countinuousCounter--;
         Dem_IndicatorSetContinuousCtr(indicatorId, countinuousCounter);
    }
-   else if((indicatorBehaviour == DEM_INDICATOR_BLINKING) && (blinkingCounter > 0u))
-   {
+   else if((indicatorBehaviour == DEM_INDICATOR_BLINKING) && (blinkingCounter > 0u)){
         blinkingCounter--;
         Dem_IndicatorSetBlinkingCtr(indicatorId, blinkingCounter);
    }
-   else if((indicatorBehaviour == DEM_INDICATOR_BLINK_CONT) && (blinkingCounter > 0u) && (countinuousCounter > 0u))
-   {
+   else if((indicatorBehaviour == DEM_INDICATOR_BLINK_CONT) && (blinkingCounter > 0u) && (countinuousCounter > 0u)){
         blinkingCounter--;
         countinuousCounter--;
         Dem_IndicatorSetContinuousCtr(indicatorId, countinuousCounter);
         Dem_IndicatorSetBlinkingCtr(indicatorId, blinkingCounter);
    }
-   else if((indicatorBehaviour == DEM_INDICATOR_FAST_FLASH) && (fastFlashCounter > 0u))
-   {
+   else if((indicatorBehaviour == DEM_INDICATOR_FAST_FLASH) && (fastFlashCounter > 0u)){
         fastFlashCounter--;
         Dem_IndicatorSetFastFlashCtr(indicatorId, fastFlashCounter);
    }
-   else if((indicatorBehaviour == DEM_INDICATOR_SLOW_FLASH) && (slowFlashCounter > 0u))
-   {
+   else if((indicatorBehaviour == DEM_INDICATOR_SLOW_FLASH) && (slowFlashCounter > 0u)){
         slowFlashCounter--;
         Dem_IndicatorSetSlowFlashCtr(indicatorId, slowFlashCounter);
    }
@@ -137,30 +117,24 @@ DEM_INLINE void Dem_IndicatorDecrementBehaviourCounter(uint8 indicatorId, uint8 
    }
 }
 
-DEM_INLINE uint8 Dem_EvtGetIndicatorStatus(uint8 indicatorId)
-{
+DEM_INLINE uint8 Dem_EvtGetIndicatorStatus(uint8 indicatorId){
    uint8 IndicatorStatus;
 
     DEM_ENTERLOCK_MON();
 
-   if(Dem_IndicatorGetFastFlashCtr(indicatorId) > 0u)
-   {
+   if(Dem_IndicatorGetFastFlashCtr(indicatorId) > 0u){
         IndicatorStatus = DEM_INDICATOR_FAST_FLASH;
    }
-   else if(Dem_IndicatorGetSlowFlashCtr(indicatorId) > 0u)
-   {
+   else if(Dem_IndicatorGetSlowFlashCtr(indicatorId) > 0u){
         IndicatorStatus = DEM_INDICATOR_SLOW_FLASH;
    }
-   else if((Dem_IndicatorGetBlinkingCounter(indicatorId) > 0u) && (Dem_IndicatorGetContinuousCounter(indicatorId) == 0u))
-   {
+   else if((Dem_IndicatorGetBlinkingCounter(indicatorId) > 0u) && (Dem_IndicatorGetContinuousCounter(indicatorId) == 0u)){
         IndicatorStatus = DEM_INDICATOR_BLINKING;
    }
-   else if((Dem_IndicatorGetBlinkingCounter(indicatorId) == 0u) && (Dem_IndicatorGetContinuousCounter(indicatorId) > 0u))
-   {
+   else if((Dem_IndicatorGetBlinkingCounter(indicatorId) == 0u) && (Dem_IndicatorGetContinuousCounter(indicatorId) > 0u)){
         IndicatorStatus = DEM_INDICATOR_CONTINUOUS;
    }
-   else if((Dem_IndicatorGetBlinkingCounter(indicatorId) > 0u) && (Dem_IndicatorGetContinuousCounter(indicatorId) > 0u))
-   {
+   else if((Dem_IndicatorGetBlinkingCounter(indicatorId) > 0u) && (Dem_IndicatorGetContinuousCounter(indicatorId) > 0u)){
         IndicatorStatus = DEM_INDICATOR_BLINK_CONT;
    }
    else{

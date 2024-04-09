@@ -50,17 +50,17 @@ typedef struct{
    uint8 healingCycleCounterVal;
 }Dem_EvtIndicatorAttributeState;
 
-#define DEM_EVTS_INDICATOR_ATTRIBUTE_INIT(BEHAVIOUR,     	\
-   	FAILURE_THRESHOLD,     		\
-   	HEALING_THRESHOLD,     	\
-   	INDICATOR_ID,								\
-   	APICONTROL                          \
-   	)                         							\
-     {                                              		\
-    (Dem_EvtIndicatorParamType)0u + (Dem_EvtIndicatorParamType)DEM_EVTINDICATOR_PARAMINI_BEHAVIOUR(BEHAVIOUR) 	\
-       + (Dem_EvtIndicatorParamType)DEM_EVTINDICATOR_PARAMINI_FAILTHRESHOLD(FAILURE_THRESHOLD)             	\
+#define DEM_EVTS_INDICATOR_ATTRIBUTE_INIT(BEHAVIOUR,        \
+      FAILURE_THRESHOLD,           \
+      HEALING_THRESHOLD,        \
+      INDICATOR_ID,                        \
+      APICONTROL                          \
+      )                                              \
+     {                                                    \
+    (Dem_EvtIndicatorParamType)0u + (Dem_EvtIndicatorParamType)DEM_EVTINDICATOR_PARAMINI_BEHAVIOUR(BEHAVIOUR)    \
+       + (Dem_EvtIndicatorParamType)DEM_EVTINDICATOR_PARAMINI_FAILTHRESHOLD(FAILURE_THRESHOLD)                \
        + (Dem_EvtIndicatorParamType)DEM_EVTINDICATOR_PARAMINI_HEALTHRESHOLD(HEALING_THRESHOLD)                 \
-       + (Dem_EvtIndicatorParamType)DEM_EVTINDICATOR_PARAMINI_INDICATORID(INDICATOR_ID)						\
+       + (Dem_EvtIndicatorParamType)DEM_EVTINDICATOR_PARAMINI_INDICATORID(INDICATOR_ID)                  \
        + (Dem_EvtIndicatorParamType)DEM_EVTINDICATOR_PARAMINI_APICONTROL(APICONTROL)                     \
      }
 
@@ -86,15 +86,13 @@ DEM_ARRAY_DECLARE(Dem_EvtIndicatorAttributeState, Dem_AllEventsIndicatorState, D
 #define DEM_START_SEC_ROM_CODE
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE uint8 Dem_IndicatorAttrib_GetIndicatorId(uint16_least indicatorIndex)
-{
+DEM_INLINE uint8 Dem_IndicatorAttrib_GetIndicatorId(uint16_least indicatorIndex){
    return (uint8) DEM_EVTINDICATORPARAM_GETBITS(Dem_AllEventsIndicatorParam[indicatorIndex].attributes
    ,  DEM_EVTINDICATOR_BP_PARAM_INDICATORID
    ,  DEM_INDICATOR_ID_REQUIRED_BIT_SIZE);
 }
 
-DEM_INLINE uint8 Dem_IndicatorAttrib_GetBehaviour(uint16_least indicatorIndex)
-{
+DEM_INLINE uint8 Dem_IndicatorAttrib_GetBehaviour(uint16_least indicatorIndex){
 #if(!DEM_CFG_EVTINDICATOR_IS_COMMON_BEHAVIOUR_USED)
    return (uint8) DEM_EVTINDICATORPARAM_GETBITS(Dem_AllEventsIndicatorParam[indicatorIndex].attributes
    ,  DEM_EVTINDICATOR_BP_PARAM_BEHAVIOUR
@@ -105,8 +103,7 @@ DEM_INLINE uint8 Dem_IndicatorAttrib_GetBehaviour(uint16_least indicatorIndex)
 #endif
 }
 
-DEM_INLINE uint8 Dem_IndicatorAttrib_GetFailureCycleThreshold(uint16_least indicatorIndex)
-{
+DEM_INLINE uint8 Dem_IndicatorAttrib_GetFailureCycleThreshold(uint16_least indicatorIndex){
 #if((DEM_CFG_EVTINDICATOR_FAILURETHRESHOLD == DEM_CFG_EVTINDICATOR_FAILURETHRESHOLD_ON) && (!DEM_CFG_EVTINDICATOR_IS_COMMON_FAILURETHRESHOLD_USED))
    return (uint8) DEM_EVTINDICATORPARAM_GETBITS(Dem_AllEventsIndicatorParam[indicatorIndex].attributes
    ,  DEM_EVTINDICATOR_BP_PARAM_FAILTHRESHOLD
@@ -117,8 +114,7 @@ DEM_INLINE uint8 Dem_IndicatorAttrib_GetFailureCycleThreshold(uint16_least indic
 #endif
 }
 
-DEM_INLINE uint8 Dem_IndicatorAttrib_GetHealingCycleThreshold(uint16_least indicatorIndex)
-{
+DEM_INLINE uint8 Dem_IndicatorAttrib_GetHealingCycleThreshold(uint16_least indicatorIndex){
 #if((DEM_CFG_EVTINDICATOR_HEALINGTHRESHOLD == DEM_CFG_EVTINDICATOR_HEALINGTHRESHOLD_ON) && (!DEM_CFG_EVTINDICATOR_IS_COMMON_HEALINGTHRESHOLD_USED))
    return (uint8) DEM_EVTINDICATORPARAM_GETBITS(Dem_AllEventsIndicatorParam[indicatorIndex].attributes
    ,  DEM_EVTINDICATOR_BP_PARAM_HEALTHRESHOLD
@@ -129,35 +125,29 @@ DEM_INLINE uint8 Dem_IndicatorAttrib_GetHealingCycleThreshold(uint16_least indic
 #endif
 }
 
-DEM_INLINE boolean Dem_IndicatorAttrib_IsApiControl(uint16_least indicatorIndex)
-{
+DEM_INLINE boolean Dem_IndicatorAttrib_IsApiControl(uint16_least indicatorIndex){
    return DEM_EVTINDICATORPARAM_ISBITSET(Dem_AllEventsIndicatorParam[indicatorIndex].attributes, DEM_EVTINDICATOR_BP_PARAM_APICONTROL);
 }
 
-DEM_INLINE uint8 Dem_IndicatorAttribGetFailureCycCtr(uint16_least indicatorIndex)
-{
+DEM_INLINE uint8 Dem_IndicatorAttribGetFailureCycCtr(uint16_least indicatorIndex){
    return Dem_AllEventsIndicatorState[indicatorIndex].failureCycleCounterVal;
 }
 
-DEM_INLINE void Dem_IndicatorAttribSetFailureCycCtr(uint16_least indicatorIndex, uint8 failureCtr)
-{
+DEM_INLINE void Dem_IndicatorAttribSetFailureCycCtr(uint16_least indicatorIndex, uint8 failureCtr){
    Dem_AllEventsIndicatorState[indicatorIndex].failureCycleCounterVal = failureCtr;
    Dem_NvMWriteBlockOnShutdown(DEM_NVM_ID_INDICATOR_ATTRIBUTES);
 }
 
-DEM_INLINE uint8 Dem_IndicatorAttribGetHealingCycCtr (uint16_least indicatorIndex)
-{
+DEM_INLINE uint8 Dem_IndicatorAttribGetHealingCycCtr (uint16_least indicatorIndex){
    return Dem_AllEventsIndicatorState[indicatorIndex].healingCycleCounterVal;
 }
 
-DEM_INLINE void Dem_IndicatorAttribSetHealingCycCtr(uint16_least indicatorIndex, uint8 healingCtr)
-{
+DEM_INLINE void Dem_IndicatorAttribSetHealingCycCtr(uint16_least indicatorIndex, uint8 healingCtr){
    Dem_AllEventsIndicatorState[indicatorIndex].healingCycleCounterVal = healingCtr;
    Dem_NvMWriteBlockOnShutdown(DEM_NVM_ID_INDICATOR_ATTRIBUTES);
 }
 
-DEM_INLINE Dem_boolean_least Dem_IsIndicatorAttributeValid(uint16_least indicatorIndex)
-{
+DEM_INLINE Dem_boolean_least Dem_IsIndicatorAttributeValid(uint16_least indicatorIndex){
    return (Dem_AllEventsIndicatorParam[indicatorIndex].attributes != DEM_INDICATOR_ATTRIBUTE_INVALID);
 }
 
@@ -167,8 +157,7 @@ void Dem_IndicatorAttributeInit(void);
 void Dem_IndicatorAttributeInitCheckNvM(void);
 Dem_boolean_least Dem_isAnyIndicatorAttribOn (Dem_EventIdType EventId);
 
-DEM_INLINE void Dem_ClearIndicatorAttributes(Dem_EventIdType EventId,Dem_UdsStatusByteType isoByteOld, Dem_UdsStatusByteType isoByteNew)
-{
+DEM_INLINE void Dem_ClearIndicatorAttributes(Dem_EventIdType EventId,Dem_UdsStatusByteType isoByteOld, Dem_UdsStatusByteType isoByteNew){
 
     Dem_EventIndicatorAttributeIterator it;
    uint16_least currentIndicAttrib = 0;
@@ -176,8 +165,7 @@ DEM_INLINE void Dem_ClearIndicatorAttributes(Dem_EventIdType EventId,Dem_UdsStat
 
     DEM_ASSERT_ISLOCKED();
 
-   if(!Dem_ISO14229ByteIsWarningIndicatorRequested(isoByteNew))
-   {
+   if(!Dem_ISO14229ByteIsWarningIndicatorRequested(isoByteNew)){
 
         for(Dem_EventIndicatorAttributeIteratorNew(EventId, &it); Dem_EventIndicatorAttributeIsValid(EventId, &it);
                 Dem_EventIndicatorAttributeNext(&it))

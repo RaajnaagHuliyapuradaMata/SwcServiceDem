@@ -11,38 +11,32 @@
 
 #if(DEM_CFG_FFRECNUM == DEM_CFG_FFRECNUM_CALCULATED)
 
-DEM_INLINE Dem_boolean_least Dem_EnvIsFFRecNumValid(Dem_EventIdType EventId, uint8 RecNumber)
-{
+DEM_INLINE Dem_boolean_least Dem_EnvIsFFRecNumValid(Dem_EventIdType EventId, uint8 RecNumber){
    return ((RecNumber > 0) && (RecNumber <= Dem_EvtParam_GetMaxNumberFreezeFrameRecords(EventId)));
 }
 
-DEM_INLINE uint8 Dem_EnvGetIndexFromFFRecNum(Dem_EventIdType EventId, uint8 RecNumber)
-{
+DEM_INLINE uint8 Dem_EnvGetIndexFromFFRecNum(Dem_EventIdType EventId, uint8 RecNumber){
    DEM_UNUSED_PARAM(EventId);
    return (RecNumber - 1);
 }
 
-DEM_INLINE uint8 Dem_EnvGetFFRecNumFromIndex(Dem_EventIdType EventId, uint8 idx)
-{
+DEM_INLINE uint8 Dem_EnvGetFFRecNumFromIndex(Dem_EventIdType EventId, uint8 idx){
    DEM_UNUSED_PARAM(EventId);
    return (idx + 1);
 }
 
-DEM_INLINE Dem_TriggerType Dem_EnvGetFFRecordTrigger (uint8 RecNumber)
-{
+DEM_INLINE Dem_TriggerType Dem_EnvGetFFRecordTrigger (uint8 RecNumber){
     DEM_UNUSED_PARAM(RecNumber);
     return 0;
 }
 
-DEM_INLINE void Dem_EnvGetFFRecordTriggerAndUpdate (uint8 RecNumber, Dem_TriggerType* Trigger, boolean* Update)
-{
+DEM_INLINE void Dem_EnvGetFFRecordTriggerAndUpdate (uint8 RecNumber, Dem_TriggerType* Trigger, boolean* Update){
     DEM_UNUSED_PARAM(RecNumber);
     *Trigger = 0;
     *Update = FALSE;
 }
 
-DEM_INLINE Dem_boolean_least Dem_EnvIsFFRecNumStored(const Dem_EvMemEventMemoryType *EventMemory, uint8 RecNumber)
-{
+DEM_INLINE Dem_boolean_least Dem_EnvIsFFRecNumStored(const Dem_EvMemEventMemoryType *EventMemory, uint8 RecNumber){
     Dem_EventIdType EventId;
 
     EventId = Dem_EvMemGetEventMemEventIdByPtr(EventMemory);
@@ -76,8 +70,7 @@ typedef struct{
 
 extern const Dem_EnvFFRec Dem_Cfg_EnvFFRec[DEM_CFG_ENVFFREC_ARRAYLENGTH];
 
-DEM_INLINE uint8 Dem_EnvGetFFRecNumClassIndex (Dem_EventIdType EventId)
-{
+DEM_INLINE uint8 Dem_EnvGetFFRecNumClassIndex (Dem_EventIdType EventId){
 #if DEM_CFG_FFRECCLASS_NUMBEROF_FFRECCLASSES > 1
    return Dem_Cfg_EnvEventId2FrecNumClass[EventId];
 #else
@@ -85,16 +78,14 @@ DEM_INLINE uint8 Dem_EnvGetFFRecNumClassIndex (Dem_EventIdType EventId)
 #endif
 }
 
-DEM_INLINE Dem_boolean_least Dem_EnvIsFFRecNumValid(Dem_EventIdType EventId, uint8 RecNumber)
-{
+DEM_INLINE Dem_boolean_least Dem_EnvIsFFRecNumValid(Dem_EventIdType EventId, uint8 RecNumber){
    uint8 RecNumberIndex;
 
    RecNumberIndex = Dem_EnvGetIndexOfFFRecConf(EventId,RecNumber);
    return (Dem_boolean_least)((RecNumber > 0) && (RecNumberIndex != DEM_ENV_FFRECNUM_INDEX_INVALID));
 }
 
-DEM_INLINE uint8 Dem_EnvGetIndexFromFFRecNum(Dem_EventIdType EventId, uint8 RecNumber)
-{
+DEM_INLINE uint8 Dem_EnvGetIndexFromFFRecNum(Dem_EventIdType EventId, uint8 RecNumber){
    uint8 RecNumberIndex;
 
    RecNumberIndex = Dem_EnvGetIndexOfFFRecConf(EventId,RecNumber);
@@ -102,18 +93,15 @@ DEM_INLINE uint8 Dem_EnvGetIndexFromFFRecNum(Dem_EventIdType EventId, uint8 RecN
     return RecNumberIndex;
 }
 
-DEM_INLINE uint8 Dem_EnvGetFFRecNumFromIndex(Dem_EventIdType EventId, uint8 idx)
-{
+DEM_INLINE uint8 Dem_EnvGetFFRecNumFromIndex(Dem_EventIdType EventId, uint8 idx){
    DEM_ASSERT(idx < Dem_EvtParam_GetMaxNumberFreezeFrameRecords(EventId),DEM_DET_APIID_ENVGETFFRECNUMFROMINDEX,0x0);
    return Dem_Cfg_EnvFFRecNumConf [Dem_EnvGetFFRecNumClassIndex(EventId)][idx];
 }
 
-DEM_INLINE Dem_TriggerType Dem_EnvGetFFRecordTrigger (uint8 RecNumber)
-{
+DEM_INLINE Dem_TriggerType Dem_EnvGetFFRecordTrigger (uint8 RecNumber){
    uint8 indx;
 
-   for(indx = 1 ; indx < DEM_CFG_ENVFFREC_ARRAYLENGTH ; indx++)
-   {
+   for(indx = 1 ; indx < DEM_CFG_ENVFFREC_ARRAYLENGTH ; indx++){
         if(Dem_Cfg_EnvFFRec[indx].recordNumber == RecNumber)
         {
             return Dem_Cfg_EnvFFRec[indx].trigger;
@@ -122,12 +110,10 @@ DEM_INLINE Dem_TriggerType Dem_EnvGetFFRecordTrigger (uint8 RecNumber)
     return 0;
 }
 
-DEM_INLINE void Dem_EnvGetFFRecordTriggerAndUpdate (uint8 RecNumber, Dem_TriggerType* Trigger, boolean* Update)
-{
+DEM_INLINE void Dem_EnvGetFFRecordTriggerAndUpdate (uint8 RecNumber, Dem_TriggerType* Trigger, boolean* Update){
    uint8 indx;
 
-   for(indx = 1 ; indx < DEM_CFG_ENVFFREC_ARRAYLENGTH ; indx++)
-   {
+   for(indx = 1 ; indx < DEM_CFG_ENVFFREC_ARRAYLENGTH ; indx++){
        if(Dem_Cfg_EnvFFRec[indx].recordNumber == RecNumber)
        {
            *Trigger = Dem_Cfg_EnvFFRec[indx].trigger;
@@ -139,12 +125,10 @@ DEM_INLINE void Dem_EnvGetFFRecordTriggerAndUpdate (uint8 RecNumber, Dem_Trigger
    *Update = FALSE;
 }
 
-DEM_INLINE Dem_boolean_least Dem_EnvIsFFRecNumStored(const Dem_EvMemEventMemoryType *EventMemory, uint8 RecNumber)
-{
+DEM_INLINE Dem_boolean_least Dem_EnvIsFFRecNumStored(const Dem_EvMemEventMemoryType *EventMemory, uint8 RecNumber){
    uint8 indx;
 
-   for(indx = 1 ; indx < DEM_CFG_ENVFFREC_ARRAYLENGTH ; indx++)
-   {
+   for(indx = 1 ; indx < DEM_CFG_ENVFFREC_ARRAYLENGTH ; indx++){
         if(Dem_Cfg_EnvFFRec[indx].recordNumber == RecNumber)
         {
             return (Dem_EnvIsTriggerSet(Dem_Cfg_EnvFFRec[indx].trigger , Dem_EvMemGetEventMemTriggerByPtr(EventMemory)));

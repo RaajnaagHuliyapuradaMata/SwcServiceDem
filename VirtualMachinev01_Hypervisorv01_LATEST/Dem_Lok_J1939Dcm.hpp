@@ -90,8 +90,7 @@ Dem_J1939DcmLampStatusType Dem_J1939DcmGetLampStatus(void);
 void Dem_J1939DcmDtcFilterInit(void);
 #endif
 
-DEM_INLINE Dem_DtcCodeType Dem_J1939DtcGetCode (Dem_DtcIdType dtcId)
-{
+DEM_INLINE Dem_DtcCodeType Dem_J1939DtcGetCode (Dem_DtcIdType dtcId){
     return Dem_AllJ1939DTCsParam32[dtcId].code;
 }
 
@@ -109,13 +108,11 @@ void Dem_J1939DcmFreezeFrameFilterInit(void);
 
 #if(DEM_CFG_J1939DCM_FREEZEFRAME_SUPPORT || DEM_CFG_J1939DCM_EXPANDED_FREEZEFRAME_SUPPORT)
 
-DEM_INLINE Dem_boolean_least Dem_J1939IsFreezeFrameKindValid (Dem_J1939DcmSetFreezeFrameFilterType FreezeFrameKind)
-{
+DEM_INLINE Dem_boolean_least Dem_J1939IsFreezeFrameKindValid (Dem_J1939DcmSetFreezeFrameFilterType FreezeFrameKind){
     Dem_boolean_least DemJ1939FFKindValid = FALSE;
 
 #if(DEM_CFG_J1939DCM_FREEZEFRAME_SUPPORT)
-   if(FreezeFrameKind == DEM_J1939DCM_FREEZEFRAME)
-   {
+   if(FreezeFrameKind == DEM_J1939DCM_FREEZEFRAME){
         DemJ1939FFKindValid = TRUE;
    }
    else

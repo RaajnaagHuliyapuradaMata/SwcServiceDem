@@ -21,8 +21,7 @@
 #define DEM_EVMEMGEN_CLEAROBJ(OBJ) do {}while(0)
 #endif
 
-DEM_INLINE Dem_DtcIdType Dem_EvMemGenGetDtcIdByOccIndex(uint32 OccIndex)
-{
+DEM_INLINE Dem_DtcIdType Dem_EvMemGenGetDtcIdByOccIndex(uint32 OccIndex){
 #if DEM_CFG_EVMEMGENERIC_SUPPORTED
     return DEM_EVMEMGEN_GET(DEM_EVMEMGEN_MEMORY_BASE.DtcIdsByOccurrenceTime[OccIndex]);
 #else
@@ -31,8 +30,7 @@ DEM_INLINE Dem_DtcIdType Dem_EvMemGenGetDtcIdByOccIndex(uint32 OccIndex)
 #endif
 }
 
-DEM_INLINE void Dem_EvMemGenSetDtcByOccIndex(Dem_DtcIdType DtcId,uint32 OccIndex)
-{
+DEM_INLINE void Dem_EvMemGenSetDtcByOccIndex(Dem_DtcIdType DtcId,uint32 OccIndex){
 #if DEM_CFG_EVMEMGENERIC_SUPPORTED
     DEM_EVMEMGEN_SET(DEM_EVMEMGEN_MEMORY_BASE.DtcIdsByOccurrenceTime[OccIndex],DtcId);
 #else
@@ -41,23 +39,18 @@ DEM_INLINE void Dem_EvMemGenSetDtcByOccIndex(Dem_DtcIdType DtcId,uint32 OccIndex
 #endif
 }
 
-DEM_INLINE Dem_DTCOriginType Dem_EvMemGenGetDtcOrginFromMemId(uint16_least MemId)
-{
+DEM_INLINE Dem_DTCOriginType Dem_EvMemGenGetDtcOrginFromMemId(uint16_least MemId){
    Dem_DTCOriginType DtcOrigin = DEM_DTC_ORIGIN_PRIMARY_MEMORY;
 
-   if(Dem_LibGetParamBool(DEM_CFG_EVMEM_SECONDARY_MEMORY_SUPPORTED))
-   {
-      if(MemId == DEM_CFG_EVMEM_MEMID_SECONDARY)
-      {
+   if(Dem_LibGetParamBool(DEM_CFG_EVMEM_SECONDARY_MEMORY_SUPPORTED)){
+      if(MemId == DEM_CFG_EVMEM_MEMID_SECONDARY){
          DtcOrigin = DEM_DTC_ORIGIN_SECONDARY_MEMORY;
       }
    }
 
-   if(Dem_LibGetParamBool(DEM_CFG_EVMEM_MIRROR_MEMORY_SUPPORTED))
-   {
+   if(Dem_LibGetParamBool(DEM_CFG_EVMEM_MIRROR_MEMORY_SUPPORTED)){
 
-      if(MemId == DEM_CFG_EVMEM_MEMID_MIRROR)
-      {
+      if(MemId == DEM_CFG_EVMEM_MEMID_MIRROR){
          DtcOrigin = DEM_DTC_ORIGIN_MIRROR_MEMORY;
       }
    }
@@ -65,25 +58,21 @@ DEM_INLINE Dem_DTCOriginType Dem_EvMemGenGetDtcOrginFromMemId(uint16_least MemId
    return DtcOrigin;
 }
 
-DEM_INLINE void Dem_EvMemGenReportEvent(Dem_EventIdType EventId, uint32 FirstOccIndex, uint32 RecntOccIndex)
-{
+DEM_INLINE void Dem_EvMemGenReportEvent(Dem_EventIdType EventId, uint32 FirstOccIndex, uint32 RecntOccIndex){
    Dem_DtcIdType DtcId;
 
    DtcId = Dem_DtcIdFromEventId (EventId);
 
-   if(Dem_isDtcIdValid (DtcId))
-   {
+   if(Dem_isDtcIdValid (DtcId)){
 
-      if(!Dem_isDtcIdValid(Dem_EvMemGenGetDtcIdByOccIndex(FirstOccIndex)))
-      {
+      if(!Dem_isDtcIdValid(Dem_EvMemGenGetDtcIdByOccIndex(FirstOccIndex))){
 
          Dem_EvMemGenSetDtcByOccIndex(DtcId,FirstOccIndex);
 
          Dem_NvMWriteBlockOnShutdown(DEM_NVM_ID_DEM_GENERIC_NV_DATA);
       }
 
-      if(Dem_EvMemGenGetDtcIdByOccIndex(RecntOccIndex) != DtcId)
-      {
+      if(Dem_EvMemGenGetDtcIdByOccIndex(RecntOccIndex) != DtcId){
 
          Dem_EvMemGenSetDtcByOccIndex(DtcId,RecntOccIndex);
 
@@ -92,10 +81,8 @@ DEM_INLINE void Dem_EvMemGenReportEvent(Dem_EventIdType EventId, uint32 FirstOcc
    }
 }
 
-DEM_INLINE void Dem_EvMemGenReportFailedEvent(Dem_EventIdType EventId)
-{
-   if(!Dem_GetEvMemLockInternal())
-   {
+DEM_INLINE void Dem_EvMemGenReportFailedEvent(Dem_EventIdType EventId){
+   if(!Dem_GetEvMemLockInternal()){
 
        if( Dem_EvtParam_GetEventIsStoredInPrimary(EventId) )
        {
@@ -107,22 +94,18 @@ DEM_INLINE void Dem_EvMemGenReportFailedEvent(Dem_EventIdType EventId)
    }
 }
 
-DEM_INLINE void Dem_EvMemGenReportConfirmedEvent(Dem_EventIdType EventId, uint16_least MemId)
-{
+DEM_INLINE void Dem_EvMemGenReportConfirmedEvent(Dem_EventIdType EventId, uint16_least MemId){
 
-   if(MemId == DEM_CFG_EVMEM_MEMID_PRIMARY)
-   {
+   if(MemId == DEM_CFG_EVMEM_MEMID_PRIMARY){
 
       Dem_EvMemGenReportEvent(EventId,DEM_FIRST_DET_CONFIRMED_DTC,DEM_MOST_REC_DET_CONFIRMED_DTC);
    }
 }
 
-DEM_INLINE void Dem_EvMemGenClearDtcByOccurrenceTime(Dem_DTCOriginType DtcOrigin)
-{
+DEM_INLINE void Dem_EvMemGenClearDtcByOccurrenceTime(Dem_DTCOriginType DtcOrigin){
    DEM_UNUSED_PARAM(DtcOrigin);
 
-   if(DtcOrigin == DEM_DTC_ORIGIN_PRIMARY_MEMORY)
-   {
+   if(DtcOrigin == DEM_DTC_ORIGIN_PRIMARY_MEMORY){
 
       DEM_ENTERLOCK_MON();
       DEM_EVMEMGEN_CLEAROBJ(DEM_EVMEMGEN_MEMORY_BASE.DtcIdsByOccurrenceTime);
@@ -140,8 +123,7 @@ DEM_INLINE Dem_DtcIdType Dem_EvMemGenGetLastConfirmedDtcFromGenNvData(void){
    return Dem_EvMemGenGetDtcIdByOccIndex(DEM_MOST_REC_DET_CONFIRMED_DTC);
 }
 
-DEM_INLINE void Dem_EvMemGenSetOverflow(Dem_DTCOriginType DtcOrigin)
-{
+DEM_INLINE void Dem_EvMemGenSetOverflow(Dem_DTCOriginType DtcOrigin){
 #if DEM_CFG_EVMEMGENERIC_SUPPORTED
     DEM_EVMEMGEN_SET(DEM_EVMEMGEN_MEMORY_BASE.Overflow[DtcOrigin],TRUE);
 #else
@@ -149,8 +131,7 @@ DEM_INLINE void Dem_EvMemGenSetOverflow(Dem_DTCOriginType DtcOrigin)
 #endif
 }
 
-DEM_INLINE boolean Dem_EvMemGenIsOverflow(Dem_DTCOriginType DtcOrigin)
-{
+DEM_INLINE boolean Dem_EvMemGenIsOverflow(Dem_DTCOriginType DtcOrigin){
 #if DEM_CFG_EVMEMGENERIC_SUPPORTED
     return (boolean)DEM_EVMEMGEN_GET(DEM_EVMEMGEN_MEMORY_BASE.Overflow[DtcOrigin]);
 #else
@@ -159,17 +140,14 @@ DEM_INLINE boolean Dem_EvMemGenIsOverflow(Dem_DTCOriginType DtcOrigin)
 #endif
 }
 
-DEM_INLINE void Dem_EvMemGenReportEventMemoryOverflowByOrigin(Dem_DTCOriginType DtcOrigin)
-{
-   if(!Dem_EvMemGenIsOverflow(DtcOrigin))
-   {
+DEM_INLINE void Dem_EvMemGenReportEventMemoryOverflowByOrigin(Dem_DTCOriginType DtcOrigin){
+   if(!Dem_EvMemGenIsOverflow(DtcOrigin)){
       Dem_EvMemGenSetOverflow(DtcOrigin);
       Dem_NvMWriteBlockOnShutdown(DEM_NVM_ID_DEM_GENERIC_NV_DATA);
    }
 }
 
-DEM_INLINE void Dem_EvMemGenClearOverflow(Dem_DTCOriginType DtcOrigin)
-{
+DEM_INLINE void Dem_EvMemGenClearOverflow(Dem_DTCOriginType DtcOrigin){
 #if DEM_CFG_EVMEMGENERIC_SUPPORTED
     DEM_EVMEMGEN_SET(DEM_EVMEMGEN_MEMORY_BASE.Overflow[DtcOrigin],FALSE);
     Dem_NvMClearBlockByWrite(DEM_NVM_ID_DEM_GENERIC_NV_DATA);
@@ -181,8 +159,7 @@ DEM_INLINE void Dem_EvMemGenClearOverflow(Dem_DTCOriginType DtcOrigin)
 DEM_INLINE void Dem_EvMemGenInitEventMemoryGen(void){
     Dem_NvmResultType NvmResult;
 
-   if(Dem_NvMIsInvalidateAllNVMBlocksRequested())
-   {
+   if(Dem_NvMIsInvalidateAllNVMBlocksRequested()){
 
         DEM_MEMSET(&Dem_GenericNvData, 0x00, sizeof(Dem_GenericNvDataType));
         Dem_NvMClearBlockByInvalidate(DEM_NVM_ID_DEM_GENERIC_NV_DATA);

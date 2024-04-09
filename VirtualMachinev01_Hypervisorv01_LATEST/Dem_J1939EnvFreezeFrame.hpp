@@ -66,26 +66,22 @@ Dem_ReturnGetNextFilteredElementType Dem_J1939EnvRetrieveExpFF(Dem_EventIdType E
 #define DEM_STOP_SEC_ROM_CODE
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE void Dem_J1939EnvFFCopyRaw(uint8 freezeFrameId, uint8* dest, uint16 bufsize, const uint8* src)
-{
+DEM_INLINE void Dem_J1939EnvFFCopyRaw(uint8 freezeFrameId, uint8* dest, uint16 bufsize, const uint8* src){
    const uint16 bytesize = Dem_Cfg_J1939EnvFreezeFrame[freezeFrameId].rawByteSize;
 
     DEM_ASSERT(bytesize <= bufsize, DEM_DET_APIID_J1939ENVFFCOPYRAW, 0);
     DEM_MEMCPY (dest, src, bytesize);
 }
 
-DEM_INLINE Dem_boolean_least Dem_J1939EnvHasExpFreezeFrame(Dem_EventIdType EventId)
-{
+DEM_INLINE Dem_boolean_least Dem_J1939EnvHasExpFreezeFrame(Dem_EventIdType EventId){
     return (Dem_Cfg_J1939EnvEventId2EnvData[EventId].J1939ExpFreezeFrameId != 0);
 }
 
-DEM_INLINE Dem_boolean_least Dem_J1939EnvHasFreezeFrame(Dem_EventIdType EventId)
-{
+DEM_INLINE Dem_boolean_least Dem_J1939EnvHasFreezeFrame(Dem_EventIdType EventId){
     return (Dem_Cfg_J1939EnvEventId2EnvData[EventId].J1939FreezeFrameId != 0);
 }
 
-DEM_INLINE uint16 Dem_J1939EnvFFGetRawByteSize(uint8 freezeFrameId)
-{
+DEM_INLINE uint16 Dem_J1939EnvFFGetRawByteSize(uint8 freezeFrameId){
     return Dem_Cfg_J1939EnvFreezeFrame[freezeFrameId].rawByteSize;
 }
 
@@ -93,24 +89,20 @@ DEM_INLINE uint16 Dem_J1939EnvOffsetforOBDSize (void){
     return DEM_CFG_OFFSET_OBDRAWENVDATA;
 }
 
-DEM_INLINE void Dem_J1939EnvSpnCapture(uint8 Spn, uint8** start, const uint8* end, const Dem_InternalEnvData *internalEnvData)
-{
+DEM_INLINE void Dem_J1939EnvSpnCapture(uint8 Spn, uint8** start, const uint8* end, const Dem_InternalEnvData *internalEnvData){
    uint16_least i;
    for(i = Dem_Cfg_EnvSpn[Spn - 1].dataElementIndex;
          i < Dem_Cfg_EnvSpn[Spn].dataElementIndex;
-         i++)
-   {
+         i++){
         Dem_EnvDACapture(Dem_Cfg_EnvSpn2DataElement[i], start, end, internalEnvData);
    }
 }
 
-DEM_INLINE void Dem_J1939EnvFFCapture(uint8 freezeFrameId, uint8* buffer, uint16 size, const Dem_InternalEnvData* internalEnvData)
-{
+DEM_INLINE void Dem_J1939EnvFFCapture(uint8 freezeFrameId, uint8* buffer, uint16 size, const Dem_InternalEnvData* internalEnvData){
    uint32 i;
    uint8* end = buffer + size;
 
-   for(i = Dem_Cfg_J1939EnvFreezeFrame[freezeFrameId - 1].SPNIndex; i < Dem_Cfg_J1939EnvFreezeFrame[freezeFrameId].SPNIndex; i++)
-   {
+   for(i = Dem_Cfg_J1939EnvFreezeFrame[freezeFrameId - 1].SPNIndex; i < Dem_Cfg_J1939EnvFreezeFrame[freezeFrameId].SPNIndex; i++){
         Dem_J1939EnvSpnCapture (Dem_Cfg_J1939EnvFreezeFrame2SPN[i], &buffer, end, internalEnvData);
    }
 
@@ -119,14 +111,12 @@ DEM_INLINE void Dem_J1939EnvFFCapture(uint8 freezeFrameId, uint8* buffer, uint16
 #endif
 }
 
-DEM_INLINE Dem_boolean_least Dem_EnvSPNRetrieveRaw(uint8 Spn, uint8** start, const uint8* end, const uint8** src, const Dem_InternalEnvData* internalEnvData)
-{
+DEM_INLINE Dem_boolean_least Dem_EnvSPNRetrieveRaw(uint8 Spn, uint8** start, const uint8* end, const uint8** src, const Dem_InternalEnvData* internalEnvData){
    uint16_least i;
 
    for(i = Dem_Cfg_EnvSpn[Spn - 1].dataElementIndex;
          i < Dem_Cfg_EnvSpn[Spn].dataElementIndex;
-         i++)
-   {
+         i++){
         if(!Dem_EnvDARetrieve(Dem_Cfg_EnvSpn2DataElement[i], start, end, src, internalEnvData))
         {
             return FALSE;
@@ -139,19 +129,16 @@ DEM_INLINE Dem_ReturnGetNextFilteredElementType Dem_J1939EnvFFRetrieve(uint8 fre
    ,     uint8* dest
    ,     uint16* bufsize
    ,     const uint8* src
-   ,     const Dem_InternalEnvData* internalEnvData)
-{
+   ,     const Dem_InternalEnvData* internalEnvData){
    uint8* writepos = dest;
    uint8* end = dest + *bufsize;
    uint16_least i;
 
-   if(*bufsize < Dem_J1939EnvFFGetRawByteSize(freezeFrameId))
-   {
+   if(*bufsize < Dem_J1939EnvFFGetRawByteSize(freezeFrameId)){
         return DEM_FILTERED_BUFFER_TOO_SMALL;
    }
 
-   for(i = Dem_Cfg_J1939EnvFreezeFrame[freezeFrameId - 1].SPNIndex; i < Dem_Cfg_J1939EnvFreezeFrame[freezeFrameId].SPNIndex; i++)
-   {
+   for(i = Dem_Cfg_J1939EnvFreezeFrame[freezeFrameId - 1].SPNIndex; i < Dem_Cfg_J1939EnvFreezeFrame[freezeFrameId].SPNIndex; i++){
         if(!Dem_EnvSPNRetrieveRaw (Dem_Cfg_J1939EnvFreezeFrame2SPN[i], &writepos, end, &src, internalEnvData))
         {
             return DEM_FILTERED_BUFFER_TOO_SMALL;

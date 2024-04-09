@@ -22,12 +22,12 @@
 #define C_EVENTTYPE_PRESTORE                       6u
 #define C_EVENTTYPE_UNROBUST                       7u
 
-#define DEM_CFG_EVBUFF_STORES_ENVDATA_ON		STD_ON
-#define DEM_CFG_EVBUFF_STORES_ENVDATA_OFF		STD_OFF
+#define DEM_CFG_EVBUFF_STORES_ENVDATA_ON      STD_ON
+#define DEM_CFG_EVBUFF_STORES_ENVDATA_OFF      STD_OFF
 #if((DEM_CFG_DEPENDENCY == DEM_CFG_DEPENDENCY_ON) || (DEM_CFG_FFPRESTORAGESUPPORT == DEM_CFG_FFPRESTORAGESUPPORT_ON))
-#define DEM_CFG_EVBUFF_STORES_ENVDATA		DEM_CFG_EVBUFF_STORES_ENVDATA_ON
+#define DEM_CFG_EVBUFF_STORES_ENVDATA      DEM_CFG_EVBUFF_STORES_ENVDATA_ON
 #else
-#define DEM_CFG_EVBUFF_STORES_ENVDATA		DEM_CFG_EVBUFF_STORES_ENVDATA_OFF
+#define DEM_CFG_EVBUFF_STORES_ENVDATA      DEM_CFG_EVBUFF_STORES_ENVDATA_OFF
 #endif
 
 typedef union
@@ -67,14 +67,12 @@ typedef struct{
 }Dem_EvBuffEvent;
 
 #if(DEM_CFG_DEPENDENCY == DEM_CFG_DEPENDENCY_ON)
-DEM_INLINE Dem_ComponentIdType Dem_FailureEvent__getNodeId (const Dem_EvBuffEvent *fe)
-{
+DEM_INLINE Dem_ComponentIdType Dem_FailureEvent__getNodeId (const Dem_EvBuffEvent *fe){
     return Dem_NodeIdFromEventId(fe->eventId);
 }
 #endif
 
-DEM_INLINE void Dem_EvBuffSetCounter (Dem_EvBuffEvent *evBuff, uint8 value)
-{
+DEM_INLINE void Dem_EvBuffSetCounter (Dem_EvBuffEvent *evBuff, uint8 value){
 #if(DEM_CFG_DEPENDENCY == DEM_CFG_DEPENDENCY_ON)
     evBuff->counter = value;
 #else
@@ -83,8 +81,7 @@ DEM_INLINE void Dem_EvBuffSetCounter (Dem_EvBuffEvent *evBuff, uint8 value)
 #endif
 }
 
-DEM_INLINE uint8 Dem_EvBuffGetCounter (const Dem_EvBuffEvent *evBuff)
-{
+DEM_INLINE uint8 Dem_EvBuffGetCounter (const Dem_EvBuffEvent *evBuff){
 #if(DEM_CFG_DEPENDENCY == DEM_CFG_DEPENDENCY_ON)
     return evBuff->counter;
 #else

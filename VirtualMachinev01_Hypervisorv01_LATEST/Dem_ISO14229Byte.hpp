@@ -56,10 +56,10 @@
 #error Bit definition error
 #endif
 
-#define DEM_ISO14229BYTE_INITVALUE            		( (DEM_ISO14229_BM_TESTNOTCOMPLETE_TOC)|(DEM_ISO14229_BM_TESTNOTCOMPLETE_SLC) )
+#define DEM_ISO14229BYTE_INITVALUE                  ( (DEM_ISO14229_BM_TESTNOTCOMPLETE_TOC)|(DEM_ISO14229_BM_TESTNOTCOMPLETE_SLC) )
 #define DEM_ISO14229BYTE_MASK_PENDING_CONFIRMED     ( DEM_ISO14229_BM_PENDINGDTC | DEM_ISO14229_BM_CONFIRMEDDTC )
 
-#define DEM_ISO14229BYTE_MASK_INDICATOR_OFF			(DEM_ISO14229_BM_CONFIRMEDDTC | DEM_ISO14229_BM_TESTFAILED \
+#define DEM_ISO14229BYTE_MASK_INDICATOR_OFF         (DEM_ISO14229_BM_CONFIRMEDDTC | DEM_ISO14229_BM_TESTFAILED \
                                                       | DEM_ISO14229_BM_TESTFAILED_TOC)
 
 #define DEM_ISO14229BYTE_MASK_TESTFAILEDSINCELASTCLEAR     ( DEM_ISO14229_BM_TESTFAILED_SLC )
@@ -97,93 +97,75 @@
                 |(DEM_ISO14229_BM_TESTNOTCOMPLETE_TOC*(OPERATIONCYCLE_IS_PC)) \
         )
 
-DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestFailed (uint8 self)
-{
+DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestFailed (uint8 self){
     return rba_DiagLib_Bit8IsBitSet (self, DEM_ISO14229_TESTFAILED);
 }
 
-DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestFailedTOC (uint8 self)
-{
+DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestFailedTOC (uint8 self){
     return rba_DiagLib_Bit8IsBitSet (self, DEM_ISO14229_TESTFAILED_TOC);
 }
 
-DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestFailedSLC (uint8 self)
-{
+DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestFailedSLC (uint8 self){
     return rba_DiagLib_Bit8IsBitSet (self, DEM_ISO14229_TESTFAILED_SLC);
 }
 
-DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestNotCompleteTOC (uint8 self)
-{
+DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestNotCompleteTOC (uint8 self){
     return rba_DiagLib_Bit8IsBitSet (self, DEM_ISO14229_TESTNOTCOMPLETE_TOC);
 }
 
-DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestNotCompleteSLC (uint8 self)
-{
+DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestNotCompleteSLC (uint8 self){
     return rba_DiagLib_Bit8IsBitSet (self, DEM_ISO14229_TESTNOTCOMPLETE_SLC);
 }
 
-DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestCompleteTOC (uint8 self)
-{
+DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsTestCompleteTOC (uint8 self){
     return !rba_DiagLib_Bit8IsBitSet (self, DEM_ISO14229_TESTNOTCOMPLETE_TOC);
 }
 
-DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsPendingDTC (uint8 self)
-{
+DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsPendingDTC (uint8 self){
     return rba_DiagLib_Bit8IsBitSet (self, DEM_ISO14229_PENDINGDTC);
 }
 
-DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsConfirmedDTC (uint8 self)
-{
+DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsConfirmedDTC (uint8 self){
     return rba_DiagLib_Bit8IsBitSet (self, DEM_ISO14229_CONFIRMEDDTC);
 }
 
-DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsWarningIndicatorRequested (uint8 self)
-{
+DEM_INLINE Dem_boolean_least Dem_ISO14229ByteIsWarningIndicatorRequested (uint8 self){
     return rba_DiagLib_Bit8IsBitSet (self, DEM_ISO14229_WARNINGINDICATOR);
 }
 
-DEM_INLINE void Dem_ISO14229ByteSetTestFailed (uint8 *self, Dem_boolean_least setOrReset)
-{
+DEM_INLINE void Dem_ISO14229ByteSetTestFailed (uint8 *self, Dem_boolean_least setOrReset){
     rba_DiagLib_Bit8OverwriteBit (self, DEM_ISO14229_TESTFAILED, setOrReset);
 }
 
-DEM_INLINE void Dem_ISO14229ByteSetTestFailedTOC (uint8 *self, Dem_boolean_least setOrReset)
-{
+DEM_INLINE void Dem_ISO14229ByteSetTestFailedTOC (uint8 *self, Dem_boolean_least setOrReset){
     rba_DiagLib_Bit8OverwriteBit (self, DEM_ISO14229_TESTFAILED_TOC, setOrReset);
 }
 
-DEM_INLINE void Dem_ISO14229ByteSetTestFailedSLC (uint8 *self, Dem_boolean_least setOrReset)
-{
+DEM_INLINE void Dem_ISO14229ByteSetTestFailedSLC (uint8 *self, Dem_boolean_least setOrReset){
     rba_DiagLib_Bit8OverwriteBit (self, DEM_ISO14229_TESTFAILED_SLC, setOrReset);
 }
 
-DEM_INLINE void Dem_ISO14229ByteSetTestNotCompleteTOC (uint8 *self, Dem_boolean_least setOrReset)
-{
+DEM_INLINE void Dem_ISO14229ByteSetTestNotCompleteTOC (uint8 *self, Dem_boolean_least setOrReset){
     rba_DiagLib_Bit8OverwriteBit (self, DEM_ISO14229_TESTNOTCOMPLETE_TOC, setOrReset);
 }
 
-DEM_INLINE void Dem_ISO14229ByteSetTestCompleteTOC (uint8 *self, Dem_boolean_least setOrReset)
-{
+DEM_INLINE void Dem_ISO14229ByteSetTestCompleteTOC (uint8 *self, Dem_boolean_least setOrReset){
     rba_DiagLib_Bit8OverwriteBit (self, DEM_ISO14229_TESTNOTCOMPLETE_TOC, !setOrReset);
 }
 
-DEM_INLINE void Dem_ISO14229ByteSetTestCompleteSLC (uint8 *self, Dem_boolean_least setOrReset)
-{
+DEM_INLINE void Dem_ISO14229ByteSetTestCompleteSLC (uint8 *self, Dem_boolean_least setOrReset){
     rba_DiagLib_Bit8OverwriteBit (self, DEM_ISO14229_TESTNOTCOMPLETE_SLC, !setOrReset);
 }
 
-DEM_INLINE void Dem_ISO14229ByteSetPendingDTC (uint8 *self, Dem_boolean_least setOrReset)
-{
+DEM_INLINE void Dem_ISO14229ByteSetPendingDTC (uint8 *self, Dem_boolean_least setOrReset){
     rba_DiagLib_Bit8OverwriteBit (self, DEM_ISO14229_PENDINGDTC, setOrReset);
 }
 
-DEM_INLINE void Dem_ISO14229ByteSetConfirmedDTC (uint8 *self, Dem_boolean_least setOrReset)
-{
+DEM_INLINE void Dem_ISO14229ByteSetConfirmedDTC (uint8 *self, Dem_boolean_least setOrReset){
     rba_DiagLib_Bit8OverwriteBit (self, DEM_ISO14229_CONFIRMEDDTC, setOrReset);
 }
 
-DEM_INLINE void Dem_ISO14229ByteSetWarningIndicatorRequested (uint8 *self, Dem_boolean_least setOrReset)
-{
+DEM_INLINE void Dem_ISO14229ByteSetWarningIndicatorRequested (uint8 *self, Dem_boolean_least setOrReset){
     rba_DiagLib_Bit8OverwriteBit (self, DEM_ISO14229_WARNINGINDICATOR, setOrReset);
 }
 

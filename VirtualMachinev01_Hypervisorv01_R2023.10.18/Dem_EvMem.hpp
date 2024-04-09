@@ -29,13 +29,11 @@ DEM_ARRAY_DECLARE_CONST(Dem_EvMemMapOrigin2IdType, Dem_EvMemMapOrigin2Id, 5);
 #define DEM_STOP_SEC_ROM_CONST
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE boolean Dem_EvMemIsOriginSupported (Dem_DTCOriginType origin)
-{
+DEM_INLINE boolean Dem_EvMemIsOriginSupported (Dem_DTCOriginType origin){
     return Dem_EvMemMapOrigin2Id[origin].originSupported;
 }
 
-DEM_INLINE uint8 Dem_EvMemGetEvMemIdFromOrigin (Dem_DTCOriginType origin)
-{
+DEM_INLINE uint8 Dem_EvMemGetEvMemIdFromOrigin (Dem_DTCOriginType origin){
     return Dem_EvMemMapOrigin2Id[origin].evMemId;
 }
 
@@ -82,60 +80,48 @@ extern boolean Dem_EvMemIsLocked;
 #define DEM_STOP_SEC_RAM_CLEARED
 #include "Dem_Cfg_MemMap.hpp"
 
-DEM_INLINE void Dem_EvMemSetEventFailedAllMem(Dem_EventIdType EventId, const uint8 *EnvData)
-{
-   if(Dem_EvtParam_GetEventIsStoredInPrimary(EventId))
-   {
+DEM_INLINE void Dem_EvMemSetEventFailedAllMem(Dem_EventIdType EventId, const uint8 *EnvData){
+   if(Dem_EvtParam_GetEventIsStoredInPrimary(EventId)){
       Dem_EvMemSetEventFailed(EventId,DEM_CFG_EVMEM_MEMID_PRIMARY,EnvData);
    }
 #if DEM_CFG_MAX_NUMBER_EVENT_ENTRY_SECONDARY > 0
-   if(Dem_EvtParam_GetEventIsStoredInSecondary(EventId))
-   {
+   if(Dem_EvtParam_GetEventIsStoredInSecondary(EventId)){
       Dem_EvMemSetEventFailed(EventId,DEM_CFG_EVMEM_MEMID_SECONDARY,EnvData);
    }
 #endif
 }
 
-DEM_INLINE void Dem_EvMemSetEventPassedAllMem(Dem_EventIdType EventId, const uint8 *EnvData)
-{
-   if(Dem_EvtParam_GetEventIsStoredInPrimary(EventId))
-   {
+DEM_INLINE void Dem_EvMemSetEventPassedAllMem(Dem_EventIdType EventId, const uint8 *EnvData){
+   if(Dem_EvtParam_GetEventIsStoredInPrimary(EventId)){
       Dem_EvMemSetEventPassed(EventId,DEM_CFG_EVMEM_MEMID_PRIMARY,EnvData);
    }
 #if DEM_CFG_MAX_NUMBER_EVENT_ENTRY_SECONDARY > 0
-   if(Dem_EvtParam_GetEventIsStoredInSecondary(EventId))
-   {
+   if(Dem_EvtParam_GetEventIsStoredInSecondary(EventId)){
       Dem_EvMemSetEventPassed(EventId,DEM_CFG_EVMEM_MEMID_SECONDARY,EnvData);
    }
 #endif
 }
 
-DEM_INLINE void Dem_EvMemSetEventUnRobustAllMem(Dem_EventIdType EventId, const uint8 *EnvData)
-{
-   if(Dem_EvtParam_GetEventIsStoredInPrimary(EventId))
-   {
+DEM_INLINE void Dem_EvMemSetEventUnRobustAllMem(Dem_EventIdType EventId, const uint8 *EnvData){
+   if(Dem_EvtParam_GetEventIsStoredInPrimary(EventId)){
       Dem_EvMemSetEventUnRobust(EventId,DEM_CFG_EVMEM_MEMID_PRIMARY,EnvData);
    }
 #if DEM_CFG_MAX_NUMBER_EVENT_ENTRY_SECONDARY > 0
-   if(Dem_EvtParam_GetEventIsStoredInSecondary(EventId))
-   {
+   if(Dem_EvtParam_GetEventIsStoredInSecondary(EventId)){
       Dem_EvMemSetEventUnRobust(EventId,DEM_CFG_EVMEM_MEMID_SECONDARY,EnvData);
    }
 #endif
 }
 
-DEM_INLINE void Dem_EvMemStartOperationCycleAllMem(Dem_OperationCycleList operationCycleList)
-{
+DEM_INLINE void Dem_EvMemStartOperationCycleAllMem(Dem_OperationCycleList operationCycleList){
     Dem_EvMemStartOperationCycle(operationCycleList, DEM_CFG_EVMEM_MEMID_PRIMARY);
 #if DEM_CFG_MAX_NUMBER_EVENT_ENTRY_SECONDARY > 0
     Dem_EvMemStartOperationCycle(operationCycleList, DEM_CFG_EVMEM_MEMID_SECONDARY);
 #endif
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetMemIdForDTCOrigin(Dem_DTCOriginType DTCOrigin)
-{
-   switch(DTCOrigin)
-   {
+DEM_INLINE uint16_least Dem_EvMemGetMemIdForDTCOrigin(Dem_DTCOriginType DTCOrigin){
+   switch(DTCOrigin){
         case DEM_DTC_ORIGIN_PRIMARY_MEMORY:
             return DEM_CFG_EVMEM_MEMID_PRIMARY;
 
@@ -157,17 +143,14 @@ DEM_INLINE uint16_least Dem_EvMemGetMemIdForDTCOrigin(Dem_DTCOriginType DTCOrigi
    }
 }
 
-DEM_INLINE void Dem_EvMemClearEventAndOrigin(Dem_EventIdType EventId, Dem_DTCOriginType DTCOrigin)
-{
+DEM_INLINE void Dem_EvMemClearEventAndOrigin(Dem_EventIdType EventId, Dem_DTCOriginType DTCOrigin){
    uint16_least MemId = Dem_EvMemGetMemIdForDTCOrigin(DTCOrigin);
-   if(!Dem_EvMemIsMemIdValid(MemId))
-   {
+   if(!Dem_EvMemIsMemIdValid(MemId)){
         return;
    }
 
 #if DEM_CFG_EVMEM_SHADOW_MEMORY_SUPPORTED
-   if(DTCOrigin == DEM_DTC_ORIGIN_MIRROR_MEMORY)
-   {
+   if(DTCOrigin == DEM_DTC_ORIGIN_MIRROR_MEMORY){
         Dem_EvMemClearShadowMemory(EventId, MemId);
         return;
    }
@@ -176,42 +159,35 @@ DEM_INLINE void Dem_EvMemClearEventAndOrigin(Dem_EventIdType EventId, Dem_DTCOri
     Dem_EvMemClearEvent(EventId, MemId);
 }
 
-DEM_INLINE uint16_least  Dem_EvMemGetEventMemoryStatusOfDtcAndOrigin(Dem_DtcIdType DtcId, Dem_DTCOriginType DTCOrigin)
-{
+DEM_INLINE uint16_least  Dem_EvMemGetEventMemoryStatusOfDtcAndOrigin(Dem_DtcIdType DtcId, Dem_DTCOriginType DTCOrigin){
    uint16_least MemId = Dem_EvMemGetMemIdForDTCOrigin(DTCOrigin);
    if(!Dem_EvMemIsMemIdValid(MemId) ||
             (Dem_LibGetParamBool(DEM_CFG_EVMEM_SHADOW_MEMORY_SUPPORTED) && (DTCOrigin == DEM_DTC_ORIGIN_MIRROR_MEMORY))
-       )
-   {
+       ){
         return 0;
    }
 
     return Dem_EvMemGetEventMemoryStatusOfDtc(DtcId, MemId);
 }
 
-DEM_INLINE uint16_least  Dem_EvMemGetEventMemoryStatusOfEventAndOrigin(Dem_EventIdType EventId, Dem_DTCOriginType DTCOrigin)
-{
+DEM_INLINE uint16_least  Dem_EvMemGetEventMemoryStatusOfEventAndOrigin(Dem_EventIdType EventId, Dem_DTCOriginType DTCOrigin){
    uint16_least MemId = Dem_EvMemGetMemIdForDTCOrigin(DTCOrigin);
    if(!Dem_EvMemIsMemIdValid(MemId) ||
             (Dem_LibGetParamBool(DEM_CFG_EVMEM_SHADOW_MEMORY_SUPPORTED) && (DTCOrigin == DEM_DTC_ORIGIN_MIRROR_MEMORY))
-       )
-   {
+       ){
         return 0;
    }
 
     return Dem_EvMemGetEventMemoryStatusOfEvent(EventId, MemId);
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetMemIdForEvent(Dem_EventIdType EventId)
-{
-   if(Dem_EvtParam_GetEventIsStoredInPrimary(EventId))
-   {
+DEM_INLINE uint16_least Dem_EvMemGetMemIdForEvent(Dem_EventIdType EventId){
+   if(Dem_EvtParam_GetEventIsStoredInPrimary(EventId)){
         return DEM_CFG_EVMEM_MEMID_PRIMARY;
    }
 
 #if DEM_CFG_MAX_NUMBER_EVENT_ENTRY_SECONDARY > 0
-   if(Dem_EvtParam_GetEventIsStoredInSecondary(EventId))
-   {
+   if(Dem_EvtParam_GetEventIsStoredInSecondary(EventId)){
         return DEM_CFG_EVMEM_MEMID_SECONDARY;
    }
 #endif
@@ -219,11 +195,9 @@ DEM_INLINE uint16_least Dem_EvMemGetMemIdForEvent(Dem_EventIdType EventId)
     return DEM_EVMEM_INVALID_MEMID;
 }
 
-DEM_INLINE uint16_least Dem_EvMemGetLocationOfEventFromEventMemory(Dem_EventIdType EventId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetLocationOfEventFromEventMemory(Dem_EventIdType EventId){
    uint16_least MemId = Dem_EvMemGetMemIdForEvent(EventId);
-   if(!Dem_EvMemIsMemIdValid(MemId))
-   {
+   if(!Dem_EvMemIsMemIdValid(MemId)){
         return DEM_EVMEM_INVALID_LOCID;
    }
 
@@ -233,11 +207,9 @@ DEM_INLINE uint16_least Dem_EvMemGetLocationOfEventFromEventMemory(Dem_EventIdTy
 DEM_INLINE Std_ReturnType Dem_EvMemGetReaderCopyOfEventFromEventMemory(
         Dem_EvMemEventMemoryType* ReaderCopy
    ,     Dem_EventIdType EventId
-)
-{
+){
    uint16_least MemId = Dem_EvMemGetMemIdForEvent(EventId);
-   if(!Dem_EvMemIsMemIdValid(MemId))
-   {
+   if(!Dem_EvMemIsMemIdValid(MemId)){
         return E_NOT_OK;
    }
 
@@ -247,28 +219,24 @@ DEM_INLINE Std_ReturnType Dem_EvMemGetReaderCopyOfEventFromEventMemory(
 DEM_INLINE boolean Dem_GetEvMemLockInternal(void){
     return Dem_EvMemIsLocked;
 }
-DEM_INLINE uint16_least Dem_EvMemGetMemoryLocIdOfDtcAndOrigin(Dem_DtcIdType DtcId, Dem_DTCOriginType DTCOrigin)
-{
+DEM_INLINE uint16_least Dem_EvMemGetMemoryLocIdOfDtcAndOrigin(Dem_DtcIdType DtcId, Dem_DTCOriginType DTCOrigin){
 
     return Dem_EvMemGetMemoryLocIdOfDtcAndOriginWithVisibility(DtcId,DTCOrigin,FALSE);
 }
-DEM_INLINE uint16_least Dem_EvMemGetEventMemoryLocIdOfDtc(Dem_DtcIdType DtcId, uint16_least MemId)
-{
+DEM_INLINE uint16_least Dem_EvMemGetEventMemoryLocIdOfDtc(Dem_DtcIdType DtcId, uint16_least MemId){
 
     return Dem_EvMemGetEventMemoryLocIdOfDtcWithVisibility(DtcId,MemId,FALSE);
 }
 
 DEM_INLINE void Dem_EvMemReaderCopiesEnterLock(void){
 
-   if(Dem_LibGetParamBool(DEM_CFG_EVMEM_READ_FROM_DIFFERENT_TASK))
-   {
+   if(Dem_LibGetParamBool(DEM_CFG_EVMEM_READ_FROM_DIFFERENT_TASK)){
         DEM_ENTERLOCK_MON();
    }
 }
 
 DEM_INLINE void Dem_EvMemReaderCopiesExitLock(void){
-   if(Dem_LibGetParamBool(DEM_CFG_EVMEM_READ_FROM_DIFFERENT_TASK))
-   {
+   if(Dem_LibGetParamBool(DEM_CFG_EVMEM_READ_FROM_DIFFERENT_TASK)){
         DEM_EXITLOCK_MON();
    }
 }

@@ -97,31 +97,30 @@ typedef struct{
 #define DEM_DEB_SUSPICIOUSTHRESHOLD(X)
 #endif
 
-#define DEM_DEBCOUNTERBASECLASS_INIT(ISJDOWN,	\
-   	ISJUP,     				\
-   	MINLIMIT, 	\
-   	MAXLIMIT,     		\
-   	JDOWN,     		\
-   	JUP,									\
+#define DEM_DEBCOUNTERBASECLASS_INIT(ISJDOWN,   \
+      ISJUP,                 \
+      MINLIMIT,    \
+      MAXLIMIT,           \
+      JDOWN,           \
+      JUP,                           \
         FDCTHRESHOLD,     \
         SUSPICIOUSTHRESHOLD,     \
-   	STEPUP,									\
-   	STEPDOWN )                              \
-   {                                       	\
-   	DEM_DEB_ISJDOWN(ISJDOWN)         		\
-   	DEM_DEB_ISJUMPUP(ISJUP)        			\
-   	DEM_DEB_MINLIMIT(MINLIMIT)          	\
-   	DEM_DEB_MAXLIMIT(MAXLIMIT)          	\
-   	DEM_DEB_JDOWNVALUE(JDOWN) 				\
-   	DEM_DEB_JUPVALUE(JUP) 					\
+      STEPUP,                           \
+      STEPDOWN )                              \
+   {                                          \
+      DEM_DEB_ISJDOWN(ISJDOWN)               \
+      DEM_DEB_ISJUMPUP(ISJUP)                 \
+      DEM_DEB_MINLIMIT(MINLIMIT)             \
+      DEM_DEB_MAXLIMIT(MAXLIMIT)             \
+      DEM_DEB_JDOWNVALUE(JDOWN)             \
+      DEM_DEB_JUPVALUE(JUP)                \
         DEM_DEB_FDCTHRESHOLD(FDCTHRESHOLD)      \
         DEM_DEB_SUSPICIOUSTHRESHOLD(SUSPICIOUSTHRESHOLD)                   \
-   	(STEPUP),     					\
-   	(STEPDOWN)                          	\
-   }											\
+      (STEPUP),                    \
+      (STEPDOWN)                             \
+   }                                 \
 
-DEM_INLINE sint16 Dem_getDebCtrBaseClassFailedThreshold (const void* paramSet, uint16 paramIndex)
-{
+DEM_INLINE sint16 Dem_getDebCtrBaseClassFailedThreshold (const void* paramSet, uint16 paramIndex){
 #if(DEM_CFG_DEBCOUNTERBASECLASS_MAXTHRESHOLD == DEM_CFG_DEBCOUNTERBASECLASS_MAXTHRESHOLD_ON)
    return ((const Dem_DebCounterBaseClass_ParamSet*) paramSet)[paramIndex].failedThreshold;
 #else
@@ -131,8 +130,7 @@ DEM_INLINE sint16 Dem_getDebCtrBaseClassFailedThreshold (const void* paramSet, u
 #endif
 }
 
-DEM_INLINE sint16 Dem_getDebCtrBaseClassPassedThreshold (const void* paramSet, uint16 paramIndex)
-{
+DEM_INLINE sint16 Dem_getDebCtrBaseClassPassedThreshold (const void* paramSet, uint16 paramIndex){
 #if(DEM_CFG_DEBCOUNTERBASECLASS_MINTHRESHOLD == DEM_CFG_DEBCOUNTERBASECLASS_MINTHRESHOLD_ON)
    return ((const Dem_DebCounterBaseClass_ParamSet*) paramSet)[paramIndex].passedThreshold;
 #else
@@ -142,8 +140,7 @@ DEM_INLINE sint16 Dem_getDebCtrBaseClassPassedThreshold (const void* paramSet, u
 #endif
 }
 
-DEM_INLINE sint16 Dem_getDebCtrBaseClassJumpUpValue (const void* paramSet, uint16 paramIndex)
-{
+DEM_INLINE sint16 Dem_getDebCtrBaseClassJumpUpValue (const void* paramSet, uint16 paramIndex){
 #if(DEM_CFG_DEBCOUNTERBASECLASS_JUMPUPVALUE == DEM_CFG_DEBCOUNTERBASECLASS_JUMPUPVALUE_ON)
    return ((const Dem_DebCounterBaseClass_ParamSet*) paramSet)[paramIndex].jumpUpValue;
 #else
@@ -153,8 +150,7 @@ DEM_INLINE sint16 Dem_getDebCtrBaseClassJumpUpValue (const void* paramSet, uint1
 #endif
 }
 
-DEM_INLINE sint16 Dem_getDebCtrBaseClassJumpDownValue (const void* paramSet, uint16 paramIndex)
-{
+DEM_INLINE sint16 Dem_getDebCtrBaseClassJumpDownValue (const void* paramSet, uint16 paramIndex){
 #if(DEM_CFG_DEBCOUNTERBASECLASS_JUMPDOWNVALUE == DEM_CFG_DEBCOUNTERBASECLASS_JUMPDOWNVALUE_ON)
    return ((const Dem_DebCounterBaseClass_ParamSet*) paramSet)[paramIndex].jumpDownValue;
 #else
@@ -164,8 +160,7 @@ DEM_INLINE sint16 Dem_getDebCtrBaseClassJumpDownValue (const void* paramSet, uin
 #endif
 }
 
-DEM_INLINE boolean Dem_getDebCtrBaseClassIsJumpDown (const void* paramSet, uint16 paramIndex)
-{
+DEM_INLINE boolean Dem_getDebCtrBaseClassIsJumpDown (const void* paramSet, uint16 paramIndex){
 #if(DEM_CFG_DEBCOUNTERBASECLASS_ISJUMPDOWN == DEM_CFG_DEBCOUNTERBASECLASS_ISJUMPDOWN_ON)
    return ((const Dem_DebCounterBaseClass_ParamSet*) paramSet)[paramIndex].isJumpDownEnabled;
 #else
@@ -175,8 +170,7 @@ DEM_INLINE boolean Dem_getDebCtrBaseClassIsJumpDown (const void* paramSet, uint1
 #endif
 }
 
-DEM_INLINE boolean Dem_getDebCtrBaseClassIsJumpUp (const void* paramSet, uint16 paramIndex)
-{
+DEM_INLINE boolean Dem_getDebCtrBaseClassIsJumpUp (const void* paramSet, uint16 paramIndex){
 #if(DEM_CFG_DEBCOUNTERBASECLASS_ISJUMPUP == DEM_CFG_DEBCOUNTERBASECLASS_ISJUMPUP_ON)
    return ((const Dem_DebCounterBaseClass_ParamSet*) paramSet)[paramIndex].isJumpUpEnabled;
 #else
