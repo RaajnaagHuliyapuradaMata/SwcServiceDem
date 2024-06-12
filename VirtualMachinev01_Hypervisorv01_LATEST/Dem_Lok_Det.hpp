@@ -10,7 +10,6 @@
 #define DEM_DET(APIID,ERRORID)   do { }while(0)
 #endif
 
-
 #ifdef QAC
 #define DEM_ASSERT(C,APIID,ERRORID)  (void)(C)
 #elif(DEM_CFG_BUILDTARGET == DEM_CFG_BUILDTARGET_DEMTESTSUITE)

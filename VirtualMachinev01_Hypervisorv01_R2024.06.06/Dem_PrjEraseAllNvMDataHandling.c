@@ -1,6 +1,5 @@
 #include "Std_Types.hpp"
 
-
 #include "Dem_PrjEraseAllNvMDataHandling.hpp"
 
 #define DEM_START_SEC_ROM_CODE
